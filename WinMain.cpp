@@ -58,12 +58,21 @@ int CALLBACK WinMain(
 	// show the window
 	ShowWindow(hWnd,SW_SHOW);
 
+
 	// message pump
 	MSG msg;
+	BOOL gResult; // BOOL is actually NOT a bool, but a int. This is for exception handling.
 	//while (true);
-	while (GetMessage(&msg,nullptr,0,0)>0) {
+	//while (GetMessage(&msg,nullptr,0,0)>0) {
+	while((gResult=GetMessage(&msg,nullptr,0,0))>0){
 		TranslateMessage(&msg); 
 		DispatchMessage(&msg);
 	}
-	return 0;
+
+	if (gResult==-1) {
+		return -1;
+	}
+	else {
+		return msg.wParam; // This will return the quit message above, ie. 69. You can see this code in output when you close the winfdow.
+	}
 }

@@ -14,6 +14,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 //	return 0;
 //}
 // 2. the entry point must have a name called WinMain! Not main()!
+
+
 // CALLBACK: uses different calling convention that c++ call, i.e. stat call. Windows API always use it.
 int CALLBACK WinMain(
 	HINSTANCE hInstance,	 // Ignore.(Check the documentation for details.)

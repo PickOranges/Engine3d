@@ -1,5 +1,6 @@
 #include <Windows.h>  // 1. You need to include it!
 
+// customized window's procedure.
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 	switch (msg)
 	{

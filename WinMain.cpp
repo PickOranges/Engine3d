@@ -1,5 +1,6 @@
 #include <Windows.h> 
 #include <string>
+#include <sstream>
 
 LPCWSTR convchar(const char* csrc) {
 	wchar_t* dest=new wchar_t[50];
@@ -24,9 +25,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 			SetWindowText(hWnd, convchar("Dangerfield"));
 		break;
 	case WM_CHAR:
-		static std::string title;
-		title.push_back((char)wParam);
-		SetWindowText(hWnd, convchar(const_cast<const char*>(title.c_str())));
+		{
+			static std::string title;
+			title.push_back((char)wParam);
+			SetWindowText(hWnd, convchar(const_cast<const char*>(title.c_str())));
+		}		
+		break;
+	case WM_LBUTTONDOWN:
+		{
+			const POINTS pt = MAKEPOINTS(lParam);
+			std::ostringstream oss;
+			oss << "(" << pt.x << ", " << pt.y << ")";
+			SetWindowText(hWnd, convchar(oss.str().c_str()));
+		}
 		break;
 	}
 

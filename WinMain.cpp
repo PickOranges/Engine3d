@@ -39,18 +39,27 @@ int CALLBACK WinMain(
 	wc.hCursor = nullptr;
 	wc.hbrBackground = nullptr;
 	wc.lpszMenuName = nullptr;
-	//const auto pClassName = "hw3dbutts";
-	//const char* pClassName = "hw3dbutts";
-	LPCWSTR pClassName = reinterpret_cast<LPCWSTR>("hw3dbutts");
+
+	// remember this convension, very useful.
+	const char cname[]  = "hw3dbutts";
+	size_t len = strlen(cname) + 1; // plus 1: the /0.
+	wchar_t pClassName[20];
+	//std::mbstowcs(pClassName,cname,len);
+	mbstowcs_s(&len,pClassName,20,cname,100);
 	wc.lpszClassName = pClassName;
 	wc.hIconSm = nullptr;
 	RegisterClassEx(&wc);
 
 	// create window instance
 	// The function will return a handle of this window.
+	const char* cwindowname= "Happy Hard Window";
+	wchar_t pWindowName[50];
+	size_t sz = strlen(cwindowname) + 1;
+	mbstowcs_s(&sz, pWindowName, 50, cwindowname, 100);
+
 	HWND hWnd = CreateWindowExW(
 		0, pClassName, 
-		reinterpret_cast<LPCWSTR>("Happy_Hard_Window"),
+		pWindowName,
 		WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU,
 		200,200,640,480,
 		nullptr,nullptr,hInstance,nullptr

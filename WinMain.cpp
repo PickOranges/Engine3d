@@ -1,7 +1,6 @@
 #include <Windows.h> 
 
 LPCWSTR convchar(const char* csrc) {
-	//wchar_t dest[50]; // You cannot init it on stack. Because when the function exits the dest[50] will be destroyed. The returned pointer will be dangled!
 	wchar_t* dest=new wchar_t[50];
 	size_t len = strlen(csrc) + 1;
 	mbstowcs_s(&len,dest,50,csrc,100);
@@ -42,7 +41,6 @@ int CALLBACK WinMain(
 	wc.hCursor = nullptr;
 	wc.hbrBackground = nullptr;
 	wc.lpszMenuName = nullptr;
-
 	LPCWSTR pClassName = convchar("hw3dclass");
 	wc.lpszClassName = pClassName;
 	wc.hIconSm = nullptr;

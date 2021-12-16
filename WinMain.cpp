@@ -1,5 +1,13 @@
 #include <Windows.h> 
 
+LPCWSTR convchar(const char* csrc) {
+	//wchar_t dest[50]; // You cannot init it on stack. Because when the function exits the dest[50] will be destroyed. The returned pointer will be dangled!
+	wchar_t* dest=new wchar_t[50];
+	size_t len = strlen(csrc) + 1;
+	mbstowcs_s(&len,dest,50,csrc,100);
+	return dest;
+}
+
 // customized window's procedure.
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 	switch (msg)
@@ -7,7 +15,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 	case WM_CLOSE:
 		PostQuitMessage(69);
 		break;
+
+	case WM_KEYDOWN:
+		SetWindowText(hWnd, convchar("Respects"));
+		break;
 	}
+
 	return DefWindowProc(hWnd,msg,wParam,lParam);
 }
 
@@ -30,22 +43,15 @@ int CALLBACK WinMain(
 	wc.hbrBackground = nullptr;
 	wc.lpszMenuName = nullptr;
 
-	const char cname[]  = "hw3dbutts";
-	size_t len = strlen(cname) + 1; 
-	wchar_t pClassName[20];
-	mbstowcs_s(&len,pClassName,20,cname,100);
+	LPCWSTR pClassName = convchar("hw3dclass");
 	wc.lpszClassName = pClassName;
 	wc.hIconSm = nullptr;
 	RegisterClassEx(&wc);
 
 	// create window instance
-	const char* cwindowname= "Happy Hard Window";
-	wchar_t pWindowName[50];
-	size_t sz = strlen(cwindowname) + 1;
-	mbstowcs_s(&sz, pWindowName, 50, cwindowname, 100);
 	HWND hWnd = CreateWindowExW(
 		0, pClassName, 
-		pWindowName,
+		convchar("Happy Hard Window"),
 		WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU,
 		200,200,640,480,
 		nullptr,nullptr,hInstance,nullptr

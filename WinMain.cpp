@@ -31,7 +31,7 @@ int CALLBACK WinMain(
 	wc.lpszMenuName = nullptr;
 
 	const char cname[]  = "hw3dbutts";
-	size_t len = strlen(cname) + 1; // plus 1: the /0.
+	size_t len = strlen(cname) + 1; 
 	wchar_t pClassName[20];
 	mbstowcs_s(&len,pClassName,20,cname,100);
 	wc.lpszClassName = pClassName;

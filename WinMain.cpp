@@ -1,4 +1,5 @@
 #include <Windows.h> 
+#include <string>
 
 LPCWSTR convchar(const char* csrc) {
 	wchar_t* dest=new wchar_t[50];
@@ -15,10 +16,17 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 		PostQuitMessage(69);
 		break;
 	case WM_KEYDOWN:
-		SetWindowText(hWnd, convchar("Respects"));
+		if(wParam=='F')
+			SetWindowText(hWnd, convchar("Respects"));
 		break;
 	case WM_KEYUP:
-		SetWindowText(hWnd, convchar("Dangerfield"));
+		if (wParam == 'F')
+			SetWindowText(hWnd, convchar("Dangerfield"));
+		break;
+	case WM_CHAR:
+		static std::string title;
+		title.push_back((char)wParam);
+		SetWindowText(hWnd, convchar(const_cast<const char*>(title.c_str())));
 		break;
 	}
 

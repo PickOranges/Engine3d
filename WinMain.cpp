@@ -1,7 +1,6 @@
 #include "Win.h"
 #include "Window.h"
-#include <string>
-#include <sstream>
+
 
 
 int CALLBACK WinMain(

@@ -1,13 +1,7 @@
-#include <Windows.h> 
+#include "Win.h"
 #include <string>
 #include <sstream>
 
-LPCWSTR convchar(const char* csrc) {
-	wchar_t* dest=new wchar_t[50];
-	size_t len = strlen(csrc) + 1;
-	mbstowcs_s(&len,dest,50,csrc,100);
-	return dest;
-}
 
 // customized window's procedure.
 LRESULT CALLBACK WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {

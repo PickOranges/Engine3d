@@ -35,7 +35,6 @@ int CALLBACK WinMain(
 		MessageBox(nullptr, convchar(e.what()), convchar(e.GetType()), MB_OK | MB_ICONEXCLAMATION);
 	}
 	catch(const std::exception& e) {
-		std::cout << "aaaaaaaaaaaa" << std::endl;
 		MessageBox(nullptr, convchar(e.what()), convchar("Standard Exception"), MB_OK | MB_ICONEXCLAMATION);
 	}
 	catch(...) {

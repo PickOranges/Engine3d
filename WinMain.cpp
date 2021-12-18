@@ -19,10 +19,11 @@ int CALLBACK WinMain(
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
 		}
-
+		// check if GetMessage call itself borked
 		if (gResult == -1)
 		{
-			return -1;
+			//return -1;
+			throw HWND_LAST_EXCEPT();
 		}
 
 		// wParam here is the value passed to PostQuitMessage
@@ -31,6 +32,7 @@ int CALLBACK WinMain(
 	
 	catch(const ExceptionBase& e){ /*TODO: Debug whether the converted string is correct*/
 		MessageBox(nullptr, convchar(e.what()), convchar(e.GetType()), MB_OK | MB_ICONEXCLAMATION);
+		//MessageBox(nullptr, convchar(""), convchar(""), MB_OK | MB_ICONEXCLAMATION);
 	}
 	catch(const std::exception& e) {
 		MessageBox(nullptr, convchar(e.what()), convchar("Standard Exception"), MB_OK | MB_ICONEXCLAMATION);

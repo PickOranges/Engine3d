@@ -1,8 +1,23 @@
 #pragma once
 #include "Win.h"
+#include "ExceptionBase.h"
+
 
 class Window
 {
+public:
+	class Exception :public ExceptionBase {
+	public:
+		Exception(int line, const char* file, HRESULT hr) noexcept;
+		const char* what() const noexcept override;
+		const char* GetType() const noexcept override;
+		static std::string TranslateErrorCode(HRESULT hr) noexcept;
+		HRESULT GetErrorCode() const noexcept;
+		std::string GetErrorString() const noexcept;
+	private:
+		HRESULT hr;
+	};
+
 private:
 	class WindowClass {
 	public:
@@ -32,3 +47,6 @@ private:
 	HWND hWnd;
 };
 
+// error exception helper macro
+#define CHWND_EXCEPT( hr ) Window::Exception( __LINE__,__FILE__,hr )
+#define CHWND_LAST_EXCEPT() Window::Exception( __LINE__,__FILE__,GetLastError() )

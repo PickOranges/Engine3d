@@ -40,7 +40,7 @@ Window::WindowClass::~WindowClass()
 	UnregisterClass(wndClassName, GetInstance());
 }
 
-Window::Window(int width, int height, const char* name) /*noexcept*/
+Window::Window(int width, int height, const char* name) noexcept
 {
 	// calculate window size based on desired client region size
 	RECT wr;
@@ -55,7 +55,7 @@ Window::Window(int width, int height, const char* name) /*noexcept*/
 	// create window & get hWnd
 	const wchar_t* wname = convchar(name);
 	hWnd = CreateWindow(
-		/*WindowClass::GetName()*/convchar("aaaaa"), wname,
+		WindowClass::GetName()/*convchar("aaaaa")*/, wname,
 
 
 

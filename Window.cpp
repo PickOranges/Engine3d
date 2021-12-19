@@ -1,5 +1,6 @@
 #include "Window.h"
 #include <sstream>
+#include <iostream>
 
 
 
@@ -151,23 +152,23 @@ const char* Window::Exception::GetType() const noexcept
 
 std::string Window::Exception::TranslateErrorCode(HRESULT hr) noexcept
 {
-	//char* pMsgBuf = nullptr;
-	LPTSTR pMsgBuf{};
+	char* pMsgBuf = nullptr;
+
 	DWORD nMsgLen = FormatMessage(
 		FORMAT_MESSAGE_ALLOCATE_BUFFER |
 		FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
 		nullptr, hr, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-		//reinterpret_cast<LPWSTR>(&pMsgBuf), 0, nullptr  /*TODO: debug whether the LPWSTR is correct.*/
-		pMsgBuf, 0, nullptr 
+		reinterpret_cast<LPWSTR>(&pMsgBuf), 0, nullptr  
 	);
+
 
 	if (nMsgLen == 0)
 	{
 		return "Unidentified error code";
 	}
 	// copy error string from windows-allocated buffer to std::string
-	//std::string errorString = pMsgBuf;
-	 std::string errorString = reinterpret_cast<char*>(pMsgBuf);
+	std::string errorString = pMsgBuf;
+		
 	// free windows buffer
 	LocalFree(pMsgBuf);
 	return errorString;

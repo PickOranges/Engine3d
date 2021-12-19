@@ -12,7 +12,7 @@ int CALLBACK WinMain(
 {
 	try{
 		Window wnd(800, 300, "Test Window class with an instance");
-	
+		
 		MSG msg;
 		BOOL gResult;
 		while ((gResult = GetMessage(&msg, nullptr, 0, 0)) > 0)
@@ -36,10 +36,11 @@ int CALLBACK WinMain(
 		//MessageBox(nullptr, convchar("aaaaaaaaaaaaaaaaa"), convchar("Window Exception mually printed"), MB_OK | MB_ICONEXCLAMATION);  // This one works for pop-up window!!
 		//MessageBox(nullptr, convchar(e.what()), convchar(e.GetType()), MB_OK | MB_ICONEXCLAMATION);
 		//MessageBox(nullptr, reinterpret_cast<const wchar_t*>(e.what()), convchar(e.GetType()), MB_OK | MB_ICONEXCLAMATION); // This also pop-up but e.what() is trash.
-		MessageBox(nullptr, reinterpret_cast<LPCWSTR>(e.what()), convchar(e.GetType()), MB_OK | MB_ICONEXCLAMATION);  // This also pop-up but e.what() is trash.
+		//const wchar_t* wwhat = e.what();
+		MessageBox(nullptr, (LPWSTR)(e.what()), convchar(e.GetType()), MB_OK | MB_ICONEXCLAMATION);  // This also pop-up but e.what() is trash.
 	}
 	catch(const std::exception& e) {
-		MessageBox(nullptr, (LPWSTR)(e.what()), convchar("C++ Standard Exception"), MB_OK | MB_ICONEXCLAMATION);
+		MessageBox(nullptr, (LPCWSTR)(e.what()), convchar("C++ Standard Exception"), MB_OK | MB_ICONEXCLAMATION);
 	}
 	catch(...) {
 		MessageBox(nullptr, convchar("No details available"), convchar("Unknown Exception"), MB_OK | MB_ICONEXCLAMATION);

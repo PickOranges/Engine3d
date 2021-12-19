@@ -44,9 +44,9 @@
 #include <stdlib.h>
 
 extern inline LPCWSTR convchar(const char* csrc) {
-	wchar_t* dest = new wchar_t[50];
+	wchar_t* dest = new wchar_t[100];
 	size_t len = strlen(csrc) + 1;
-	mbstowcs_s(&len, dest, 50, csrc, 100);
+	mbstowcs_s(&len, dest, 100, csrc, 300);
 	return dest;
 }
 

@@ -40,7 +40,7 @@ Window::WindowClass::~WindowClass()
 	UnregisterClass(wndClassName, GetInstance());
 }
 
-Window::Window(int width, int height, const char* name) noexcept
+Window::Window(int width, int height, const char* name) noexcept(false)
 {
 	// calculate window size based on desired client region size
 	RECT wr;
@@ -52,16 +52,17 @@ Window::Window(int width, int height, const char* name) noexcept
 	if (FAILED(AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE))) {
 		throw HWND_LAST_EXCEPT();
 	}
+
 	// create window & get hWnd
 	const wchar_t* wname = convchar(name);
 	hWnd = CreateWindow(
-		WindowClass::GetName()/*convchar("aaaaa")*/, wname,
+		//WindowClass::GetName(), wname,
 
 
 
 
 
-
+		convchar("aaaaawhy cannot pop a window?????"), wname,
 
 
 
@@ -136,7 +137,7 @@ const char* Window::Exception::what() const noexcept
 	std::ostringstream oss;
 	oss << GetType() << std::endl
 		<< "[Error Code] " << GetErrorCode() << std::endl
-		<< "[Description] " << GetErrorString() << std::endl
+		<< "[Description] " << GetErrorString().c_str() << std::endl
 		<< GetOriginString();
 	whatBuffer = oss.str();
 	return whatBuffer.c_str();

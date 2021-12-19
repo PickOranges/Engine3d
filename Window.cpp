@@ -137,7 +137,8 @@ const char* Window::Exception::what() const noexcept
 	std::ostringstream oss;
 	oss << GetType() << std::endl
 		<< "[Error Code] " << GetErrorCode() << std::endl
-		<< "[Description] " << GetErrorString().c_str() << std::endl
+		//<< "[Description] " << GetErrorString().c_str() << std::endl
+		<< "[Description] " << GetErrorString() << std::endl
 		<< GetOriginString();
 	whatBuffer = oss.str();
 	return whatBuffer.c_str();
@@ -150,12 +151,14 @@ const char* Window::Exception::GetType() const noexcept
 
 std::string Window::Exception::TranslateErrorCode(HRESULT hr) noexcept
 {
-	char* pMsgBuf = nullptr;
+	//char* pMsgBuf = nullptr;
+	LPTSTR pMsgBuf{};
 	DWORD nMsgLen = FormatMessage(
 		FORMAT_MESSAGE_ALLOCATE_BUFFER |
 		FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
 		nullptr, hr, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-		reinterpret_cast<LPWSTR>(&pMsgBuf), 0, nullptr  /*TODO: debug whether the LPWSTR is correct.*/
+		//reinterpret_cast<LPWSTR>(&pMsgBuf), 0, nullptr  /*TODO: debug whether the LPWSTR is correct.*/
+		pMsgBuf, 0, nullptr 
 	);
 
 	if (nMsgLen == 0)
@@ -163,7 +166,8 @@ std::string Window::Exception::TranslateErrorCode(HRESULT hr) noexcept
 		return "Unidentified error code";
 	}
 	// copy error string from windows-allocated buffer to std::string
-	std::string errorString = pMsgBuf;
+	//std::string errorString = pMsgBuf;
+	 std::string errorString = reinterpret_cast<char*>(pMsgBuf);
 	// free windows buffer
 	LocalFree(pMsgBuf);
 	return errorString;

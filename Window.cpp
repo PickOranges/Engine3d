@@ -50,7 +50,7 @@ Window::Window(int width, int height, const char* name) noexcept(false)
 	wr.top = 100;
 	wr.bottom = height + wr.top;
 	
-	if (FAILED(AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE))) {
+	if (AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE)==0) {
 		throw HWND_LAST_EXCEPT();
 	}
 

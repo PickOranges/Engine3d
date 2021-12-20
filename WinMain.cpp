@@ -1,6 +1,4 @@
-#include "Win.h"
-#include "Window.h"
-#include <iostream>
+#include "App.h"
 
 
 
@@ -11,27 +9,8 @@ int CALLBACK WinMain(
 	int       nCmdShow)
 {
 	try{
-		Window wnd(800, 300, "Test Window class with an instance");
-		
-		MSG msg;
-		BOOL gResult;
-		while ((gResult = GetMessage(&msg, nullptr, 0, 0)) > 0)
-		{
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-		}
-		// check if GetMessage call itself borked
-		if (gResult == -1)
-		{
-			//return -1;
-			throw HWND_LAST_EXCEPT();
-		}
-
-		// wParam here is the value passed to PostQuitMessage
-		return msg.wParam;
+		return App{}.Go();
 	}
-
-
 	catch(const ExceptionBase& e){
 		//MessageBox(nullptr, convchar("aaaaaaaaaaaaaaaaa"), convchar("Window Exception mually printed"), MB_OK | MB_ICONEXCLAMATION);  // This one works for pop-up window!!
 		//MessageBox(nullptr, convchar(e.what()), convchar(e.GetType()), MB_OK | MB_ICONEXCLAMATION);

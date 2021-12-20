@@ -1,6 +1,7 @@
 #pragma once
 #include "Win.h"
 #include "ExceptionBase.h"
+#include "Keyboard.h"
 
 
 class Window
@@ -46,6 +47,8 @@ private:
 	int width;
 	int height;
 	HWND hWnd;
+public:
+	Keyboard kbd;
 };
 
 // error exception helper macro

@@ -9,7 +9,7 @@ public:
 	class Exception : public ExceptionBase {
 	public:
 		Exception(int line, const char* file, HRESULT hr) noexcept;
-		virtual const char* what() const noexcept override;
+		const char* what() const noexcept override;
 		const char* GetType() const noexcept override;
 		static std::string TranslateErrorCode(HRESULT hr) noexcept;
 		HRESULT GetErrorCode() const noexcept;

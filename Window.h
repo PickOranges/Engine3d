@@ -2,7 +2,8 @@
 #include "Win.h"
 #include "ExceptionBase.h"
 #include "Keyboard.h"
-
+#include "Mouse.h"
+#include <optional>
 
 class Window
 {
@@ -49,6 +50,7 @@ private:
 	HWND hWnd;
 public:
 	Keyboard kbd;
+	Mouse mouse;
 };
 
 // error exception helper macro

@@ -17,27 +17,28 @@ int App::Go()
 		DispatchMessage(&msg);
 
 		if (!wnd.mouse.IsEmpty()) {
-			while (!wnd.mouse.IsEmpty()) {
-				const auto e = wnd.mouse.Read();
-				std::ostringstream oss;
-				oss << "Mouse Position: (" << e.GetPosX() << "," << e.GetPosY() << ")" << std::endl;
-				wnd.SetTitle(oss.str());
-				if (e.GetType() == Mouse::Event::Type::Move) {
-					std::ostringstream oss;
-					oss << "Mouse Position: (" << e.GetPosX() << "," << e.GetPosY() << ")" << std::endl;
-					wnd.SetTitle(oss.str());
-				}
-			}
-		}
+			//while (!wnd.mouse.IsEmpty()) {
+			//	const auto e = wnd.mouse.Read();
+			//	std::ostringstream oss;
+			//	oss << "Mouse Position: (" << e.GetPosX() << "," << e.GetPosY() << ")" << std::endl;
+			//	wnd.SetTitle(oss.str());
+			//	if (e.GetType() == Mouse::Event::Type::Move) {
+			//		std::ostringstream oss;
+			//		oss << "Mouse Position: (" << e.GetPosX() << "," << e.GetPosY() << ")" << std::endl;
+			//		wnd.SetTitle(oss.str());
+			//	}
+			//}
 
-		// check if GetMessage call itself borked
-		if (gResult == -1)
-		{
-			throw HWND_LAST_EXCEPT();
+			DoFrame();
 		}
-
-		return msg.wParam;
 	}
+	// check if GetMessage call itself borked
+	if (gResult == -1)
+	{
+		throw HWND_LAST_EXCEPT();
+	}
+
+	return (int)msg.wParam;
 }
 
 void App::DoFrame()

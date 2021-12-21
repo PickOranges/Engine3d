@@ -9,7 +9,7 @@ int CALLBACK WinMain(
 	int       nCmdShow)
 {
 	try{
-		App{}.Go();
+		return App{}.Go();
 	}
 	catch(const ExceptionBase& e){
 		//MessageBox(nullptr, convchar("aaaaaaaaaaaaaaaaa"), convchar("Window Exception mually printed"), MB_OK | MB_ICONEXCLAMATION);  // This one works for pop-up window!!

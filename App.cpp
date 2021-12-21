@@ -1,5 +1,6 @@
 #include "App.h"
 #include <iomanip>
+#include <thread>
 
 App::App()
 	: wnd(800, 600, "Test App Class Obj")
@@ -8,37 +9,14 @@ App::App()
 
 int App::Go()
 {
-	MSG msg;
-	BOOL gResult;
-	while ((gResult = GetMessage(&msg, nullptr, 0, 0)) > 0)
-	{
-		// TranslateMessage will post auxilliary WM_CHAR messages from key msgs
-		TranslateMessage(&msg);
-		DispatchMessage(&msg);
-
-		if (!wnd.mouse.IsEmpty()) {
-			//while (!wnd.mouse.IsEmpty()) {
-			//	const auto e = wnd.mouse.Read();
-			//	std::ostringstream oss;
-			//	oss << "Mouse Position: (" << e.GetPosX() << "," << e.GetPosY() << ")" << std::endl;
-			//	wnd.SetTitle(oss.str());
-			//	if (e.GetType() == Mouse::Event::Type::Move) {
-			//		std::ostringstream oss;
-			//		oss << "Mouse Position: (" << e.GetPosX() << "," << e.GetPosY() << ")" << std::endl;
-			//		wnd.SetTitle(oss.str());
-			//	}
-			//}
-
-			DoFrame();
+	using namespace std::chrono_literals;
+	std::this_thread::sleep_for(2000ms);
+	while (true) {
+		if (const auto ecode = Window::ProcessMessages()) {
+			return *ecode;
 		}
+		DoFrame();
 	}
-	// check if GetMessage call itself borked
-	if (gResult == -1)
-	{
-		throw HWND_LAST_EXCEPT();
-	}
-
-	return (int)msg.wParam;
 }
 
 void App::DoFrame()

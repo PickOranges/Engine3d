@@ -35,6 +35,8 @@ int App::Go()
 		{
 			throw HWND_LAST_EXCEPT();
 		}
+
+		return msg.wParam;
 	}
 }
 

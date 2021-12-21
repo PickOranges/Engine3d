@@ -8,7 +8,7 @@ public:
 	App();
 	int Go();
 private:
-	void DoFrame();
+	void DoFrame(); // contain top-level game logic.
 private:
 	Window wnd;
 	TimerWrapper timer;

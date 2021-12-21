@@ -18,11 +18,13 @@ int CALLBACK WinMain(
 			// TranslateMessage will post auxilliary WM_CHAR messages from key msgs
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
-			if (!wnd.mouse.IsEmpty()) {
+			while (!wnd.mouse.IsEmpty()) {
 				const auto e = wnd.mouse.Read();
-				std::ostringstream oss;
-				oss << "Mouse Position: (" << e.GetPosX() << "," << e.GetPosY() << ")" << std::endl;
-				wnd.SetTitle(oss.str());
+				if (e.GetType ()==Mouse::Event::Type::Move) {
+					std::ostringstream oss;
+					oss << "Mouse Position: (" << e.GetPosX() << "," << e.GetPosY() << ")" << std::endl;
+					wnd.SetTitle(oss.str());
+				}
 			}
 		}
 

@@ -42,6 +42,7 @@ Window::WindowClass::~WindowClass()
 }
 
 Window::Window(int width, int height, const char* name) noexcept(false)
+	:width(width),height(height)
 {
 	// calculate window size based on desired client region size
 	RECT wr;

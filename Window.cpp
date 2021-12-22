@@ -6,7 +6,8 @@
 
 Window::WindowClass Window::WindowClass::wndClass;
 
-const LPCWSTR Window::WindowClass::GetName() noexcept
+//const LPCWSTR Window::WindowClass::GetName() noexcept
+const char* Window::WindowClass::GetName() noexcept
 {
 	return wndClass.wndClassName;
 }
@@ -37,7 +38,8 @@ Window::WindowClass::WindowClass() noexcept
 
 Window::WindowClass::~WindowClass()
 {
-	UnregisterClass(wndClassName, GetInstance());
+	//UnregisterClass(wndClassName, GetInstance());
+	UnregisterClass((LPCSTR)wndClassName, GetInstance());
 }
 
 Window::Window(int width, int height, const char* name) noexcept(false)
@@ -55,19 +57,14 @@ Window::Window(int width, int height, const char* name) noexcept(false)
 	}
 
 	// create window & get hWnd
-	const wchar_t* wname = convchar(name);
+	//const wchar_t* wname = convchar(name);
 	hWnd = CreateWindow(
-		//WindowClass::GetName(), wname,
-
-
-
-
-
-		convchar("aaaaawhy cannot pop a window?????"), wname,
-
-
-
-
+		//WindowClass::GetName(), wname,  // before change default character width.
+		//"aaaaawhy cannot pop a window?????", wname, // before change default character width.
+		
+		
+		//"aaaaawhy cannot pop a window?????", name,
+		WindowClass::GetName(), name, 
 
 
 		WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU,
@@ -93,7 +90,8 @@ Window::~Window()
 
 void Window::SetTitle(const std::string& title)
 {
-	if (SetWindowText(hWnd, convchar(title.c_str())) == 0) /*TODO: check if the char* is correctly passed*/
+	//if (SetWindowText(hWnd, convchar(title.c_str())) == 0) /*TODO: check if the char* is correctly passed*/
+	if (SetWindowText(hWnd, title.c_str()) == 0) /*TODO: check if the char* is correctly passed*/
 	{
 		throw HWND_LAST_EXCEPT();
 	}
@@ -312,32 +310,35 @@ std::string Window::Exception::GetErrorString() const noexcept
 
 std::string Window::Exception::TranslateErrorCode(HRESULT hr) noexcept
 {
-	wchar_t* dest = nullptr;
+	//wchar_t* dest = nullptr;
+	char* pMsgBuf = nullptr;
 
 	DWORD nMsgLen = FormatMessage(
 		FORMAT_MESSAGE_ALLOCATE_BUFFER |
 		FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
 		nullptr, hr, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
 		//convchar(&pMsgBuf), 0, nullptr  
-		dest, 0, nullptr
+		//dest, 0, nullptr
+		pMsgBuf, 0, nullptr
 	);
 	if (nMsgLen == 0)
 	{
 		return "Unidentified error code";
 	}
 	// copy error string from windows-allocated buffer to std::string
-	//std::string errorString = pMsgBuf;
 	//std::string errorString = convwchar(dest);
-	char* res = new char[5000];
-	wcstombs(res, dest, 5000);
-		
+	//char* res = new char[5000];
+	//wcstombs(res, dest, 5000);		
 	// free windows buffer
 	//LocalFree(dest);
 	//delete[] res;
-	//return errorString;
+	//delete[] dest;
+	//return res;
 
-	delete[] dest;
-	return res;
+
+	std::string errorString = pMsgBuf;
+	LocalFree(pMsgBuf);
+	return errorString;
 }
 
 

@@ -25,14 +25,16 @@ public:
 private:
 	class WindowClass {
 	public:
-		static const LPCWSTR GetName() noexcept;
+		//static const LPCWSTR GetName() noexcept;
+		static const char* GetName() noexcept;
 		static HINSTANCE GetInstance() noexcept;
 	private:
 		WindowClass() noexcept;
 		~WindowClass();
 		WindowClass(const WindowClass&) = delete;
 		WindowClass& operator=(const WindowClass&) = delete;
-		const LPCWSTR wndClassName = convchar("Test DX Engine Window");
+		//const LPCWSTR wndClassName = convchar("Test DX Engine Window"); // used before changing default character width
+		const char* wndClassName = "Test DX Engine Window";
 		static WindowClass wndClass;
 		HINSTANCE hInst;
 	}; 

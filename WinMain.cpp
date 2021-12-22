@@ -9,20 +9,20 @@ int CALLBACK WinMain(
 	int       nCmdShow)
 {
 	try{
+		//throw 890809; // these two lines are used for test of exception pop-up window.
+		//throw std::runtime_error("aaaaaaaaaa");
 		return App{}.Go();
 	}
 	catch(const ExceptionBase& e){
-		//MessageBox(nullptr, convchar("aaaaaaaaaaaaaaaaa"), convchar("Window Exception mually printed"), MB_OK | MB_ICONEXCLAMATION);  // This one works for pop-up window!!
-		//MessageBox(nullptr, convchar(e.what()), convchar(e.GetType()), MB_OK | MB_ICONEXCLAMATION);
-		//MessageBox(nullptr, reinterpret_cast<const wchar_t*>(e.what()), convchar(e.GetType()), MB_OK | MB_ICONEXCLAMATION); // This also pop-up but e.what() is trash.
-		//const wchar_t* wwhat = e.what();
-		MessageBox(nullptr, (LPWSTR)(e.what()), convchar(e.GetType()), MB_OK | MB_ICONEXCLAMATION);  // This also pop-up but e.what() is trash.
+		MessageBox(nullptr, e.what(), e.GetType(), MB_OK | MB_ICONEXCLAMATION); 
 	}
 	catch(const std::exception& e) {
-		MessageBox(nullptr, (LPCWSTR)(e.what()), convchar("C++ Standard Exception"), MB_OK | MB_ICONEXCLAMATION);
+		//MessageBox(nullptr, (LPCWSTR)(e.what()), convchar("C++ Standard Exception"), MB_OK | MB_ICONEXCLAMATION); // used before change the default character width
+		MessageBox(nullptr, e.what(), "C++ Standard Exception", MB_OK | MB_ICONEXCLAMATION);
 	}
 	catch(...) {
-		MessageBox(nullptr, convchar("No details available"), convchar("Unknown Exception"), MB_OK | MB_ICONEXCLAMATION);
+		//MessageBox(nullptr, convchar("No details available"), convchar("Unknown Exception"), MB_OK | MB_ICONEXCLAMATION); // used before change the default character width
+		MessageBox(nullptr, "No details available.", "Unknown Exception", MB_OK | MB_ICONEXCLAMATION);
 	}
 
 	return -1;

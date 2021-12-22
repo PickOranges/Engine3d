@@ -4,7 +4,6 @@
 
 
 
-
 Window::WindowClass Window::WindowClass::wndClass;
 
 const LPCWSTR Window::WindowClass::GetName() noexcept
@@ -58,13 +57,13 @@ Window::Window(int width, int height, const char* name) noexcept(false)
 	// create window & get hWnd
 	const wchar_t* wname = convchar(name);
 	hWnd = CreateWindow(
-		WindowClass::GetName(), wname,
+		//WindowClass::GetName(), wname,
 
 
 
 
 
-		//convchar("aaaaawhy cannot pop a window?????"), wname,
+		convchar("aaaaawhy cannot pop a window?????"), wname,
 
 
 
@@ -275,8 +274,8 @@ const char* Window::Exception::what() const noexcept
 	std::ostringstream oss;
 	oss << GetType() << std::endl
 		<< "[Error Code] " << GetErrorCode() << std::endl
-		//<< "[Description] " << GetErrorString().c_str() << std::endl
-		<< "[Description] " << GetErrorString() << std::endl
+		<< "[Description] " << GetErrorString().c_str() << std::endl
+		//<< "[Description] " << GetErrorString() << std::endl
 		<< GetOriginString();
 	whatBuffer = oss.str();
 	return whatBuffer.c_str();
@@ -285,30 +284,6 @@ const char* Window::Exception::what() const noexcept
 const char* Window::Exception::GetType() const noexcept
 {
 	return "Window Exception";
-}
-
-std::string Window::Exception::TranslateErrorCode(HRESULT hr) noexcept
-{
-	char* pMsgBuf = nullptr;
-
-	DWORD nMsgLen = FormatMessage(
-		FORMAT_MESSAGE_ALLOCATE_BUFFER |
-		FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
-		nullptr, hr, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-		reinterpret_cast<LPWSTR>(&pMsgBuf), 0, nullptr  
-	);
-
-
-	if (nMsgLen == 0)
-	{
-		return "Unidentified error code";
-	}
-	// copy error string from windows-allocated buffer to std::string
-	std::string errorString = pMsgBuf;
-		
-	// free windows buffer
-	LocalFree(pMsgBuf);
-	return errorString;
 }
 
 HRESULT Window::Exception::GetErrorCode() const noexcept
@@ -320,3 +295,57 @@ std::string Window::Exception::GetErrorString() const noexcept
 {
 	return TranslateErrorCode(hr);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+std::string Window::Exception::TranslateErrorCode(HRESULT hr) noexcept
+{
+	wchar_t* dest = nullptr;
+
+	DWORD nMsgLen = FormatMessage(
+		FORMAT_MESSAGE_ALLOCATE_BUFFER |
+		FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+		nullptr, hr, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+		//convchar(&pMsgBuf), 0, nullptr  
+		dest, 0, nullptr
+	);
+	if (nMsgLen == 0)
+	{
+		return "Unidentified error code";
+	}
+	// copy error string from windows-allocated buffer to std::string
+	//std::string errorString = pMsgBuf;
+	//std::string errorString = convwchar(dest);
+	char* res = new char[5000];
+	wcstombs(res, dest, 5000);
+		
+	// free windows buffer
+	//LocalFree(dest);
+	//delete[] res;
+	//return errorString;
+
+	delete[] dest;
+	return res;
+}
+
+
+
+
+
+
+
+
+
+

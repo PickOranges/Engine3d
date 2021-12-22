@@ -38,7 +38,6 @@ Window::WindowClass::WindowClass() noexcept
 
 Window::WindowClass::~WindowClass()
 {
-	//UnregisterClass(wndClassName, GetInstance());
 	UnregisterClass((LPCSTR)wndClassName, GetInstance());
 }
 
@@ -56,17 +55,9 @@ Window::Window(int width, int height, const char* name) noexcept(false)
 		throw HWND_LAST_EXCEPT();
 	}
 
-	// create window & get hWnd
-	//const wchar_t* wname = convchar(name);
+
 	hWnd = CreateWindow(
-		//WindowClass::GetName(), wname,  // before change default character width.
-		//"aaaaawhy cannot pop a window?????", wname, // before change default character width.
-		
-		
-		//"aaaaawhy cannot pop a window?????", name,
 		WindowClass::GetName(), name, 
-
-
 		WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU,
 		CW_USEDEFAULT, CW_USEDEFAULT, wr.right - wr.left, wr.bottom - wr.top,
 		nullptr, nullptr, WindowClass::GetInstance(), this
@@ -90,8 +81,7 @@ Window::~Window()
 
 void Window::SetTitle(const std::string& title)
 {
-	//if (SetWindowText(hWnd, convchar(title.c_str())) == 0) /*TODO: check if the char* is correctly passed*/
-	if (SetWindowText(hWnd, title.c_str()) == 0) /*TODO: check if the char* is correctly passed*/
+	if (SetWindowText(hWnd, title.c_str()) == 0) 
 	{
 		throw HWND_LAST_EXCEPT();
 	}
@@ -100,17 +90,13 @@ void Window::SetTitle(const std::string& title)
 std::optional<int> Window::ProcessMessages()
 {
 	MSG msg;
-	// while queue has messages, remove and dispatch them (but do not block on empty queue)
 	while (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
 	{
-		// check for quit because peekmessage does not signal this via return val
 		if (msg.message == WM_QUIT)
 		{
-			// return optional wrapping int (arg to PostQuitMessage is in wparam) signals quit
 			return (int)msg.wParam;
 		}
 
-		// TranslateMessage will post auxilliary WM_CHAR messages from key msgs
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
 	}
@@ -295,58 +281,24 @@ std::string Window::Exception::GetErrorString() const noexcept
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 std::string Window::Exception::TranslateErrorCode(HRESULT hr) noexcept
 {
-	//wchar_t* dest = nullptr;
 	char* pMsgBuf = nullptr;
 
 	DWORD nMsgLen = FormatMessage(
 		FORMAT_MESSAGE_ALLOCATE_BUFFER |
 		FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
 		nullptr, hr, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
-		//convchar(&pMsgBuf), 0, nullptr  
-		//dest, 0, nullptr
+
 		pMsgBuf, 0, nullptr
 	);
+
 	if (nMsgLen == 0)
 	{
 		return "Unidentified error code";
 	}
-	// copy error string from windows-allocated buffer to std::string
-	//std::string errorString = convwchar(dest);
-	//char* res = new char[5000];
-	//wcstombs(res, dest, 5000);		
-	// free windows buffer
-	//LocalFree(dest);
-	//delete[] res;
-	//delete[] dest;
-	//return res;
-
 
 	std::string errorString = pMsgBuf;
 	LocalFree(pMsgBuf);
 	return errorString;
 }
-
-
-
-
-
-
-
-
-
-

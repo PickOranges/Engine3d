@@ -1,10 +1,23 @@
 #pragma once
 #include "Win.h"
 #include <d3d11.h>
+#include <vector>
+#include "ExceptionBase.h"
 
 
 class Graphics
 {
+public:
+	class GraphicsException : public ExceptionBase {
+	public:
+		const char* GetType() const noexcept override;
+	};
+	class DeviceRemovedException :public GraphicsException {
+	public:
+		const char* GetType() const noexcept override;
+	};
+
+
 public:
 	Graphics(HWND hWnd);
 	Graphics(const Graphics&) = delete;

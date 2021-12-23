@@ -1,4 +1,6 @@
 #include "Graphics.h"
+#include <sstream>
+
 #pragma comment(lib,"d3d11.lib")
 
 Graphics::Graphics(HWND hWnd)
@@ -74,7 +76,16 @@ void Graphics::EndFrame()
 
 void Graphics::ClearBuffer(float red, float green, float blue) noexcept
 {
-	const float color[] = { red,green,blue };
+	const float color[] = { red,green,blue,1.f };
 	pContext->ClearRenderTargetView(pTarget,color);
 }
 
+const char* Graphics::GraphicsException::GetType() const noexcept
+{
+	return "Graphics Exception";
+}
+
+const char* Graphics::DeviceRemovedException::GetType() const noexcept
+{
+	return "Graphics Exception [Device Removed] (DXGI_ERROR_DEVICE_REMOVED)";
+}

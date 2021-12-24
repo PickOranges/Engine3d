@@ -3,21 +3,28 @@
 #include <d3d11.h>
 #include <vector>
 #include "ExceptionBase.h"
+#include "DxgiInfoManager.h"
+
 
 class Graphics
 {
 public:
 	class GHrException : public HrException {
 	public:
-		GHrException(int line, const char* file, HRESULT hr) noexcept;
+		GHrException(int line, const char* file, HRESULT hr, std::vector<std::string> infoMsgs = {}) noexcept;
 		const char* GetType() const noexcept override;
+		std::string GetErrorInfo() const noexcept;
+	private:
+		HRESULT hr;
+		std::string info;
 	};
 	class DeviceRemovedException : public GHrException
 	{
 	public:
+		DeviceRemovedException(int line, const char* file, HRESULT hr, std::vector<std::string> infoMsgs = {});
 		const char* GetType() const noexcept override;
-	//private:
-	//	std::string reason;
+	private:
+		std::string reason;
 	};
 
 public:

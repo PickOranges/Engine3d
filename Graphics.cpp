@@ -80,3 +80,17 @@ void Graphics::ClearBuffer(float red, float green, float blue) noexcept
 	pContext->ClearRenderTargetView(pTarget,color);
 }
 
+Graphics::GHrException::GHrException(int line, const char* file, HRESULT hr) noexcept
+	:
+	HrException(line,file,hr)
+{}
+
+const char* Graphics::GHrException::GetType() const noexcept
+{
+	return "Graphics Exception";
+}
+
+const char* Graphics::DeviceRemovedException::GetType() const noexcept
+{
+	return "Graphics Exception [Device Removed] (DXGI_ERROR_DEVICE_REMOVED)";
+}

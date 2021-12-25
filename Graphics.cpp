@@ -33,15 +33,8 @@ Graphics::Graphics(HWND hWnd)
 	sd.SampleDesc.Quality = 0;
 	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	sd.BufferCount = 1;
-	//sd.OutputWindow = hWnd;
-
-	sd.OutputWindow = (HWND)69696966969;
-
-	
-
-
-
-
+	sd.OutputWindow = hWnd;
+	//sd.OutputWindow = (HWND)69696966969;  // Test exception handling.
 	sd.Windowed = TRUE;
 	sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 	sd.Flags = 0;
@@ -58,9 +51,7 @@ Graphics::Graphics(HWND hWnd)
 		nullptr,
 		D3D_DRIVER_TYPE_HARDWARE,
 		nullptr,
-		//0,
-
-
+		//0, //This will disable D3D debug layer.
 		swapCreateFlags,
 		nullptr,
 		0,
@@ -154,9 +145,11 @@ const char* Graphics::GHrException::what() const noexcept
 		<< std::dec << " (" << (unsigned long)GetErrorCode() << ")" << std::endl
 		//<< "[Error String] " << GetErrorString() << std::endl
 		<< "[Description] " << GetErrorDescription() << std::endl;
+
+	// This info is from DxgiInfoManager class, it is obtained from DX Debug mode only.
 	if (!info.empty())
 	{
-		oss << "\n[Error Info]\n" << GetErrorInfo() << std::endl << std::endl;
+		oss << "\n[Error Info(Debug Mode Info from D3D Debug Layer)]\n" << GetErrorInfo() << std::endl << std::endl;
 	}
 	oss << GetOriginString();
 	whatBuffer = oss.str();

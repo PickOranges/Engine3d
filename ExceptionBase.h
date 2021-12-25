@@ -34,6 +34,7 @@ public:
 	const char* GetType() const noexcept override;
 	HRESULT GetErrorCode() const noexcept;
 	std::string GetErrorDescription() const noexcept;
+//private: // Change it to protected, so that the derived classes can still use it.
 protected:
 	HRESULT hr;
 };

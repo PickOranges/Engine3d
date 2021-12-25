@@ -257,8 +257,8 @@ const char* Window::NoGfxException::GetType() const noexcept
 
 Window::WHrException::WHrException(int line, const char* file, HRESULT hr) noexcept
 	:
-	HrException(line,file,hr),
-	hr(hr)
+	HrException(line,file,hr)
+	//hr(hr) // use the hr from parent class HrException.
 {}
 
 const char* Window::WHrException::GetType() const noexcept

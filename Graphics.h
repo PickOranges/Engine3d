@@ -15,8 +15,12 @@ public:
 		const char* what() const noexcept override;
 		const char* GetType() const noexcept override;
 		std::string GetErrorInfo() const noexcept;
+		// We do not need following functions.
+		// HRESULT GetErrorCode() const noexcept;
+		//std::string GetErrorString() const noexcept;
+		//std::string GetErrorDescription() const noexcept;
 	private:
-		HRESULT hr;
+		//HRESULT hr;
 		std::string info;
 	};
 	class DeviceRemovedException : public GHrException

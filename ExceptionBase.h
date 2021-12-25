@@ -34,6 +34,6 @@ public:
 	const char* GetType() const noexcept override;
 	HRESULT GetErrorCode() const noexcept;
 	std::string GetErrorDescription() const noexcept;
-private:
+protected:
 	HRESULT hr;
 };

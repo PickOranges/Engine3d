@@ -130,8 +130,8 @@ void Graphics::ClearBuffer(float red, float green, float blue) noexcept
 
 Graphics::GHrException::GHrException(int line, const char* file, HRESULT hr, std::vector<std::string> infoMsgs) noexcept
 	:
-	HrException(line,file,hr),
-	hr(hr)
+	HrException(line,file,hr)
+	//hr(hr)
 {
 		// join all info messages with newlines into single string
 	for( const auto& m : infoMsgs )

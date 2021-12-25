@@ -19,7 +19,6 @@
 #endif
 
 
-
 Graphics::Graphics(HWND hWnd)
 {
 	DXGI_SWAP_CHAIN_DESC sd = {};
@@ -34,7 +33,15 @@ Graphics::Graphics(HWND hWnd)
 	sd.SampleDesc.Quality = 0;
 	sd.BufferUsage = DXGI_USAGE_RENDER_TARGET_OUTPUT;
 	sd.BufferCount = 1;
-	sd.OutputWindow = hWnd;
+	//sd.OutputWindow = hWnd;
+
+	sd.OutputWindow = (HWND)69696966969;
+
+	
+
+
+
+
 	sd.Windowed = TRUE;
 	sd.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 	sd.Flags = 0;
@@ -120,7 +127,8 @@ void Graphics::ClearBuffer(float red, float green, float blue) noexcept
 
 Graphics::GHrException::GHrException(int line, const char* file, HRESULT hr, std::vector<std::string> infoMsgs) noexcept
 	:
-	HrException(line,file,hr)
+	HrException(line,file,hr),
+	hr(hr)
 {
 		// join all info messages with newlines into single string
 	for( const auto& m : infoMsgs )
@@ -135,6 +143,23 @@ Graphics::GHrException::GHrException(int line, const char* file, HRESULT hr, std
 	}
 }
 
+const char* Graphics::GHrException::what() const noexcept
+{
+	std::ostringstream oss;
+	oss << GetType() << std::endl
+		<< "[Error Code] 0x" << std::hex << std::uppercase << GetErrorCode()
+		<< std::dec << " (" << (unsigned long)GetErrorCode() << ")" << std::endl
+		//<< "[Error String] " << GetErrorString() << std::endl
+		<< "[Description] " << GetErrorDescription() << std::endl;
+	if (!info.empty())
+	{
+		oss << "\n[Error Info]\n" << GetErrorInfo() << std::endl << std::endl;
+	}
+	oss << GetOriginString();
+	whatBuffer = oss.str();
+	return whatBuffer.c_str();
+}
+
 const char* Graphics::GHrException::GetType() const noexcept
 {
 	return "Graphics Exception";
@@ -145,7 +170,7 @@ std::string Graphics::GHrException::GetErrorInfo() const noexcept
 	return info;
 }
 
-Graphics::DeviceRemovedException::DeviceRemovedException(int line, const char* file, HRESULT hr, std::vector<std::string> infoMsgs)
+Graphics::DeviceRemovedException::DeviceRemovedException(int line, const char* file, HRESULT hr, std::vector<std::string> infoMsgs) noexcept
 	:
 	GHrException(line,file,hr)
 {

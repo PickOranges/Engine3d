@@ -12,6 +12,7 @@ public:
 	class GHrException : public HrException {
 	public:
 		GHrException(int line, const char* file, HRESULT hr, std::vector<std::string> infoMsgs = {}) noexcept;
+		const char* what() const noexcept override;
 		const char* GetType() const noexcept override;
 		std::string GetErrorInfo() const noexcept;
 	private:
@@ -21,7 +22,7 @@ public:
 	class DeviceRemovedException : public GHrException
 	{
 	public:
-		DeviceRemovedException(int line, const char* file, HRESULT hr, std::vector<std::string> infoMsgs = {});
+		DeviceRemovedException(int line, const char* file, HRESULT hr, std::vector<std::string> infoMsgs = {}) noexcept;
 		const char* GetType() const noexcept override;
 	private:
 		std::string reason;

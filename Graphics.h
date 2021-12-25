@@ -14,7 +14,7 @@ public:
 		GHrException(int line, const char* file, HRESULT hr, std::vector<std::string> infoMsgs = {}) noexcept;
 		const char* what() const noexcept override;
 		const char* GetType() const noexcept override;
-		std::string GetErrorInfo() const noexcept;
+		std::string GetErrorInfo() const noexcept; // This function will get info from DxgiInfoManager class.
 		// We do not need following functions.
 		// HRESULT GetErrorCode() const noexcept;
 		//std::string GetErrorString() const noexcept;

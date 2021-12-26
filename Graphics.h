@@ -50,6 +50,7 @@ public:
 	void EndFrame();
 	void ClearBuffer(float red, float green, float blue) noexcept;
 	void DrawTestTriangle();
+	void LoadObj(const char* path);
 private:
 #ifndef NDEBUG
 	DxgiInfoManager infoManager;

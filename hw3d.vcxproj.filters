@@ -16,6 +16,9 @@
     <Filter Include="Shader">
       <UniqueIdentifier>{79faca48-a6fa-46a8-bf79-16caf1fef952}</UniqueIdentifier>
     </Filter>
+    <Filter Include="asset">
+      <UniqueIdentifier>{dc88c9d9-3eb2-419a-809a-67f85f0c9ce9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -82,5 +85,10 @@
     <FxCompile Include="PixelShader.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="uploads_files_874493_model_obj.obj">
+      <Filter>asset</Filter>
+    </Object>
   </ItemGroup>
 </Project>

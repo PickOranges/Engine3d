@@ -5,12 +5,19 @@
 #include <vector>
 #include "ExceptionBase.h"
 #include "DxgiInfoManager.h"
+#include <d3dcompiler.h>
+#include <DirectXMath.h>
+#include <memory>
+#include <random>
+#include <vector>
 
 namespace wrl = Microsoft::WRL;
 
 
 class Graphics
 {
+	friend class Bindable;
+
 public:
 	class GHrException : public HrException {
 	public:
@@ -49,8 +56,18 @@ public:
 	~Graphics()=default;
 	void EndFrame();
 	void ClearBuffer(float red, float green, float blue) noexcept;
-	void DrawTestTriangle(float angle, float x, float z);
+
+
+
+	//void DrawTestTriangle(float angle, float x, float z);
+
+
+	void DrawIndexed(UINT count) noexcept(!IS_DEBUG);  //TODO: IS_DEBUG
+	void SetProjection(DirectX::FXMMATRIX proj) noexcept;
+	DirectX::XMMATRIX GetProjection() const noexcept;
+
 private:
+	DirectX::XMMATRIX projection;
 #ifndef NDEBUG
 	DxgiInfoManager infoManager;
 #endif

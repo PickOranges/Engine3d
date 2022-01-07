@@ -1,4 +1,5 @@
 #include "Graphics.h"
+#include <cmath>
 #include <sstream>
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
@@ -92,6 +93,16 @@ Graphics::Graphics(HWND hWnd)
 
 	// bind depth stencil view to OM(output-merger)
 	pContext->OMSetRenderTargets(1u, pTarget.GetAddressOf(), pDSV.Get());
+
+	// configure viewport
+	D3D11_VIEWPORT vp;
+	vp.Width = 800.0f;
+	vp.Height = 600.0f;
+	vp.MinDepth = 0.0f;
+	vp.MaxDepth = 1.0f;
+	vp.TopLeftX = 0.0f;
+	vp.TopLeftY = 0.0f;
+	pContext->RSSetViewports(1u, &vp);
 }
 
 void Graphics::EndFrame()
@@ -227,4 +238,3 @@ std::string Graphics::InfoException::GetErrorInfo() const noexcept
 {
 	return info;
 }
-

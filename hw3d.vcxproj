@@ -169,11 +169,13 @@
     <ClInclude Include="DxgiInfoManager.h" />
     <ClInclude Include="ExceptionBase.h" />
     <ClInclude Include="Graphics.h" />
+    <ClInclude Include="GraphicsThrowMacros.h" />
     <ClInclude Include="Keyboard.h" />
     <ClInclude Include="Mouse.h" />
     <ClInclude Include="TimerWrapper.h" />
     <ClInclude Include="Win.h" />
     <ClInclude Include="Window.h" />
+    <ClInclude Include="WindowsThrowMacros.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="PixelShader.hlsl">

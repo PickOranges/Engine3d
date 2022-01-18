@@ -6,6 +6,7 @@ class App
 {
 public:
 	App();
+	// master frame / message loop
 	int Go();
 	~App();
 private:
@@ -13,6 +14,7 @@ private:
 private:
 	Window wnd;
 	TimerWrapper timer;
-	std::vector<std::unique_ptr<class Box>> boxes;
+	std::vector<std::unique_ptr<class Drawables>> drawables;
+	static constexpr size_t nDrawables = 180;
 };
 

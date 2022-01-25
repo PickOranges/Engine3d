@@ -108,3 +108,4 @@ DirectX::XMMATRIX Box::GetTransformXM() const noexcept
 		dx::XMMatrixTranslation(r, 0.0f, 0.0f) *
 		dx::XMMatrixRotationRollPitchYaw(theta, phi, chi) *
 		dx::XMMatrixTranslation(0.0f, 0.0f, 20.0f);
+}

@@ -2,6 +2,7 @@
 #include <sstream>
 #include <iostream>
 #include "WindowsThrowMacros.h"
+#include "imgui/imgui_impl_win32.h"
 
 
 Window::WindowClass Window::WindowClass::wndClass;
@@ -31,7 +32,6 @@ Window::WindowClass::WindowClass() noexcept
 	wc.hbrBackground = nullptr;
 	wc.lpszMenuName = nullptr;
 	wc.lpszClassName = GetName();
-	//wc.lpszClassName = "";
 	wc.hIconSm = nullptr;
 	RegisterClassEx(&wc);
 }
@@ -70,12 +70,16 @@ Window::Window(int width, int height, const char* name) noexcept(false)
 	// show window
 	ShowWindow(hWnd, SW_SHOWDEFAULT);
 
+	// init ImGui Win32 part
+	ImGui_ImplWin32_Init(hWnd);
+
 	// create graphics object
 	pGfx=std::make_unique<Graphics>(hWnd);
 }
 
 Window::~Window()
 {
+	ImGui_ImplWin32_Shutdown();
 	DestroyWindow(hWnd);
 }
 
@@ -141,6 +145,11 @@ LRESULT Window::HandleMsgThunk(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 
 LRESULT Window::HandleMsg(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
 {
+	// let Imgui to deal with the msg.
+	if (ImGui_ImplWin32_WndProcHandler(hWnd,msg,wParam,lParam)) {
+		return true;
+	}
+
 	switch (msg)
 	{
 	// we don't want the DefProc to handle this message because

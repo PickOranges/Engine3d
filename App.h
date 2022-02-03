@@ -1,6 +1,7 @@
 #pragma once
 #include "Window.h"
 #include "TimerWrapper.h"
+#include "ImguiManager.h"
 
 class App
 {
@@ -12,6 +13,7 @@ public:
 private:
 	void DoFrame(); // contain top-level game logic.
 private:
+	ImguiManager imgui;
 	Window wnd;
 	TimerWrapper timer;
 	std::vector<std::unique_ptr<class Drawable>> drawables;

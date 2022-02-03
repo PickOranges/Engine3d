@@ -20,8 +20,6 @@ class Window
 	public:
 		WHrException(int line, const char* file, HRESULT hr) noexcept;
 		const char* GetType() const noexcept override;
-	//private:
-	//	HRESULT hr;
 	};
 
 private:

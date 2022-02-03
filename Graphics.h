@@ -27,7 +27,6 @@ public:
 		std::string GetErrorInfo() const noexcept; 
 
 	private:
-		//HRESULT hr;
 		std::string info;
 	};
 	class DeviceRemovedException : public GHrException
@@ -55,12 +54,17 @@ public:
 	Graphics& operator=(const Graphics&) = delete;
 	~Graphics()=default;
 	void EndFrame();
-	void ClearBuffer(float red, float green, float blue) noexcept;
+	//void ClearBuffer(float red, float green, float blue) noexcept;
+	void BeginFrame(float red, float green, float blue) noexcept;
 	void DrawIndexed(UINT count) noexcept(!IS_DEBUG); 
 	void SetProjection(DirectX::FXMMATRIX proj) noexcept;
 	DirectX::XMMATRIX GetProjection() const noexcept;
+	void EnableImgui() noexcept;
+	void DisableImgui() noexcept;
+	bool IsImguiEnabled() const noexcept;
 
 private:
+	bool imguiEnabled = true;
 	DirectX::XMMATRIX projection;
 #ifndef NDEBUG
 	DxgiInfoManager infoManager;

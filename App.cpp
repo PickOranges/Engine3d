@@ -5,6 +5,7 @@
 #include <memory>
 #include <algorithm>
 #include "SimpleMath.h"
+#include "imgui/imgui.h"
 
 App::App()
 	: wnd(800, 600, "Test App Class Obj")
@@ -79,12 +80,17 @@ App::~App()
 
 void App::DoFrame()
 {
-	const auto dt = timer.Mark();
-	wnd.Gfx().ClearBuffer(0.07f, 0.0f, 0.12f);
-	for (auto& d : drawables)
-	{
-		d->Update(dt);
-		d->Draw(wnd.Gfx());
-	}
-	wnd.Gfx().EndFrame();
+	//const auto dt = timer.Mark();
+	//wnd.Gfx().ClearBuffer(0.07f, 0.0f, 0.12f);
+	//for (auto& d : drawables)
+	//{
+	//	d->Update(dt);
+	//	d->Draw(wnd.Gfx());
+	//}
+	//wnd.Gfx().EndFrame();
+
+
+
+
+
 }

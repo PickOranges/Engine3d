@@ -6,6 +6,8 @@
 #include <algorithm>
 #include "SimpleMath.h"
 #include "imgui/imgui.h"
+#include "imgui/imgui_impl_win32.h"
+#include "imgui/imgui_impl_dx11.h"
 
 
 App::App()
@@ -83,7 +85,10 @@ App::~App()
 void App::DoFrame()
 {
 	const auto dt = timer.Mark();
+	//wnd.Gfx().ClearBuffer(0.07f, 0.0f, 0.12f);
 	
+
+	// included imgui init part into Graphcis, so that App.cpp does not touch it directly.
 	if (wnd.kbd.KeyIsPressed(VK_SPACE))
 	{
 		wnd.Gfx().DisableImgui();
@@ -101,10 +106,13 @@ void App::DoFrame()
 		d->Draw(wnd.Gfx());
 	}
 
+
+
 	if (show_demo_window)
 	{
 		ImGui::ShowDemoWindow(&show_demo_window);
 	}
 
+	// present
 	wnd.Gfx().EndFrame();
 }

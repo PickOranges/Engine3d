@@ -107,11 +107,20 @@ Graphics::Graphics(HWND hWnd)
 	vp.TopLeftY = 0.0f;
 	pContext->RSSetViewports(1u, &vp);
 
+	// init imgui d3d impl
 	ImGui_ImplDX11_Init(pDevice.Get(), pContext.Get());
 }
 
 void Graphics::EndFrame()
 {
+	// imgui frame end
+	if (imguiEnabled)
+	{
+		ImGui::Render();
+		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+	}
+
+
 	HRESULT hr;
 #ifndef NDEBUG
 	infoManager.Set();

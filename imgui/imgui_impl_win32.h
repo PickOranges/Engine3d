@@ -14,12 +14,15 @@
 
 #pragma once
 #include "imgui.h"      // IMGUI_IMPL_API
-#include "../Win.h"
+#include <Windows.h>
 
 //IMGUI_IMPL_API bool     ImGui_ImplWin32_Init(void* hwnd);
+
 IMGUI_IMPL_API bool     ImGui_ImplWin32_Init(HWND hwnd);
 IMGUI_IMPL_API void     ImGui_ImplWin32_Shutdown();
 IMGUI_IMPL_API void     ImGui_ImplWin32_NewFrame();
+
+// Add this to take over the right of dealing with mouse/keyboard msg handle from windows side.
 LRESULT					ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
 // Win32 message handler your application need to call.

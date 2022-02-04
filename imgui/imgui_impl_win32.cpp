@@ -107,7 +107,8 @@ static ImGui_ImplWin32_Data* ImGui_ImplWin32_GetBackendData()
 }
 
 // Functions
-bool    ImGui_ImplWin32_Init(void* hwnd)
+//bool    ImGui_ImplWin32_Init(void* hwnd)
+bool    ImGui_ImplWin32_Init(HWND hwnd)
 {
     ImGuiIO& io = ImGui::GetIO();
     IM_ASSERT(io.BackendPlatformUserData == NULL && "Already initialized a platform backend!");
@@ -125,7 +126,8 @@ bool    ImGui_ImplWin32_Init(void* hwnd)
     io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;         // We can honor GetMouseCursor() values (optional)
     io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;          // We can honor io.WantSetMousePos requests (optional, rarely used)
 
-    bd->hWnd = (HWND)hwnd;
+    //bd->hWnd = (HWND)hwnd;
+    bd->hWnd = hwnd;
     bd->WantUpdateHasGamepad = true;
     bd->TicksPerSecond = perf_frequency;
     bd->Time = perf_counter;

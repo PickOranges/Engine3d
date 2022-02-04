@@ -5,6 +5,9 @@
 #include <memory>
 #include <algorithm>
 #include "SimpleMath.h"
+#include "imgui/imgui.h"
+#include "imgui/imgui_impl_win32.h"
+#include "imgui/imgui_impl_dx11.h"
 
 App::App()
 	: wnd(800, 600, "Test App Class Obj")
@@ -86,5 +89,22 @@ void App::DoFrame()
 		d->Update(dt);
 		d->Draw(wnd.Gfx());
 	}
+
+
+	// imgui part
+	ImGui_ImplDX11_NewFrame();
+	ImGui_ImplWin32_NewFrame();
+	ImGui::NewFrame();
+
+	static bool show_demo_window = true;
+	if (show_demo_window)
+	{
+		ImGui::ShowDemoWindow(&show_demo_window);
+	}
+	ImGui::Render();
+	ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
+
+
+	// present
 	wnd.Gfx().EndFrame();
 }

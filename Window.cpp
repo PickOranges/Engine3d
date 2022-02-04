@@ -2,7 +2,7 @@
 #include <sstream>
 #include <iostream>
 #include "WindowsThrowMacros.h"
-
+#include "imgui/imgui_impl_win32.h"
 
 Window::WindowClass Window::WindowClass::wndClass;
 
@@ -70,12 +70,16 @@ Window::Window(int width, int height, const char* name) noexcept(false)
 	// show window
 	ShowWindow(hWnd, SW_SHOWDEFAULT);
 
+	// Init ImGui Win32 Impl
+	ImGui_ImplWin32_Init(hWnd);
+
 	// create graphics object
 	pGfx=std::make_unique<Graphics>(hWnd);
 }
 
 Window::~Window()
 {
+	ImGui_ImplWin32_Shutdown();
 	DestroyWindow(hWnd);
 }
 

@@ -85,23 +85,13 @@ App::~App()
 void App::DoFrame()
 {
 	const auto dt = timer.Mark()*speed_factor;
-	
 
-	// included imgui init part into Graphcis, so that App.cpp does not touch it directly.
-	if (wnd.kbd.KeyIsPressed(VK_SPACE))
-	{
-		wnd.Gfx().DisableImgui();
-	}
-	else
-	{
-		wnd.Gfx().EnableImgui();
-	}
 	wnd.Gfx().BeginFrame(0.07f, 0.0f, 0.12f);
 
 
 	for (auto& d : drawables)
 	{
-		d->Update(dt);
+		d->Update(wnd.kbd.KeyIsPressed(VK_SPACE) ? 0.0f : dt);
 		d->Draw(wnd.Gfx());
 	}
 

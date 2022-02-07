@@ -38,22 +38,13 @@ Box::Box(Graphics& gfx,
 
 		AddStaticBind(std::make_unique<VertexBuffer>(gfx, model.vertices));
 
-		//auto pvs = std::make_unique<VertexShader>(gfx, L"ColorIndexVS.cso");
 		auto pvs = std::make_unique<VertexShader>(gfx, L"PhongVS.cso");
 		auto pvsbc = pvs->GetBytecode();
 		AddStaticBind(std::move(pvs));
 
-		//AddStaticBind(std::make_unique<PixelShader>(gfx, L"ColorIndexPS.cso"));
 		AddStaticBind(std::make_unique<PixelShader>(gfx, L"PhongPS.cso"));
 
 		AddStaticIndexBuffer(std::make_unique<IndexBuffer>(gfx, model.indices));
-
-		struct PSLightConstants
-		{
-			dx::XMVECTOR pos;
-		};
-		//AddStaticBind(std::make_unique<PixelConstantBuffer<PixelShaderConstants>>(gfx, cb2));
-		AddStaticBind(std::make_unique<PixelConstantBuffer<PSLightConstants>>(gfx));
 
 		const std::vector<D3D11_INPUT_ELEMENT_DESC> ied =
 		{

@@ -47,8 +47,8 @@ App::App()
 			
 
 			
-			//const DirectX::XMFLOAT3 mat = { cdist(rng),cdist(rng),cdist(rng) };
-			const DirectX::XMFLOAT3 mat = { 0.5f, 0.5f, 1.0f };
+			const DirectX::XMFLOAT3 mat = { cdist(rng),cdist(rng),cdist(rng) };
+			//const DirectX::XMFLOAT3 mat = { 0.5f, 0.5f, 1.0f }; // single color for all objects, it is convenient for debugging.
 
 			return std::make_unique<Box>(
 				gfx, rng, adist, ddist,

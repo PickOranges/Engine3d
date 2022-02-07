@@ -32,8 +32,8 @@ float4 main(float3 camPos : Position, float3 n : Normal) : SV_Target
 	const float3 w = n * dot(vToL, n);
 	const float3 r = w * 2.0f - vToL;
 	// calculate specular intensity based on angle between viewing vector and reflection vector, narrow with power function
-	//const float3 specular = att * (diffuseColor * diffuseIntensity) * specularIntensity * pow(max(0.0f, dot(normalize(r), normalize(camPos))), specularPower);
-	const float3 specular = (diffuseColor * diffuseIntensity) * specularIntensity * pow(max(0.0f, dot(normalize(r), normalize(camPos))), specularPower);
+	const float3 specular = att * (diffuseColor * diffuseIntensity) * specularIntensity * pow(max(0.0f, dot(normalize(-r), normalize(camPos))), specularPower);
+	
 	
 	
 	// final color

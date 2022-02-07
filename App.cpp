@@ -44,7 +44,11 @@ App::App()
 			//default:
 			//	assert(false && "bad drawable type in factory");
 			//	return {};
-			const DirectX::XMFLOAT3 mat = { cdist(rng),cdist(rng),cdist(rng) };
+			
+
+			
+			//const DirectX::XMFLOAT3 mat = { cdist(rng),cdist(rng),cdist(rng) };
+			const DirectX::XMFLOAT3 mat = { 0.5f, 0.5f, 1.0f };
 
 			return std::make_unique<Box>(
 				gfx, rng, adist, ddist,
@@ -99,7 +103,7 @@ void App::DoFrame()
 
 	// Now update camera params every frame(Instead of updating just once in ctor when init App).
 	wnd.Gfx().SetCamera(cam.GetMatrix());
-	light.Bind(wnd.Gfx());
+	light.Bind(wnd.Gfx(), cam.GetMatrix());
 
 	for (auto& d : drawables)
 	{
@@ -113,7 +117,7 @@ void App::DoFrame()
 	if(ImGui::Begin("Simulation Speed"))
 	{
 		//ImGui::ShowDemoWindow(&show_demo_window);
-		ImGui::SliderFloat("Speed Factor",&speed_factor,0.0f,4.0f);
+		ImGui::SliderFloat("Speed Factor",&speed_factor,0.0f,6.0f);
 		ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 		ImGui::Text("Status: %s", wnd.kbd.KeyIsPressed(VK_SPACE) ? "PAUSED" : "RUNNING(Hole the SPACE to pause)");
 	}

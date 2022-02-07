@@ -1,7 +1,7 @@
 // for point light
 cbuffer CBuf
 {
-	matrix model;
+	matrix modelView;
 	matrix modelViewProj;
 };
 

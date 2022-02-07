@@ -1,6 +1,6 @@
 #include "App.h"
-#include "Melon.h"
-#include "Pyramid.h"
+//#include "Melon.h"
+//#include "Pyramid.h"
 #include "Box.h"
 #include <memory>
 #include <algorithm>
@@ -11,7 +11,9 @@
 
 
 App::App()
-	: wnd(800, 600, "Test App Class Obj")
+	: 
+	wnd(800, 600, "Test App Class Obj"),
+	light(wnd.Gfx())
 {
 	class Factory
 	{
@@ -22,27 +24,30 @@ App::App()
 		{}
 		std::unique_ptr<Drawable> operator()()
 		{
-			switch (typedist(rng))
-			{
-			case 0:
-				return std::make_unique<Pyramid>(
-					gfx, rng, adist, ddist,
-					odist, rdist
-					);
-			case 1:
-				return std::make_unique<Box>(
-					gfx, rng, adist, ddist,
-					odist, rdist, bdist
-					);
-			case 2:
-				return std::make_unique<Melon>(
-					gfx, rng, adist, ddist,
-					odist, rdist, longdist, latdist
-					);
-			default:
-				assert(false && "bad drawable type in factory");
-				return {};
-			}
+			//switch (typedist(rng))
+			//{
+			//case 0:
+			//	return std::make_unique<Pyramid>(
+			//		gfx, rng, adist, ddist,
+			//		odist, rdist
+			//		);
+			//case 1:
+			//	return std::make_unique<Box>(
+			//		gfx, rng, adist, ddist,
+			//		odist, rdist, bdist
+			//		);
+			//case 2:
+			//	return std::make_unique<Melon>(
+			//		gfx, rng, adist, ddist,
+			//		odist, rdist, longdist, latdist
+			//		);
+			//default:
+			//	assert(false && "bad drawable type in factory");
+			//	return {};
+			return std::make_unique<Box>(
+				gfx, rng, adist, ddist,
+				odist, rdist, bdist
+				);
 		}
 	private:
 		Graphics& gfx;
@@ -91,12 +96,14 @@ void App::DoFrame()
 
 	// Now update camera params every frame(Instead of updating just once in ctor when init App).
 	wnd.Gfx().SetCamera(cam.GetMatrix());
+	light.Bind(wnd.Gfx());
 
 	for (auto& d : drawables)
 	{
 		d->Update(wnd.kbd.KeyIsPressed(VK_SPACE) ? 0.0f : dt);
 		d->Draw(wnd.Gfx());
 	}
+	light.Draw(wnd.Gfx()); // draw the light source lastely.
 
 
 
@@ -109,8 +116,9 @@ void App::DoFrame()
 	}
 	ImGui::End();
 
-	// ImGui: add slidebars to control the camera params.
+	// ImGui: add slidebars to control the camera and point light source params.
 	cam.SpawnControlWindow();
+	light.SpawnControlWindow(); 
 	
 
 	// present

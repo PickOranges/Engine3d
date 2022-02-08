@@ -4,6 +4,7 @@
 #include "ImguiManager.h"
 #include "Camera.h"
 #include "PointLight.h"
+#include <set>
 
 class App
 {
@@ -20,8 +21,11 @@ private:
 	TimerWrapper timer;
 	Camera cam;
 	PointLight light;
+	std::vector<class Box*> boxes;
 	std::vector<std::unique_ptr<class Drawable>> drawables;
 	static constexpr size_t nDrawables = 180;
 	float speed_factor = 1.0f;
+	std::optional<int> comboBoxIndex;
+	std::set<int> boxControlIds;
 };
 

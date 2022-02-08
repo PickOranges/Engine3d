@@ -103,8 +103,6 @@ App::App()
 		}
 	}
 	wnd.Gfx().SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 40.0f));
-
-	if (!boxes.empty()) comboBoxIndex = 0; // Add this line to fix accessing empty optional issue.
 }
 
 int App::Go()
@@ -150,8 +148,6 @@ void App::DoFrame()
 	SpawnBoxWindows();
 
 
-
-
 	// present
 	wnd.Gfx().EndFrame();
 }
@@ -170,9 +166,6 @@ void App::SpawnSimulationWindow() noexcept
 
 void App::SpawnBoxWindowManagerWindow() noexcept
 {
-	// ImGui: add slidebars to control the camera and point light source params.
-	cam.SpawnControlWindow();
-	light.SpawnControlWindow();
 	// imgui window to open box windows
 	if (ImGui::Begin("Boxes"))
 	{

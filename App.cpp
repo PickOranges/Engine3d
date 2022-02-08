@@ -102,9 +102,9 @@ App::App()
 			boxes.push_back(pb);
 		}
 	}
-
-
 	wnd.Gfx().SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 3.0f / 4.0f, 0.5f, 40.0f));
+
+	if (!boxes.empty()) comboBoxIndex = 0; // Add this line to fix accessing empty optional issue.
 }
 
 int App::Go()

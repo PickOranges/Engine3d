@@ -141,27 +141,44 @@ void App::DoFrame()
 		d->Draw(wnd.Gfx());
 	}
 	light.Draw(wnd.Gfx()); // draw the light source lastely.
+	
+	// imgui windows
+	SpawnSimulationWindow();
+	cam.SpawnControlWindow();
+	light.SpawnControlWindow();
+	SpawnBoxWindowManagerWindow();
+	SpawnBoxWindows();
 
 
 
-	if(ImGui::Begin("Simulation Speed"))
+
+	// present
+	wnd.Gfx().EndFrame();
+}
+
+void App::SpawnSimulationWindow() noexcept
+{
+	if (ImGui::Begin("Simulation Speed"))
 	{
 		//ImGui::ShowDemoWindow(&show_demo_window);
-		ImGui::SliderFloat("Speed Factor",&speed_factor,0.0f,6.0f);
+		ImGui::SliderFloat("Speed Factor", &speed_factor, 0.0f, 6.0f);
 		ImGui::Text("%.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 		ImGui::Text("Status: %s", wnd.kbd.KeyIsPressed(VK_SPACE) ? "PAUSED" : "RUNNING(Hole the SPACE to pause)");
 	}
 	ImGui::End();
+}
 
+void App::SpawnBoxWindowManagerWindow() noexcept
+{
 	// ImGui: add slidebars to control the camera and point light source params.
 	cam.SpawnControlWindow();
-	light.SpawnControlWindow(); 
+	light.SpawnControlWindow();
 	// imgui window to open box windows
-	if( ImGui::Begin( "Boxes" ) )
+	if (ImGui::Begin("Boxes"))
 	{
 		using namespace std::string_literals;
-		const auto preview = comboBoxIndex.has_value() ? std::to_string( comboBoxIndex.value() ) : "Choose a box..."s;
-		if( ImGui::BeginCombo( "Box Number",preview.c_str() ) )
+		const auto preview = comboBoxIndex.has_value() ? std::to_string(comboBoxIndex.value()) : "Choose a box..."s;
+		if (ImGui::BeginCombo("Box Number", preview.c_str()))
 		{
 			// If comboBoxIndex is not empty, then select that box, otherwise do nothing.
 			if (comboBoxIndex.has_value()) {
@@ -181,19 +198,20 @@ void App::DoFrame()
 
 			ImGui::EndCombo();
 		}
-		if( ImGui::Button( "Spawn Control Window" ) && comboBoxIndex )
+		if (ImGui::Button("Spawn Control Window") && comboBoxIndex)
 		{
-			boxControlIds.insert( *comboBoxIndex );
+			boxControlIds.insert(*comboBoxIndex);
 			comboBoxIndex.reset();
 		}
 	}
 	ImGui::End();
-	// imgui box attribute control windows
-	for( auto id : boxControlIds )
-	{
-		boxes[id]->SpawnControlWindow( id,wnd.Gfx() );
-	}
+}
 
-	// present
-	wnd.Gfx().EndFrame();
+void App::SpawnBoxWindows() noexcept
+{
+	// imgui box attribute control windows
+	for (auto id : boxControlIds)
+	{
+		boxes[id]->SpawnControlWindow(id, wnd.Gfx());
+	}
 }

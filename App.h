@@ -15,6 +15,9 @@ public:
 	~App();
 private:
 	void DoFrame(); // contain top-level game logic.
+	void SpawnSimulationWindow() noexcept;
+	void SpawnBoxWindowManagerWindow() noexcept;  // For box-selection-dropdown menu.
+	void SpawnBoxWindows() noexcept; // For changing the material params of the selected box.
 private:
 	ImguiManager imgui;
 	Window wnd;

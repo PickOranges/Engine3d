@@ -188,7 +188,11 @@ void App::SpawnBoxWindowManagerWindow() noexcept
 					}
 				}
 			}
-
+			else {
+				// Add this line to fix accessing empty optional issue and cannot re-select issue.
+				if (!boxes.empty()) comboBoxIndex = 0; 
+			}
+				
 			ImGui::EndCombo();
 		}
 		if (ImGui::Button("Spawn Control Window") && comboBoxIndex)

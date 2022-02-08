@@ -156,25 +156,29 @@ void App::DoFrame()
 	// ImGui: add slidebars to control the camera and point light source params.
 	cam.SpawnControlWindow();
 	light.SpawnControlWindow(); 
-		// imgui window to open box windows
+	// imgui window to open box windows
 	if( ImGui::Begin( "Boxes" ) )
 	{
 		using namespace std::string_literals;
-		const auto preview = comboBoxIndex ? std::to_string( *comboBoxIndex ) : "Choose a box..."s;
+		const auto preview = comboBoxIndex.has_value() ? std::to_string( comboBoxIndex.value() ) : "Choose a box..."s;
 		if( ImGui::BeginCombo( "Box Number",preview.c_str() ) )
 		{
-			for( int i = 0; i < boxes.size(); i++ )
-			{
-				const bool selected = *comboBoxIndex == i;
-				if( ImGui::Selectable( std::to_string( i ).c_str(),selected ) )
+			// If comboBoxIndex is not empty, then select that box, otherwise do nothing.
+			if (comboBoxIndex.has_value()) {
+				for (int i = 0; i < boxes.size(); i++)
 				{
-					comboBoxIndex = i;
-				}
-				if( selected )
-				{
-					ImGui::SetItemDefaultFocus();
+					const bool selected = *comboBoxIndex == i;
+					if (ImGui::Selectable(std::to_string(i).c_str(), selected))
+					{
+						comboBoxIndex = i;
+					}
+					if (selected)
+					{
+						ImGui::SetItemDefaultFocus();
+					}
 				}
 			}
+
 			ImGui::EndCombo();
 		}
 		if( ImGui::Button( "Spawn Control Window" ) && comboBoxIndex )

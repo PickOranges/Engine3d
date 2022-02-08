@@ -2,6 +2,7 @@
 //#include "Melon.h"
 //#include "Pyramid.h"
 #include "Box.h"
+#include "Cylinder.h"
 #include <memory>
 #include <algorithm>
 #include "SimpleMath.h"
@@ -50,14 +51,27 @@ App::App()
 			const DirectX::XMFLOAT3 mat = { cdist(rng),cdist(rng),cdist(rng) };
 			//const DirectX::XMFLOAT3 mat = { 0.5f, 0.5f, 1.0f }; // single color for all objects, it is convenient for debugging.
 
-			return std::make_unique<Box>(
-				gfx, rng, adist, ddist,
-				odist, rdist, bdist, mat
-				);
+			switch (sdist(rng))
+			{
+			case 0:
+				return std::make_unique<Box>(
+					gfx, rng, adist, ddist,
+					odist, rdist, bdist, mat
+					);
+			case 1:
+				return std::make_unique<Cylinder>(
+					gfx, rng, adist, ddist, odist,
+					rdist, bdist, tdist
+					);
+			default:
+				assert(false && "impossible drawable option in factory");
+				return {};
+			}
 		}
 	private:
 		Graphics& gfx;
 		std::mt19937 rng{ std::random_device{}() };
+		std::uniform_int_distribution<int> sdist{ 0,1 };
 		std::uniform_real_distribution<float> adist{ 0.0f,PI * 2.0f };
 		std::uniform_real_distribution<float> ddist{ 0.0f,PI * 0.5f };
 		std::uniform_real_distribution<float> odist{ 0.0f,PI * 0.08f };
@@ -68,6 +82,8 @@ App::App()
 		std::uniform_int_distribution<int> latdist{ 5,20 };
 		std::uniform_int_distribution<int> longdist{ 10,40 };
 		std::uniform_int_distribution<int> typedist{ 0,2 };
+
+		std::uniform_int_distribution<int> tdist{ 3,30 };
 	};
 
 	Factory f(wnd.Gfx());

@@ -301,4 +301,8 @@
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="zlib1.dll" />
+    <None Include="assimp-vc140-mt.dll" />
+  </ItemGroup>
 </Project>

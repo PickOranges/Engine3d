@@ -12,6 +12,7 @@ cbuffer LightCBuf
 cbuffer ObjectCBuf
 {
 	float3 materialColors[6];
+	float padding; // Because the 6th color will not be padding, so we pad it manually.
 	float specularIntensity;
 	float specularPower;
 };

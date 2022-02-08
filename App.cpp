@@ -182,7 +182,7 @@ void App::SpawnBoxWindowManagerWindow() noexcept
 		{
 			// If comboBoxIndex is not empty, then select that box, otherwise do nothing.
 			if (comboBoxIndex.has_value()) {
-				for (int i = 0; i < boxes.size(); i++)
+				for (size_t i = 0; i < boxes.size(); i++)
 				{
 					const bool selected = *comboBoxIndex == i;
 					if (ImGui::Selectable(std::to_string(i).c_str(), selected))
@@ -210,8 +210,15 @@ void App::SpawnBoxWindowManagerWindow() noexcept
 void App::SpawnBoxWindows() noexcept
 {
 	// imgui box attribute control windows
-	for (auto id : boxControlIds)
+	for (auto i = boxControlIds.begin(); i != boxControlIds.end(); )
 	{
-		boxes[id]->SpawnControlWindow(id, wnd.Gfx());
+		if (!boxes[*i]->SpawnControlWindow(*i, wnd.Gfx()))
+		{
+			i = boxControlIds.erase(i);
+		}
+		else
+		{
+			i++;
+		}
 	}
 }

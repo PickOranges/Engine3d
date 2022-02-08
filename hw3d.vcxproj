@@ -241,6 +241,7 @@
     <ClInclude Include="SimpleMath.h" />
     <ClInclude Include="SolidSphere.h" />
     <ClInclude Include="Sphere.h" />
+    <ClInclude Include="TestObject.h" />
     <ClInclude Include="TimerWrapper.h" />
     <ClInclude Include="Topology.h" />
     <ClInclude Include="TransformCbuf.h" />

@@ -9,6 +9,9 @@
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_win32.h"
 #include "imgui/imgui_impl_dx11.h"
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 
 
 App::App()
@@ -25,29 +28,6 @@ App::App()
 		{}
 		std::unique_ptr<Drawable> operator()()
 		{
-			//switch (typedist(rng))
-			//{
-			//case 0:
-			//	return std::make_unique<Pyramid>(
-			//		gfx, rng, adist, ddist,
-			//		odist, rdist
-			//		);
-			//case 1:
-			//	return std::make_unique<Box>(
-			//		gfx, rng, adist, ddist,
-			//		odist, rdist, bdist
-			//		);
-			//case 2:
-			//	return std::make_unique<Melon>(
-			//		gfx, rng, adist, ddist,
-			//		odist, rdist, longdist, latdist
-			//		);
-			//default:
-			//	assert(false && "bad drawable type in factory");
-			//	return {};
-			
-
-			
 			const DirectX::XMFLOAT3 mat = { cdist(rng),cdist(rng),cdist(rng) };
 			//const DirectX::XMFLOAT3 mat = { 0.5f, 0.5f, 1.0f }; // single color for all objects, it is convenient for debugging.
 

@@ -18,8 +18,8 @@
     <Filter Include="imgui">
       <UniqueIdentifier>{94433caf-8b68-490c-9edd-bfaa38cb29d3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="libigl">
-      <UniqueIdentifier>{c5300805-9d3f-4ceb-b738-19a95d57cd22}</UniqueIdentifier>
+    <Filter Include="assets">
+      <UniqueIdentifier>{47900300-222f-45d3-a901-01773d854ac6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -303,5 +303,10 @@
     <FxCompile Include="BlendedPhongPS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Object Include="diamonds.obj">
+      <Filter>assets</Filter>
+    </Object>
   </ItemGroup>
 </Project>

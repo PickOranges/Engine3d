@@ -9,9 +9,9 @@
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_win32.h"
 #include "imgui/imgui_impl_dx11.h"
-//#include <assimp/Importer.hpp>
-//#include <assimp/scene.h>
-//#include <assimp/postprocess.h>
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
 
 
 App::App()
@@ -91,8 +91,12 @@ App::App()
 
 
 
+	Assimp::Importer imp;
+	auto model = imp.ReadFile("models\\diamonds.obj",
+		aiProcess_Triangulate |
+		aiProcess_JoinIdenticalVertices
+	);
 
-	//Assimp::Importer imp;
 
 
 

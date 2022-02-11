@@ -20,11 +20,11 @@ AssTest::AssTest(Graphics& gfx, std::mt19937& rng,
 
 	if (!IsStaticInitialized())
 	{
-		using hw3d::VertexLayout;
+		//using hw3d::VertexLayout;
 		hw3d::VertexBuffer vbuf(std::move(
-			VertexLayout{}
-			.Append<VertexLayout::Position3D>()
-			.Append<VertexLayout::Normal>()
+			hw3d::VertexLayout{}
+			.Append(hw3d::VertexLayout::Position3D)
+			.Append(hw3d::VertexLayout::Normal)
 		));
 
 		Assimp::Importer imp;

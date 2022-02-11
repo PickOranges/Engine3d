@@ -64,7 +64,7 @@ namespace hw3d
 				case Float4Color:
 					return sizeof(XMFLOAT3);
 				case BGRAColor:
-					return sizeof(hw3dexp::BGRAColor);
+					return sizeof(hw3d::BGRAColor);
 				}
 				assert("Invalid element type" && false);
 				return 0u;

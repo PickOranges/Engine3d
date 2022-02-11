@@ -255,9 +255,13 @@ namespace hw3d
 		{
 			return layout;
 		}
-		size_t Size() const noexcept(!IS_DEBUG)
+		size_t Size() const noexcept(!IS_DEBUG)  // return #vertices
 		{
 			return buffer.size() / layout.Size();
+		}
+		size_t SizeBytes() const noexcept(!IS_DEBUG) // return current byte size of this buffer.
+		{
+			return buffer.size();
 		}
 		template<typename ...Params>
 		void EmplaceBack(Params&&... params) noexcept(!IS_DEBUG)

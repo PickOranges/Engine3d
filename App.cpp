@@ -29,8 +29,8 @@ App::App()
 			const DirectX::XMFLOAT3 mat = { cdist(rng),cdist(rng),cdist(rng) };
 			//const DirectX::XMFLOAT3 mat = { 0.5f, 0.5f, 1.0f }; // single color for all objects, it is convenient for debugging.
 
-			//switch (sdist(rng))
-			switch (3)
+			switch (sdist(rng))
+			//switch (3)
 			{
 			case 0:
 				return std::make_unique<Box>(
@@ -60,7 +60,7 @@ App::App()
 	private:
 		Graphics& gfx;
 		std::mt19937 rng{ std::random_device{}() };
-		std::uniform_int_distribution<int> sdist{ 0,4 };
+		std::uniform_int_distribution<int> sdist{ 0,3 };
 		std::uniform_real_distribution<float> adist{ 0.0f,PI * 2.0f };
 		std::uniform_real_distribution<float> ddist{ 0.0f,PI * 0.5f };
 		std::uniform_real_distribution<float> odist{ 0.0f,PI * 0.08f };

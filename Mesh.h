@@ -6,6 +6,8 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
+using namespace Bind;
+
 class Mesh : public DrawableBase<Mesh>
 {
 public:

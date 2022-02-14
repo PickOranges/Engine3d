@@ -1,6 +1,8 @@
 #include "Mesh.h"
 #include "imgui/imgui.h"
 
+
+using namespace Bind;
 // Mesh
 Mesh::Mesh(Graphics& gfx, std::vector<std::unique_ptr<Bindable>> bindPtrs)
 {

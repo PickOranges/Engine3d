@@ -11,12 +11,16 @@
 #include <random>
 #include <vector>
 
+namespace Bind {
+	class Bindable;
+}
+
 namespace wrl = Microsoft::WRL;
 
 
 class Graphics
 {
-	friend class Bindable;
+	friend class Bind:: Bindable;
 
 public:
 	class GHrException : public HrException {

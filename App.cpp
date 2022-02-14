@@ -1,10 +1,8 @@
 #include "App.h"
-#include "Pyramid.h"
-#include "Box.h"
-#include "Cylinder.h"
 #include <memory>
 #include <algorithm>
 #include "SimpleMath.h"
+#include "imgui/imgui.h"
 
 
 App::App()
@@ -42,13 +40,37 @@ void App::DoFrame()
 	// Now update camera params every frame(Instead of updating just once in ctor when init App).
 	wnd.Gfx().SetCamera(cam.GetMatrix());
 	light.Bind(wnd.Gfx(), cam.GetMatrix());
+
+	namespace dx=DirectX;
+	const auto transform = dx::XMMatrixRotationRollPitchYaw(pos.roll, pos.pitch, pos.yaw) *
+		dx::XMMatrixTranslation(pos.x, pos.y, pos.z);
+	nano.Draw(wnd.Gfx(), transform);
 	light.Draw(wnd.Gfx()); // draw the light source lastely.
-	nano.Draw(wnd.Gfx());
 	
 	// imgui windows
 	cam.SpawnControlWindow();
 	light.SpawnControlWindow();
+	ShowModelWindow();
 
 	// present
 	wnd.Gfx().EndFrame();
+}
+
+void App::ShowModelWindow()
+{
+	if (ImGui::Begin("Model"))
+	{
+		using namespace std::string_literals;
+
+		ImGui::Text("Orientation");
+		ImGui::SliderAngle("Roll", &pos.roll, -180.0f, 180.0f);
+		ImGui::SliderAngle("Pitch", &pos.pitch, -180.0f, 180.0f);
+		ImGui::SliderAngle("Yaw", &pos.yaw, -180.0f, 180.0f);
+
+		ImGui::Text("Position");
+		ImGui::SliderFloat("X", &pos.x, -20.0f, 20.0f);
+		ImGui::SliderFloat("Y", &pos.y, -20.0f, 20.0f);
+		ImGui::SliderFloat("Z", &pos.z, -20.0f, 20.0f);
+	}
+	ImGui::End();
 }

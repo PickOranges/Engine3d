@@ -16,7 +16,7 @@ public:
 	~App();
 private:
 	void DoFrame(); // contain top-level game logic.
-
+	void ShowModelWindow();
 private:
 	ImguiManager imgui;
 	Window wnd;
@@ -25,5 +25,16 @@ private:
 	PointLight light;
 	float speed_factor = 1.0f;
 	Model nano{ wnd.Gfx(),"models\\nanosuit.obj" };
+
+
+	struct
+	{
+		float roll = 0.0f;
+		float pitch = 0.0f;
+		float yaw = 0.0f;
+		float x = 0.0f;
+		float y = 0.0f;
+		float z = 0.0f;
+	} pos;
 };
 

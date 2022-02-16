@@ -40,7 +40,7 @@ class Model
 {
 public:
 	Model(Graphics& gfx, const std::string fileName);
-	void Draw(Graphics& gfx, DirectX::FXMMATRIX transform) const noexcept(!IS_DEBUG);
+	void Draw(Graphics& gfx) const noexcept(!IS_DEBUG);
 	void ShowWindow(const char* windowName = nullptr) noexcept;
 private:
 	static std::unique_ptr<Mesh> ParseMesh(Graphics& gfx, const aiMesh& mesh);
@@ -53,8 +53,8 @@ private:
 		float roll = 0.0f;
 		float pitch = 0.0f;
 		float yaw = 0.0f;
-		float x = 0.0f;
-		float y = 0.0f;
+		float x = -7.0f;
+		float y = -3.0f;
 		float z = 0.0f;
 	} pos;
 };

@@ -100,8 +100,10 @@ Model::Model(Graphics& gfx, const std::string fileName)
 	pRoot = ParseNode(*pScene->mRootNode);
 }
 
-void Model::Draw(Graphics& gfx, DirectX::FXMMATRIX transform) const
+void Model::Draw(Graphics& gfx) const
 {
+	const auto transform = DirectX::XMMatrixRotationRollPitchYaw(pos.roll, pos.pitch, pos.yaw) *
+		DirectX::XMMatrixTranslation(pos.x, pos.y, pos.z);
 	pRoot->Draw(gfx, transform);
 }
 

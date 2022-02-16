@@ -26,7 +26,7 @@ class Node
 public:
 	Node(const std::string& name, std::vector<Mesh*> meshPtrs, const DirectX::XMMATRIX& transform) noexcept(!IS_DEBUG);
 	void Draw(Graphics& gfx, DirectX::FXMMATRIX accumulatedTransform) const noexcept(!IS_DEBUG);
-	void RenderTree() const noexcept;
+	void ShowTree() const noexcept;
 private:
 	void AddChild(std::unique_ptr<Node> pChild) noexcept(!IS_DEBUG);
 private:
@@ -42,19 +42,12 @@ public:
 	Model(Graphics& gfx, const std::string fileName);
 	void Draw(Graphics& gfx) const noexcept(!IS_DEBUG);
 	void ShowWindow(const char* windowName = nullptr) noexcept;
+	~Model() noexcept;
 private:
 	static std::unique_ptr<Mesh> ParseMesh(Graphics& gfx, const aiMesh& mesh);
 	std::unique_ptr<Node> ParseNode(const aiNode& node) noexcept;
 private:
 	std::unique_ptr<Node> pRoot;
 	std::vector<std::unique_ptr<Mesh>> meshPtrs;
-	struct
-	{
-		float roll = 0.0f;
-		float pitch = 0.0f;
-		float yaw = 0.0f;
-		float x = -7.0f;
-		float y = -3.0f;
-		float z = 0.0f;
-	} pos;
+	std::unique_ptr<class ModelWindow> pWindow;  // Forward declarition of class ModelWindow for pImpl.
 };

@@ -63,7 +63,8 @@ private:
 	int height;
 	HWND hWnd;
 	std::unique_ptr<Graphics> pGfx;
-	bool cursorEnabled = false;
+	bool cursorEnabled = true;
+	std::vector<BYTE> rawBuffer;
 public:
 	Keyboard kbd;
 	Mouse mouse;

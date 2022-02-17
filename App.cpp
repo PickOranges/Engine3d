@@ -50,6 +50,9 @@ void App::DoFrame()
 	ShowImguiDemoWindow();
 	nano.ShowWindow();
 
+	// raw mouse input
+	ShowRawInputWindow();
+
 	// present
 	wnd.Gfx().EndFrame();
 }
@@ -59,4 +62,18 @@ void App::ShowImguiDemoWindow()
 	// Decouppling: separate the node tree control with App class(moved into Model class).
 	// Note: Current window does NOT have actual functionality, i.e. you cannot actually control it.
 
+}
+
+void App::ShowRawInputWindow()
+{
+	while (const auto d = wnd.mouse.ReadRawDelta())
+	{
+		x += d->x;
+		y += d->y;
+	}
+	if (ImGui::Begin("Raw Input"))
+	{
+		ImGui::Text("Tally: (%d,%d)", x, y);
+	}
+	ImGui::End();
 }

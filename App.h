@@ -17,7 +17,9 @@ public:
 private:
 	void DoFrame(); // contain top-level game logic.
 	void ShowImguiDemoWindow();
+	void ShowRawInputWindow();
 private:
+	int x = 0, y = 0;
 	ImguiManager imgui;
 	Window wnd;
 	TimerWrapper timer;

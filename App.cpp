@@ -43,6 +43,25 @@ void App::DoFrame()
 
 	nano.Draw(wnd.Gfx());
 	light.Draw(wnd.Gfx()); // draw the light source lastely.
+
+
+	while (const auto e = wnd.kbd.ReadKey())
+	{
+		if (e->IsPress() && e->GetCode() == VK_INSERT)
+		{
+			if (cursorEnabled)
+			{
+				wnd.DisableCursor();
+				cursorEnabled = false;
+			}
+			else
+			{
+				wnd.EnableCursor();
+				cursorEnabled = true;
+			}
+		}
+	}
+
 	
 	// imgui windows
 	cam.SpawnControlWindow();
@@ -74,6 +93,7 @@ void App::ShowRawInputWindow()
 	if (ImGui::Begin("Raw Input"))
 	{
 		ImGui::Text("Tally: (%d,%d)", x, y);
+		ImGui::Text("Cursor: %s", cursorEnabled ? "enabled" : "disabled");
 	}
 	ImGui::End();
 }

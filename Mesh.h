@@ -24,16 +24,16 @@ private:
 class Node
 {
 	friend class Model;
-	friend class ModelWindow;
+
 public:
 	Node(int id, const std::string& name, std::vector<Mesh*> meshPtrs, const DirectX::XMMATRIX& transform) noexcept(!IS_DEBUG);
 	void Draw(Graphics& gfx, DirectX::FXMMATRIX accumulatedTransform) const noexcept(!IS_DEBUG);
 	void SetAppliedTransform(DirectX::FXMMATRIX transform) noexcept;
 	int GetId() const noexcept;
+	void ShowTree(std::optional<int>& selectedIndex, Node*& pSelectedNode) const noexcept;
 	
 private:
 	void AddChild(std::unique_ptr<Node> pChild) noexcept(!IS_DEBUG);
-	void ShowTree(std::optional<int>& selectedIndex, Node*& pSelectedNode) const noexcept;
 	int id;
 private:
 	std::string name;

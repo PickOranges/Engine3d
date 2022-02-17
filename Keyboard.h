@@ -1,6 +1,7 @@
 #pragma once
 #include <queue>
 #include <bitset>
+#include <optional>
 
 class Keyboard
 {
@@ -47,7 +48,12 @@ public:
 	Keyboard& operator=(const Keyboard&) = delete;
 	// key event stuff
 	bool KeyIsPressed(unsigned char keycode) const noexcept;
-	Event ReadKey() noexcept;
+
+
+	/*Event ReadKey() noexcept;*/
+	std::optional<Keyboard::Event> ReadKey() noexcept;  // DEBUG: 2022.2.17 T31
+
+
 	bool KeyIsEmpty() const noexcept;
 	void FlushKey() noexcept;
 	// char event stuff
@@ -70,12 +76,9 @@ private:
 	static constexpr unsigned int nKeys = 256u;
 	static constexpr unsigned int bufferSize = 16u;
 	bool autorepeatEnabled = false;
-	std::bitset<nKeys> keystates;
-	
+	std::bitset<nKeys> keystates;	
 	std::queue<char> charbuffer;
-
-
-public: std::queue<Event> keybuffer;  // DEBUG: 2022.2.17 T31
+	std::queue<Event> keybuffer;  
 };
 
 template<typename T>

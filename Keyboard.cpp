@@ -5,14 +5,16 @@ bool Keyboard::KeyIsPressed(unsigned char keycode) const noexcept
 	return keystates[keycode]; 
 }
 
-Keyboard::Event Keyboard::ReadKey() noexcept
+//Keyboard::Event Keyboard::ReadKey() noexcept  // DEBUG: 2022.2.17 T31
+std::optional<Keyboard::Event> Keyboard::ReadKey() noexcept  // DEBUG: 2022.2.17 T31
 {
 	if (keybuffer.size() > 0u) {
 		Keyboard::Event e = keybuffer.front();
 		keybuffer.pop();
 		return e;
 	}
-	else return Keyboard::Event();
+	//else return Keyboard::Event();  // DEBUG: 2022.2.17 T31
+	else return std::optional<Keyboard::Event>();
 }
 
 bool Keyboard::KeyIsEmpty() const noexcept

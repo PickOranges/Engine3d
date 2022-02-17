@@ -45,17 +45,17 @@ void App::DoFrame()
 	light.Draw(wnd.Gfx()); // draw the light source lastely.
 
 
-	while (wnd.kbd.keybuffer.size()>0)		// DEBUG: 2022.2.17 T31
+	while (const auto e = wnd.kbd.ReadKey())		// DEBUG: 2022.2.17 T31
 	{
-		const auto e = wnd.kbd.ReadKey();
+		
 		//if (!e->IsPress())
-		if(e.IsPress())						// DEBUG: 2022.2.17 T31
+		if(e->IsPress())						// DEBUG: 2022.2.17 T31
 		{
 			continue;
 		}
 
 		//switch (e->GetCode())
-		switch(e.GetCode())					// DEBUG: 2022.2.17 T31
+		switch(e->GetCode())					// DEBUG: 2022.2.17 T31
 		{
 		case VK_ESCAPE:
 			if (wnd.CursorEnabled())
@@ -126,5 +126,7 @@ void App::ShowImguiDemoWindow()
 {
 	// Decouppling: separate the node tree control with App class(moved into Model class).
 	// Note: Current window does NOT have actual functionality, i.e. you cannot actually control it.
-
+	if (showDemoWindow) {
+		ImGui::ShowDemoWindow(&showDemoWindow);
+	}
 }

@@ -45,9 +45,10 @@ void App::DoFrame()
 	light.Draw(wnd.Gfx()); // draw the light source lastely.
 
 
-	while (const auto e = wnd.kbd.ReadKey())
+	while (!wnd.kbd.KeyIsEmpty()) // This is different from tutorial!! DEBUG!!
 	{
-		if (e->IsPress() && e->GetCode() == VK_INSERT)
+		const auto e = wnd.kbd.ReadKey();  
+		if (e.IsPress() && e.GetCode() == VK_INSERT)
 		{
 			if (cursorEnabled)
 			{

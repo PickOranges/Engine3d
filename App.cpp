@@ -45,11 +45,19 @@ void App::DoFrame()
 	light.Draw(wnd.Gfx()); // draw the light source lastely.
 
 
-	while (!wnd.kbd.KeyIsEmpty()) // This is different from tutorial!! DEBUG!!
+	while (wnd.kbd.keybuffer.size()>0)		// DEBUG: 2022.2.17 T31
 	{
-		const auto e = wnd.kbd.ReadKey();  
-		if (e.IsPress() && e.GetCode() == VK_INSERT)
+		const auto e = wnd.kbd.ReadKey();
+		//if (!e->IsPress())
+		if(e.IsPress())						// DEBUG: 2022.2.17 T31
 		{
+			continue;
+		}
+
+		//switch (e->GetCode())
+		switch(e.GetCode())					// DEBUG: 2022.2.17 T31
+		{
+		case VK_ESCAPE:
 			if (wnd.CursorEnabled())
 			{
 				wnd.DisableCursor();
@@ -60,6 +68,46 @@ void App::DoFrame()
 				wnd.EnableCursor();
 				wnd.mouse.DisableRaw();
 			}
+			break;
+		case VK_F1:
+			showDemoWindow = true;
+			break;
+		}
+	}
+
+	if (!wnd.CursorEnabled())
+	{
+		if (wnd.kbd.KeyIsPressed('W'))
+		{
+			cam.Translate({ 0.0f,0.0f,dt });
+		}
+		if (wnd.kbd.KeyIsPressed('A'))
+		{
+			cam.Translate({ -dt,0.0f,0.0f });
+		}
+		if (wnd.kbd.KeyIsPressed('S'))
+		{
+			cam.Translate({ 0.0f,0.0f,-dt });
+		}
+		if (wnd.kbd.KeyIsPressed('D'))
+		{
+			cam.Translate({ dt,0.0f,0.0f });
+		}
+		if (wnd.kbd.KeyIsPressed('R'))
+		{
+			cam.Translate({ 0.0f,dt,0.0f });
+		}
+		if (wnd.kbd.KeyIsPressed('F'))
+		{
+			cam.Translate({ 0.0f,-dt,0.0f });
+		}
+	}
+
+	while (const auto delta = wnd.mouse.ReadRawDelta())
+	{
+		if (!wnd.CursorEnabled())
+		{
+			cam.Rotate(delta->x, delta->y);
 		}
 	}
 
@@ -70,9 +118,6 @@ void App::DoFrame()
 	ShowImguiDemoWindow();
 	nano.ShowWindow();
 
-	// raw mouse input
-	ShowRawInputWindow();
-
 	// present
 	wnd.Gfx().EndFrame();
 }
@@ -82,19 +127,4 @@ void App::ShowImguiDemoWindow()
 	// Decouppling: separate the node tree control with App class(moved into Model class).
 	// Note: Current window does NOT have actual functionality, i.e. you cannot actually control it.
 
-}
-
-void App::ShowRawInputWindow()
-{
-	while (const auto d = wnd.mouse.ReadRawDelta())
-	{
-		x += d->x;
-		y += d->y;
-	}
-	if (ImGui::Begin("Raw Input"))
-	{
-		ImGui::Text("Tally: (%d,%d)", x, y);
-		ImGui::Text("Cursor: %s", wnd.CursorEnabled() ? "enabled" : "disabled");
-	}
-	ImGui::End();
 }

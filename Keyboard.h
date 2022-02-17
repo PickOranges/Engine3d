@@ -71,8 +71,11 @@ private:
 	static constexpr unsigned int bufferSize = 16u;
 	bool autorepeatEnabled = false;
 	std::bitset<nKeys> keystates;
-	std::queue<Event> keybuffer;
+	
 	std::queue<char> charbuffer;
+
+
+public: std::queue<Event> keybuffer;  // DEBUG: 2022.2.17 T31
 };
 
 template<typename T>

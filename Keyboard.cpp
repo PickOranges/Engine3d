@@ -14,7 +14,7 @@ std::optional<Keyboard::Event> Keyboard::ReadKey() noexcept  // DEBUG: 2022.2.17
 		return e;
 	}
 	//else return Keyboard::Event();  // DEBUG: 2022.2.17 T31
-	else return std::optional<Keyboard::Event>();
+	else return {};
 }
 
 bool Keyboard::KeyIsEmpty() const noexcept

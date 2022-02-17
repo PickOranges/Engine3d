@@ -44,7 +44,7 @@ public:
 	bool KeyIsEmpty() const noexcept;
 	void FlushKey() noexcept;
 	// char event stuff
-	char ReadChar() noexcept;
+	std::optional<char> ReadChar() noexcept;
 	bool CharIsEmpty() const noexcept;
 	void FlushChar() noexcept;
 	void Flush() noexcept;

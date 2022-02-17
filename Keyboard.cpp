@@ -27,7 +27,7 @@ void Keyboard::FlushKey() noexcept
 	keybuffer = std::queue<Event>();
 }
 
-char Keyboard::ReadChar() noexcept
+std::optional<char> Keyboard::ReadChar() noexcept
 {
 	if (charbuffer.size() > 0u)
 	{
@@ -35,7 +35,7 @@ char Keyboard::ReadChar() noexcept
 		charbuffer.pop();
 		return charcode;
 	}
-	else return 0;
+	else return {};
 }
 
 bool Keyboard::CharIsEmpty() const noexcept

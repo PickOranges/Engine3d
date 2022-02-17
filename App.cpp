@@ -45,17 +45,13 @@ void App::DoFrame()
 	light.Draw(wnd.Gfx()); // draw the light source lastely.
 
 
-	while (const auto e = wnd.kbd.ReadKey())		// DEBUG: 2022.2.17 T31
+	while (const auto e = wnd.kbd.ReadKey())	
 	{
-		
-		//if (!e->IsPress())
-		if(e->IsPress())						// DEBUG: 2022.2.17 T31
+		if(!e->IsPress())
 		{
 			continue;
 		}
-
-		//switch (e->GetCode())
-		switch(e->GetCode())					// DEBUG: 2022.2.17 T31
+		switch(e->GetCode())
 		{
 		case VK_ESCAPE:
 			if (wnd.CursorEnabled())

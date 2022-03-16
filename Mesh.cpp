@@ -1,4 +1,5 @@
 #include "Mesh.h"
+#include "Surface.h"
 #include "imgui/imgui.h"
 #include <unordered_map>
 
@@ -224,7 +225,6 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const 
 		.Append(VertexLayout::Normal)
 	));
 
-	auto& material = *pMaterials[mesh.mMaterialIndex];
 
 	for (unsigned int i = 0; i < mesh.mNumVertices; i++)
 	{
@@ -246,6 +246,17 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const 
 	}
 
 	std::vector<std::unique_ptr<Bindable>> bindablePtrs;
+
+	if (mesh.mMaterialIndex >= 0)
+	{
+		using namespace std::string_literals;
+		auto& material = *pMaterials[mesh.mMaterialIndex];
+		aiString texFileName;
+		material.GetTexture(aiTextureType_DIFFUSE, 0, &texFileName);
+		bindablePtrs.push_back(std::make_unique<Bind::Texture>(gfx, Surface::FromFile("Models\\nano_textured\\"s + texFileName.C_Str())));
+		bindablePtrs.push_back(std::make_unique<Bind::Sampler>(gfx));
+	}
+
 
 	bindablePtrs.push_back(std::make_unique<VertexBuffer>(gfx, vbuf));
 

@@ -223,16 +223,24 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const 
 		VertexLayout{}
 		.Append(VertexLayout::Position3D)
 		.Append(VertexLayout::Normal)
-		.Append(VertexLayout::Texture2D)
+		//.Append(VertexLayout::Texture2D)
 	));
+
+
+	auto& material = *pMaterials[mesh.mMaterialIndex];
+	//for (int i = 0; i < material.mNumProperties; i++)
+	//{
+	//	auto& prop = *material.mProperties[i];
+	//	int qqq = 90;
+	//}
 
 
 	for (unsigned int i = 0; i < mesh.mNumVertices; i++)
 	{
 		vbuf.EmplaceBack(
 			*reinterpret_cast<dx::XMFLOAT3*>(&mesh.mVertices[i]),
-			*reinterpret_cast<dx::XMFLOAT3*>(&mesh.mNormals[i]),
-			*reinterpret_cast<dx::XMFLOAT2*>(&mesh.mTextureCoords[0][i])
+			*reinterpret_cast<dx::XMFLOAT3*>(&mesh.mNormals[i])
+			//*reinterpret_cast<dx::XMFLOAT2*>(&mesh.mTextureCoords[0][i])
 		);
 	}
 
@@ -249,15 +257,15 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const 
 
 	std::vector<std::unique_ptr<Bindable>> bindablePtrs;
 
-	if (mesh.mMaterialIndex >= 0)
-	{
-		using namespace std::string_literals;
-		auto& material = *pMaterials[mesh.mMaterialIndex];
-		aiString texFileName;
-		material.GetTexture(aiTextureType_DIFFUSE, 0, &texFileName);
-		bindablePtrs.push_back(std::make_unique<Bind::Texture>(gfx, Surface::FromFile("Models\\nano_textured\\"s + texFileName.C_Str())));
-		bindablePtrs.push_back(std::make_unique<Bind::Sampler>(gfx));
-	}
+	//if (mesh.mMaterialIndex >= 0)
+	//{
+	//	using namespace std::string_literals;
+	//	auto& material = *pMaterials[mesh.mMaterialIndex];
+	//	aiString texFileName;
+	//	material.GetTexture(aiTextureType_DIFFUSE, 0, &texFileName);
+	//	bindablePtrs.push_back(std::make_unique<Bind::Texture>(gfx, Surface::FromFile("Models\\nano_textured\\"s + texFileName.C_Str())));
+	//	bindablePtrs.push_back(std::make_unique<Bind::Sampler>(gfx));
+	//}
 
 
 	bindablePtrs.push_back(std::make_unique<VertexBuffer>(gfx, vbuf));
@@ -274,9 +282,13 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const 
 
 	struct PSMaterialConstant
 	{
+		//float specularIntensity = 0.6f;
+		//float specularPower = 30.0f;
+		//float padding[2];
+		DirectX::XMFLOAT3 color = { 0.6f,0.6f,0.8f };
 		float specularIntensity = 0.6f;
 		float specularPower = 30.0f;
-		float padding[2];
+		float padding[3];
 	} pmc;
 	bindablePtrs.push_back(std::make_unique<PixelConstantBuffer<PSMaterialConstant>>(gfx, pmc, 1u));
 

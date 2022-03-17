@@ -26,6 +26,8 @@ class Exception : public ExceptionBase
 public:
 	static std::string TranslateErrorCode(HRESULT hr) noexcept;
 };
+
+
 class HrException : public Exception
 {
 public:

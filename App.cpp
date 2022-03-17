@@ -3,8 +3,7 @@
 #include <algorithm>
 #include "SimpleMath.h"
 #include "imgui/imgui.h"
-
-
+#include <DirectXTex.h>
 
 App::App()
 	: 
@@ -12,6 +11,16 @@ App::App()
 	light(wnd.Gfx())
 {
 	wnd.Gfx().SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 40.0f));
+
+
+	// dxtex test
+	auto scratch = DirectX::ScratchImage{};
+	DirectX::LoadFromWICFile(L"Images\\brickwall.jpg", DirectX::WIC_FLAGS_NONE, nullptr, scratch);
+	auto image = scratch.GetImage(0, 0, 0);
+	auto a = image->pixels[0];
+	auto b = image->pixels[1];
+	auto c = image->pixels[2];
+	auto d = image->pixels[3]; 
 }
 
 int App::Go()

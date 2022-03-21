@@ -1,5 +1,7 @@
 #pragma once
 #include "Graphics.h"
+#include <memory>
+
 namespace Bind {
 	class Bindable
 	{

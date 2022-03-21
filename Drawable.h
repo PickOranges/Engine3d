@@ -31,8 +31,6 @@ protected:
 		return nullptr;
 	}
 	void AddBind(std::shared_ptr<Bind::Bindable> bind) noexcept(!IS_DEBUG);
-private:
-	virtual const std::vector<std::unique_ptr<Bind::Bindable>>& GetStaticBinds() const noexcept = 0;
 
 private:
 	const Bind::IndexBuffer* pIndexBuffer = nullptr;

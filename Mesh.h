@@ -16,8 +16,6 @@ public:
 	void Draw(Graphics& gfx, DirectX::FXMMATRIX accumulatedTransform) const noexcept(!IS_DEBUG);
 	DirectX::XMMATRIX GetTransformXM() const noexcept override;
 private:
-	void Update(float dt) noexcept override; // useless
-private:
 	mutable DirectX::XMFLOAT4X4 transform;
 };
 

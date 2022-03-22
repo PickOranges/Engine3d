@@ -2,14 +2,12 @@
 #include "GraphicsThrowMacros.h"
 #include "BindableCodex.h"
 
-
-namespace Bind {
+namespace Bind
+{
 	IndexBuffer::IndexBuffer(Graphics& gfx, const std::vector<unsigned short>& indices)
 		:
 		IndexBuffer(gfx, "?", indices)
 	{}
-
-
 	IndexBuffer::IndexBuffer(Graphics& gfx, std::string tag, const std::vector<unsigned short>& indices)
 		:
 		tag(tag),
@@ -29,19 +27,17 @@ namespace Bind {
 		GFX_THROW_INFO(GetDevice(gfx)->CreateBuffer(&ibd, &isd, &pIndexBuffer));
 	}
 
-
 	void IndexBuffer::Bind(Graphics& gfx) noexcept
 	{
 		GetContext(gfx)->IASetIndexBuffer(pIndexBuffer.Get(), DXGI_FORMAT_R16_UINT, 0u);
 	}
 
-
 	UINT IndexBuffer::GetCount() const noexcept
 	{
 		return count;
 	}
-
-	static std::shared_ptr<IndexBuffer> Resolve(Graphics& gfx, const std::string& tag, const std::vector<unsigned short>& indices)
+	std::shared_ptr<IndexBuffer> IndexBuffer::Resolve(Graphics& gfx, const std::string& tag,
+		const std::vector<unsigned short>& indices)
 	{
 		assert(tag != "?");
 		return Codex::Resolve<IndexBuffer>(gfx, tag, indices);

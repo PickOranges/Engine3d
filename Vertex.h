@@ -3,6 +3,7 @@
 #include <type_traits>
 #include "Graphics.h"
 #include "Color.h"
+#include "BindableCodex.h"
 
 
 namespace hw3d

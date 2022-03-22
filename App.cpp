@@ -1,8 +1,7 @@
 #include "App.h"
-#include <memory>
-#include <algorithm>
-#include "SimpleMath.h"
 #include "imgui/imgui.h"
+
+
 
 App::App()
 	: 
@@ -10,6 +9,8 @@ App::App()
 	light(wnd.Gfx())
 {
 	wnd.Gfx().SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 40.0f));
+	auto a = Bind::VertexShader::Resolve(wnd.Gfx(), "PhongVS.cso");
+	auto b = Bind::VertexShader::Resolve(wnd.Gfx(), "PhongVS.cso");
 }
 
 int App::Go()

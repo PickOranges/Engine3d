@@ -41,8 +41,7 @@ namespace Bind {
 		return count;
 	}
 
-	std::shared_ptr<Bindable> IndexBuffer::Resolve(Graphics& gfx, const std::string& tag,
-		const std::vector<unsigned short>& indices)
+	static std::shared_ptr<IndexBuffer> Resolve(Graphics& gfx, const std::string& tag, const std::vector<unsigned short>& indices)
 	{
 		return Codex::Resolve<IndexBuffer>(gfx, tag, indices);
 	}

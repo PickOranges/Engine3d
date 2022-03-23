@@ -6,10 +6,8 @@
 App::App()
 	: 
 	wnd(1280, 720, "Test App Class Obj"),
-	light(wnd.Gfx()),
-	plane(wnd.Gfx(), 3.0f)
+	light(wnd.Gfx())
 {
-	plane.SetPos({ 10.0f,10.0f,0.0f });
 	wnd.Gfx().SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 1.0f, 40.0f));
 }
 
@@ -41,10 +39,10 @@ void App::DoFrame()
 	wnd.Gfx().SetCamera(cam.GetMatrix());
 	light.Bind(wnd.Gfx(), cam.GetMatrix());
 
-	nano.Draw(wnd.Gfx());
+	//nano.Draw(wnd.Gfx());
+	wall.Draw(wnd.Gfx());
 	light.Draw(wnd.Gfx()); // draw the light source lastely.
-	plane.Draw(wnd.Gfx());
-	cube.Draw(wnd.Gfx());
+
 
 	while (const auto e = wnd.kbd.ReadKey())	
 	{
@@ -113,9 +111,10 @@ void App::DoFrame()
 	cam.SpawnControlWindow();
 	light.SpawnControlWindow();
 	ShowImguiDemoWindow();
-	nano.ShowWindow();
-	plane.SpawnControlWindow(wnd.Gfx());
-	cube.SpawnControlWindow(wnd.Gfx());
+	//nano.ShowWindow();
+	//plane.SpawnControlWindow(wnd.Gfx());
+	//cube.SpawnControlWindow(wnd.Gfx());
+	wall.ShowWindow("Wall");
 
 	// present
 	wnd.Gfx().EndFrame();

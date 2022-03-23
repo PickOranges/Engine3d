@@ -21,10 +21,10 @@ Texture2D nmap;
 
 SamplerState splr;
 
-static const float specularPowerFactor = 100.0f;
+//static const float specularPowerFactor = 100.0f;
 
 
-float4 main(float3 worldPos : Position, float3 n : Normal, float3 tan : Tangent, float3 bitan : Bitangent, float2 tc : Texcoord) : SV_Target
+float4 main(float3 camPos : Position, float3 n : Normal, float3 tan : Tangent, float3 bitan : Bitangent, float2 tc : Texcoord) : SV_Target
 {
     // sample normal from map if normal mapping enabled
     if (normalMapEnabled)
@@ -43,7 +43,7 @@ float4 main(float3 worldPos : Position, float3 n : Normal, float3 tan : Tangent,
         // bring normal from tanspace into view space
         n = mul(n, tanToView);
     }
-{
+   
     // fragment to light vector data
     const float3 vToL = lightPos - camPos;
     const float distToL = length(vToL);
@@ -62,4 +62,5 @@ float4 main(float3 worldPos : Position, float3 n : Normal, float3 tan : Tangent,
     const float3 specular = att * (diffuseColor * diffuseIntensity) * pow(max(0.0f, dot(normalize(-r), normalize(camPos))), specularPower);
     // final color
     return float4(saturate((diffuse + ambient) * tex.Sample(splr, tc).rgb + specular * specularReflectionColor), 1.0f);
+ 
 }

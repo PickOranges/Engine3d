@@ -171,7 +171,10 @@ Model::Model(Graphics& gfx, const std::string fileName)
 	Assimp::Importer imp;
 	const auto pScene = imp.ReadFile(fileName.c_str(),
 		aiProcess_Triangulate |
-		aiProcess_JoinIdenticalVertices
+		aiProcess_JoinIdenticalVertices |
+		aiProcess_ConvertToLeftHanded |
+		aiProcess_GenNormals |
+		aiProcess_CalcTangentSpace
 	);
 
 	for (size_t i = 0; i < pScene->mNumMeshes; i++)
@@ -200,103 +203,127 @@ void Model::ShowWindow(const char* windowName) noexcept
 Model::~Model() noexcept
 {
 }
-
-std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const aiMaterial* const* pMaterials)
-{
-	using hw3d::VertexLayout;
-
-	hw3d::VertexBuffer vbuf(std::move(
-		VertexLayout{}
-		.Append(VertexLayout::Position3D)
-		.Append(VertexLayout::Normal)
-		.Append(VertexLayout::Texture2D)
-	));
-
-
-	for (unsigned int i = 0; i < mesh.mNumVertices; i++)
-	{
-		vbuf.EmplaceBack(
-			*reinterpret_cast<dx::XMFLOAT3*>(&mesh.mVertices[i]),
-			*reinterpret_cast<dx::XMFLOAT3*>(&mesh.mNormals[i]),
-			*reinterpret_cast<dx::XMFLOAT2*>(&mesh.mTextureCoords[0][i])
-		);
-	}
-
-	std::vector<unsigned short> indices;
-	indices.reserve(mesh.mNumFaces * 3);
-	for (unsigned int i = 0; i < mesh.mNumFaces; i++)
-	{
-		const auto& face = mesh.mFaces[i];
-		assert(face.mNumIndices == 3);
-		indices.push_back(face.mIndices[0]);
-		indices.push_back(face.mIndices[1]);
-		indices.push_back(face.mIndices[2]);
-	}
-
-	std::vector<std::shared_ptr<Bindable>> bindablePtrs;
-
-	using namespace std::string_literals;
-	const auto base = "Models\\nano_textured\\"s;
-
-	bool hasSpecularMap = false;
-	float shininess = 35.0f;
-	if (mesh.mMaterialIndex >= 0)
-	{
-		auto& material = *pMaterials[mesh.mMaterialIndex];
-
-		aiString texFileName;
-		material.GetTexture(aiTextureType_DIFFUSE, 0, &texFileName);
-		bindablePtrs.push_back(Texture::Resolve(gfx, base + texFileName.C_Str()));
-		
-		material.GetTexture(aiTextureType_SPECULAR, 0, &texFileName);
-		if (material.GetTexture(aiTextureType_SPECULAR, 0, &texFileName) == aiReturn_SUCCESS)
-		{
-			bindablePtrs.push_back(Texture::Resolve(gfx, base + texFileName.C_Str(), 1));
-			bool hasSpecularMap = true;
-		}
-		else
-		{
-			material.Get(AI_MATKEY_SHININESS, shininess);
-		}
-
-		bindablePtrs.push_back(Bind::Sampler::Resolve(gfx));
-	}
-
-
-	auto meshTag = base + "%" + mesh.mName.C_Str();
-	bindablePtrs.push_back(VertexBuffer::Resolve(gfx, meshTag, vbuf));
-
-	bindablePtrs.push_back(IndexBuffer::Resolve(gfx, meshTag, indices));
-
-	auto pvs = VertexShader::Resolve(gfx, "PhongVS.cso");
-	auto pvsbc = pvs->GetBytecode();
-	bindablePtrs.push_back(std::move(pvs));
-	bindablePtrs.push_back(InputLayout::Resolve(gfx, vbuf.GetLayout(), pvsbc));
-
-
-	if (hasSpecularMap)
-	{
-		bindablePtrs.push_back(PixelShader::Resolve(gfx, "PhongPSSpecMap.cso"));
-	}
-	else {
-
-		bindablePtrs.push_back(PixelShader::Resolve(gfx, "PhongPS.cso"));
-
-		struct PSMaterialConstant
-		{
-			float specularIntensity = 0.8f;
-			float specularPower;
-			float padding[2];
-		} pmc;
-		pmc.specularPower = shininess;
-
-		// this is CLEARLY an issue... all meshes will share same mat const, but may have different
-		// Ns (specular power) specified for each in the material properties... bad conflict
-		bindablePtrs.push_back(PixelConstantBuffer<PSMaterialConstant>::Resolve(gfx, pmc, 1u));
-	}
-
-	return std::make_unique<Mesh>(gfx, std::move(bindablePtrs));
-}
+//
+//std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const aiMaterial* const* pMaterials)
+//{
+//	using hw3d::VertexLayout;
+//	using namespace Bind;
+//
+//	hw3d::VertexBuffer vbuf(std::move(
+//		VertexLayout{}
+//		.Append(VertexLayout::Position3D)
+//		.Append(VertexLayout::Normal)
+//		.Append(VertexLayout::Tangent)
+//		.Append(VertexLayout::Bitangent)
+//		.Append(VertexLayout::Texture2D)
+//	));
+//
+//
+//	for (unsigned int i = 0; i < mesh.mNumVertices; i++)
+//	{
+//		vbuf.EmplaceBack(
+//			*reinterpret_cast<dx::XMFLOAT3*>(&mesh.mVertices[i]),
+//			*reinterpret_cast<dx::XMFLOAT3*>(&mesh.mNormals[i]),
+//			*reinterpret_cast<dx::XMFLOAT3*>(&mesh.mTangents[i]),
+//			*reinterpret_cast<dx::XMFLOAT3*>(&mesh.mBitangents[i]),
+//			*reinterpret_cast<dx::XMFLOAT2*>(&mesh.mTextureCoords[0][i])
+//		);
+//	}
+//
+//	std::vector<unsigned short> indices;
+//	indices.reserve(mesh.mNumFaces * 3);
+//	for (unsigned int i = 0; i < mesh.mNumFaces; i++)
+//	{
+//		const auto& face = mesh.mFaces[i];
+//		assert(face.mNumIndices == 3);
+//		indices.push_back(face.mIndices[0]);
+//		indices.push_back(face.mIndices[1]);
+//		indices.push_back(face.mIndices[2]);
+//	}
+//
+//	std::vector<std::shared_ptr<Bindable>> bindablePtrs;
+//
+//	using namespace std::string_literals;
+//	//const auto base = "Models\\nano_textured\\"s;
+//	const auto base = "Models\\brick_wall\\"s;
+//
+//	bool hasSpecularMap = false;
+//	float shininess = 35.0f;
+//	if (mesh.mMaterialIndex >= 0)
+//	{
+//		auto& material = *pMaterials[mesh.mMaterialIndex];
+//
+//		aiString texFileName;
+//		material.GetTexture(aiTextureType_DIFFUSE, 0, &texFileName);
+//		bindablePtrs.push_back(Texture::Resolve(gfx, base + texFileName.C_Str()));
+//		
+//		material.GetTexture(aiTextureType_SPECULAR, 0, &texFileName);
+//		if (material.GetTexture(aiTextureType_SPECULAR, 0, &texFileName) == aiReturn_SUCCESS)
+//		{
+//			bindablePtrs.push_back(Texture::Resolve(gfx, base + texFileName.C_Str(), 1));
+//			bool hasSpecularMap = true;
+//		}
+//		else
+//		{
+//			material.Get(AI_MATKEY_SHININESS, shininess);
+//		}
+//
+//
+//		material.GetTexture(aiTextureType_NORMALS, 0, &texFileName);
+//		bindablePtrs.push_back(Texture::Resolve(gfx, base + texFileName.C_Str(), 2));
+//
+//		bindablePtrs.push_back(Bind::Sampler::Resolve(gfx));
+//	}
+//
+//
+//	auto meshTag = base + "%" + mesh.mName.C_Str();
+//	bindablePtrs.push_back(VertexBuffer::Resolve(gfx, meshTag, vbuf));
+//
+//	bindablePtrs.push_back(IndexBuffer::Resolve(gfx, meshTag, indices));
+//
+//	//auto pvs = VertexShader::Resolve(gfx, "PhongVS.cso");
+//	auto pvs = VertexShader::Resolve(gfx, "PhongVSNormalMap.cso");
+//	auto pvsbc = pvs->GetBytecode();
+//	bindablePtrs.push_back(std::move(pvs));
+//	bindablePtrs.push_back(InputLayout::Resolve(gfx, vbuf.GetLayout(), pvsbc));
+//
+//
+//	if (hasSpecularMap)
+//	{
+//		//bindablePtrs.push_back(PixelShader::Resolve(gfx, "PhongPSSpecMap.cso"));
+//		bindablePtrs.push_back(PixelShader::Resolve(gfx, "PhongPSSpecNormalMap.cso"));
+//
+//		struct PSMaterialConstant
+//		{
+//			BOOL  normalMapEnabled = TRUE;
+//			float padding[3];
+//		} pmc;
+//		// this is CLEARLY an issue... all meshes will share same mat const, but may have different
+//		// Ns (specular power) specified for each in the material properties... bad conflict
+//		bindablePtrs.push_back(PixelConstantBuffer<PSMaterialConstant>::Resolve(gfx, pmc, 1u));
+//	}
+//	else {
+//
+//		//bindablePtrs.push_back(PixelShader::Resolve(gfx, "PhongPS.cso"));
+//		bindablePtrs.push_back(PixelShader::Resolve(gfx, "PhongPSNormalMap.cso"));
+//
+//		struct PSMaterialConstant
+//		{
+//			float specularIntensity = 0.8f;
+//			float specularPower;
+//			//float padding[2];
+//			BOOL  normalMapEnabled = TRUE;
+//			float padding[1];
+//		} pmc;
+//		pmc.specularPower = shininess;
+//
+//		// this is CLEARLY an issue... all meshes will share same mat const, but may have different
+//		// Ns (specular power) specified for each in the material properties... bad conflict
+//		bindablePtrs.push_back(PixelConstantBuffer<PSMaterialConstant>::Resolve(gfx, pmc, 1u));
+//	}
+//
+//	return std::make_unique<Mesh>(gfx, std::move(bindablePtrs));
+//}
 
 std::unique_ptr<Node> Model::ParseNode(int& nextId, const aiNode& node) noexcept
 {
@@ -320,4 +347,118 @@ std::unique_ptr<Node> Model::ParseNode(int& nextId, const aiNode& node) noexcept
 	}
 
 	return pNode;
+}
+
+
+std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const aiMaterial* const* pMaterials)
+{
+	using hw3d::VertexLayout;
+	using namespace Bind;
+
+	hw3d::VertexBuffer vbuf(std::move(
+		VertexLayout{}
+		.Append(VertexLayout::Position3D)
+		.Append(VertexLayout::Normal)
+		.Append(VertexLayout::Tangent)
+		.Append(VertexLayout::Bitangent)
+		.Append(VertexLayout::Texture2D)
+	));
+
+	for (unsigned int i = 0; i < mesh.mNumVertices; i++)
+	{
+		vbuf.EmplaceBack(
+			*reinterpret_cast<dx::XMFLOAT3*>(&mesh.mVertices[i]),
+			*reinterpret_cast<dx::XMFLOAT3*>(&mesh.mNormals[i]),
+			*reinterpret_cast<dx::XMFLOAT3*>(&mesh.mTangents[i]),
+			*reinterpret_cast<dx::XMFLOAT3*>(&mesh.mBitangents[i]),
+			*reinterpret_cast<dx::XMFLOAT2*>(&mesh.mTextureCoords[0][i])
+		);
+	}
+
+	std::vector<unsigned short> indices;
+	indices.reserve(mesh.mNumFaces * 3);
+	for (unsigned int i = 0; i < mesh.mNumFaces; i++)
+	{
+		const auto& face = mesh.mFaces[i];
+		assert(face.mNumIndices == 3);
+		indices.push_back(face.mIndices[0]);
+		indices.push_back(face.mIndices[1]);
+		indices.push_back(face.mIndices[2]);
+	}
+
+	std::vector<std::shared_ptr<Bindable>> bindablePtrs;
+
+	using namespace std::string_literals;
+	const auto base = "Models\\brick_wall\\"s;
+
+	bool hasSpecularMap = false;
+	float shininess = 35.0f;
+	if (mesh.mMaterialIndex >= 0)
+	{
+		auto& material = *pMaterials[mesh.mMaterialIndex];
+
+		aiString texFileName;
+
+		material.GetTexture(aiTextureType_DIFFUSE, 0, &texFileName);
+		bindablePtrs.push_back(Texture::Resolve(gfx, base + texFileName.C_Str()));
+
+		if (material.GetTexture(aiTextureType_SPECULAR, 0, &texFileName) == aiReturn_SUCCESS)
+		{
+			bindablePtrs.push_back(Texture::Resolve(gfx, base + texFileName.C_Str(), 1));
+			hasSpecularMap = true;
+		}
+		else
+		{
+			material.Get(AI_MATKEY_SHININESS, shininess);
+		}
+
+		material.GetTexture(aiTextureType_NORMALS, 0, &texFileName);
+		bindablePtrs.push_back(Texture::Resolve(gfx, base + texFileName.C_Str(), 2));
+
+		bindablePtrs.push_back(Bind::Sampler::Resolve(gfx));
+	}
+
+	auto meshTag = base + "%" + mesh.mName.C_Str();
+
+	bindablePtrs.push_back(VertexBuffer::Resolve(gfx, meshTag, vbuf));
+
+	bindablePtrs.push_back(IndexBuffer::Resolve(gfx, meshTag, indices));
+
+	auto pvs = VertexShader::Resolve(gfx, "PhongVSNormalMap.cso");
+	auto pvsbc = pvs->GetBytecode();
+	bindablePtrs.push_back(std::move(pvs));
+
+	bindablePtrs.push_back(InputLayout::Resolve(gfx, vbuf.GetLayout(), pvsbc));
+
+	if (hasSpecularMap)
+	{
+		bindablePtrs.push_back(PixelShader::Resolve(gfx, "PhongPSSpecNormalMap.cso"));
+
+		struct PSMaterialConstant
+		{
+			BOOL  normalMapEnabled = TRUE;
+			float padding[3];
+		} pmc;
+		// this is CLEARLY an issue... all meshes will share same mat const, but may have different
+		// Ns (specular power) specified for each in the material properties... bad conflict
+		bindablePtrs.push_back(PixelConstantBuffer<PSMaterialConstant>::Resolve(gfx, pmc, 1u));
+	}
+	else
+	{
+		bindablePtrs.push_back(PixelShader::Resolve(gfx, "PhongPSNormalMap.cso"));
+
+		struct PSMaterialConstant
+		{
+			float specularIntensity = 0.8f;
+			float specularPower;
+			BOOL  normalMapEnabled = TRUE;
+			float padding[1];
+		} pmc;
+		pmc.specularPower = shininess;
+		// this is CLEARLY an issue... all meshes will share same mat const, but may have different
+		// Ns (specular power) specified for each in the material properties... bad conflict
+		bindablePtrs.push_back(PixelConstantBuffer<PSMaterialConstant>::Resolve(gfx, pmc, 1u));
+	}
+
+	return std::make_unique<Mesh>(gfx, std::move(bindablePtrs));
 }

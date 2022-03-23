@@ -26,8 +26,8 @@ private:
 	Camera cam;
 	PointLight light;
 	float speed_factor = 1.0f;
-	Model nano{ wnd.Gfx(),"models\\nano_textured\\nanosuit.obj" };
+	//Model nano{ wnd.Gfx(),"models\\nano_textured\\nanosuit.obj" };
+	Model wall{ wnd.Gfx(),"Models\\brick_wall\\brick_wall.obj" };
 	bool showDemoWindow = false;
-	TestPlane plane;
 };
 

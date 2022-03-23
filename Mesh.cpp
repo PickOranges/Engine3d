@@ -325,6 +325,11 @@ Model::~Model() noexcept
 //	return std::make_unique<Mesh>(gfx, std::move(bindablePtrs));
 //}
 
+void Model::SetRootTransform(DirectX::FXMMATRIX tf) noexcept
+{
+	pRoot->SetAppliedTransform(tf);
+}
+
 std::unique_ptr<Node> Model::ParseNode(int& nextId, const aiNode& node) noexcept
 {
 	namespace dx = DirectX;
@@ -449,7 +454,8 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const 
 
 		struct PSMaterialConstant
 		{
-			float specularIntensity = 0.8f;
+			//float specularIntensity = 0.8f;
+			float specularIntensity = 0.18f;
 			float specularPower;
 			BOOL  normalMapEnabled = TRUE;
 			float padding[1];

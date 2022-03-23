@@ -67,4 +67,4 @@ namespace Bind {
 	std::unique_ptr<PixelConstantBuffer<TransformCbuf::Transforms>> TransformCbufDual::pPcbuf;
 }
 
-}
+

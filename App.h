@@ -6,6 +6,8 @@
 #include "PointLight.h"
 #include <set>
 #include "Mesh.h"
+#include "TestPlane.h"
+
 
 class App
 {
@@ -26,5 +28,6 @@ private:
 	float speed_factor = 1.0f;
 	Model nano{ wnd.Gfx(),"models\\nano_textured\\nanosuit.obj" };
 	bool showDemoWindow = false;
+	TestPlane plane;
 };
 

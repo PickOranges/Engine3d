@@ -9,8 +9,8 @@ App::App()
 	light(wnd.Gfx()),
 	plane(wnd.Gfx(), 3.0f)
 {
-	wnd.Gfx().SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 40.0f));
 	plane.SetPos({ 1.0f,17.0f,-1.0f });
+	wnd.Gfx().SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 40.0f));
 }
 
 int App::Go()
@@ -43,7 +43,7 @@ void App::DoFrame()
 
 	nano.Draw(wnd.Gfx());
 	light.Draw(wnd.Gfx()); // draw the light source lastely.
-
+	plane.Draw(wnd.Gfx());
 
 	while (const auto e = wnd.kbd.ReadKey())	
 	{

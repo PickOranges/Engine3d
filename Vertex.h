@@ -205,11 +205,12 @@ namespace hw3d
 	class VertexBuffer
 	{
 	public:
-		VertexBuffer(VertexLayout layout) noexcept(!IS_DEBUG);
+		VertexBuffer(VertexLayout layout, size_t size = 0u) noexcept(!IS_DEBUG);
 		const char* GetData() const noexcept(!IS_DEBUG);
 		const VertexLayout& GetLayout() const noexcept;
 		size_t Size() const noexcept(!IS_DEBUG);
 		size_t SizeBytes() const noexcept(!IS_DEBUG);
+		void Resize(size_t newSize) noexcept(!IS_DEBUG);
 		template<typename ...Params>
 		void EmplaceBack(Params&&... params) noexcept(!IS_DEBUG)
 		{

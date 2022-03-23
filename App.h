@@ -7,6 +7,7 @@
 #include <set>
 #include "Mesh.h"
 #include "TestPlane.h"
+#include "TestCube.h"
 
 
 class App
@@ -29,5 +30,6 @@ private:
 	Model nano{ wnd.Gfx(),"models\\nano_textured\\nanosuit.obj" };
 	bool showDemoWindow = false;
 	TestPlane plane;
+	TestCube cube;
 };
 

@@ -250,6 +250,7 @@
     <ClInclude Include="PointLight.h" />
     <ClInclude Include="Sampler.h" />
     <ClInclude Include="SimpleMath.h" />
+    <ClInclude Include="SimpleMathDX.h" />
     <ClInclude Include="SolidSphere.h" />
     <ClInclude Include="Sphere.h" />
     <ClInclude Include="Surface.h" />

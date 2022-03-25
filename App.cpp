@@ -8,8 +8,6 @@ App::App()
 	wnd(1280, 720, "Test App Class Obj"),
 	light(wnd.Gfx())
 {
-	//wall.SetRootTransform(dx::XMMatrixTranslation(-1.5f, 0.0f, 0.0f));
-	//tp.SetPos({ 1.5f,0.0f,0.0f });
 	wnd.Gfx().SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 40.0f));
 }
 
@@ -40,13 +38,15 @@ void App::DoFrame()
 	// Now update camera params every frame(Instead of updating just once in ctor when init App).
 	wnd.Gfx().SetCamera(cam.GetMatrix());
 	light.Bind(wnd.Gfx(), cam.GetMatrix());
-
-	//nano.Draw(wnd.Gfx());
-	//wall.Draw(wnd.Gfx());
-	//tp.Draw(wnd.Gfx());
 	light.Draw(wnd.Gfx()); // draw the light source lastely.
+	sponza.Draw(wnd.Gfx());
 
 
+
+
+
+
+	// Handles the messages from mouse and keyboard.
 	while (const auto e = wnd.kbd.ReadKey())	
 	{
 		if(!e->IsPress())
@@ -72,7 +72,6 @@ void App::DoFrame()
 			break;
 		}
 	}
-
 	if (!wnd.CursorEnabled())
 	{
 		if (wnd.kbd.KeyIsPressed('W'))
@@ -100,7 +99,6 @@ void App::DoFrame()
 			cam.Translate({ 0.0f,-dt,0.0f });
 		}
 	}
-
 	while (const auto delta = wnd.mouse.ReadRawDelta())
 	{
 		if (!wnd.CursorEnabled())
@@ -114,11 +112,7 @@ void App::DoFrame()
 	cam.SpawnControlWindow();
 	light.SpawnControlWindow();
 	ShowImguiDemoWindow();
-	//nano.ShowWindow();
-	//plane.SpawnControlWindow(wnd.Gfx());
-	//cube.SpawnControlWindow(wnd.Gfx());
-	//wall.ShowWindow("Wall");
-	//tp.SpawnControlWindow(wnd.Gfx());
+	sponza.ShowWindow(wnd.Gfx(), "Sponza");
 
 	// present
 	wnd.Gfx().EndFrame();

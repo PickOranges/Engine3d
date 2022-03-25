@@ -1,9 +1,4 @@
-// for point light
-cbuffer CBuf
-{
-	matrix modelView;
-	matrix modelViewProj;
-};
+#include "Transform.hlsli"
 
 float4 main(float3 pos : Position) : SV_Position
 {

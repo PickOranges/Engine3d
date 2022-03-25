@@ -288,12 +288,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="ColorIndexVS.hlsl">
-      <Filter>Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="ColorIndexPS.hlsl">
-      <Filter>Shader</Filter>
-    </FxCompile>
     <FxCompile Include="SolidVS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
@@ -324,5 +318,22 @@
     <FxCompile Include="PhongPSNotex.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
+    <FxCompile Include="PhongPSSpec.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Transform.hlsli">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="ShaderOps.hlsli">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="LightVectorData.hlsli">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="PointLight.hlsli">
+      <Filter>Shader</Filter>
+    </None>
   </ItemGroup>
 </Project>

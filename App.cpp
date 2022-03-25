@@ -8,8 +8,8 @@ App::App()
 	wnd(1280, 720, "Test App Class Obj"),
 	light(wnd.Gfx())
 {
-	wall.SetRootTransform(dx::XMMatrixTranslation(-1.5f, 0.0f, 0.0f));
-	tp.SetPos({ 1.5f,0.0f,0.0f });
+	//wall.SetRootTransform(dx::XMMatrixTranslation(-1.5f, 0.0f, 0.0f));
+	//tp.SetPos({ 1.5f,0.0f,0.0f });
 	wnd.Gfx().SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 40.0f));
 }
 
@@ -42,8 +42,8 @@ void App::DoFrame()
 	light.Bind(wnd.Gfx(), cam.GetMatrix());
 
 	//nano.Draw(wnd.Gfx());
-	wall.Draw(wnd.Gfx());
-	tp.Draw(wnd.Gfx());
+	//wall.Draw(wnd.Gfx());
+	//tp.Draw(wnd.Gfx());
 	light.Draw(wnd.Gfx()); // draw the light source lastely.
 
 
@@ -117,8 +117,8 @@ void App::DoFrame()
 	//nano.ShowWindow();
 	//plane.SpawnControlWindow(wnd.Gfx());
 	//cube.SpawnControlWindow(wnd.Gfx());
-	wall.ShowWindow("Wall");
-	tp.SpawnControlWindow(wnd.Gfx());
+	//wall.ShowWindow("Wall");
+	//tp.SpawnControlWindow(wnd.Gfx());
 
 	// present
 	wnd.Gfx().EndFrame();

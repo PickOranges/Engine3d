@@ -27,8 +27,8 @@ private:
 	PointLight light;
 	float speed_factor = 1.0f;
 	//Model nano{ wnd.Gfx(),"models\\nano_textured\\nanosuit.obj" };
-	Model wall{ wnd.Gfx(),"Models\\brick_wall\\brick_wall.obj" };
-	TestPlane tp{ wnd.Gfx(),1.0 };
+	//Model wall{ wnd.Gfx(),"Models\\brick_wall\\brick_wall.obj" };
+	//TestPlane tp{ wnd.Gfx(),1.0 };
 	bool showDemoWindow = false;
 };
 

@@ -26,7 +26,7 @@ float4 main(float3 viewFragPos : Position, float3 viewNormal : Normal, float3 vi
 
 
     #ifdef _MASK
-    clip(dtex.a < 0.1f ? -1 : 1);
+    clip(dtex.a < 0.5f ? -1 : 1);
     // flip normal when backface
     if (dot(viewNormal, viewFragPos) >= 0.0f)
     {

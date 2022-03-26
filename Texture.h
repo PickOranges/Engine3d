@@ -20,5 +20,7 @@ namespace Bind
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> pTextureView;
 	private:
 		unsigned int slot;
+	private:
+		static UINT CalculateNumberOfMipLevels(UINT width, UINT height) noexcept;
 	};
 }

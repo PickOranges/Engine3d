@@ -137,6 +137,9 @@
     <ClCompile Include="Blender.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Rasterizer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Win.h">
@@ -298,6 +301,9 @@
     <ClInclude Include="Blender.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Rasterizer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="SolidVS.hlsl">
@@ -331,6 +337,9 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="PhongPSSpec.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="PhongPSSpecNormMask.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

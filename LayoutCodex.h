@@ -10,6 +10,10 @@
 
 namespace Dcb
 {
+	class RawLayout;
+	class LayoutElement;
+	class CookedLayout;
+
 	class LayoutCodex
 	{
 	public:

@@ -125,7 +125,6 @@ const Dcb::Buffer* Node::GetMaterialConstants() const noexcept(!IS_DEBUG)
 	if (meshPtrs.size() == 0)
 	{
 		return nullptr;
-
 	}
 	auto pBindable = meshPtrs.front()->QueryBindable<Bind::CachingPixelConstantBufferEX>();
 	return &pBindable->GetBuffer();

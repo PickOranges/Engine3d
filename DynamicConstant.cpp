@@ -26,7 +26,7 @@ namespace Dcb
 		switch (type)
 		{
 		#define X(el) case el: return Map<el>::code;
-					LEAF_ELEMENT_TYPES
+		LEAF_ELEMENT_TYPES
 		#undef X
 		case Struct:
 			return GetSignatureForStruct();
@@ -129,7 +129,7 @@ namespace Dcb
 	}
 	LayoutElement::LayoutElement(Type typeIn) noexcept(!IS_DEBUG)
 		:
-	type{ typeIn }
+		type{ typeIn }
 	{
 		assert(typeIn != Empty);
 		if (typeIn == Struct)
@@ -157,7 +157,7 @@ namespace Dcb
 			return 0u;
 		}
 	}
-	std::string LayoutElement::GetSignatureForStruct() const noxnd
+	std::string LayoutElement::GetSignatureForStruct() const noexcept(!IS_DEBUG)
 	{
 		using namespace std::string_literals;
 		auto sig = "St{"s;
@@ -168,7 +168,7 @@ namespace Dcb
 		sig += "}"s;
 		return sig;
 	}
-	std::string LayoutElement::GetSignatureForArray() const noxnd
+	std::string LayoutElement::GetSignatureForArray() const noexcept(!IS_DEBUG)
 	{
 		using namespace std::string_literals;
 		const auto& data = static_cast<ExtraData::Array&>(*pExtraData);
@@ -230,7 +230,7 @@ namespace Dcb
 	{
 		return pRoot->GetSizeInBytes();
 	}
-	std::string Layout::GetSignature() const noxnd
+	std::string Layout::GetSignature() const noexcept(!IS_DEBUG)
 	{
 		return pRoot->GetSignature();
 	}
@@ -240,7 +240,7 @@ namespace Dcb
 		:
 		Layout{ std::shared_ptr<LayoutElement>{ new LayoutElement(Struct) } }
 	{}
-	LayoutElement& RawLayout::operator[](const std::string& key) noxnd
+	LayoutElement& RawLayout::operator[](const std::string& key) noexcept(!IS_DEBUG)
 	{
 		return (*pRoot)[key];
 	}
@@ -269,7 +269,7 @@ namespace Dcb
 	{
 		return pRoot;
 	}
-	const LayoutElement& CookedLayout::operator[](const std::string& key) const noxnd
+	const LayoutElement& CookedLayout::operator[](const std::string& key) const noexcept(!IS_DEBUG)
 	{
 		return (*pRoot)[key];
 	}
@@ -282,16 +282,16 @@ namespace Dcb
 	{
 		return pLayout->Exists();
 	}
-	ConstElementRef ConstElementRef::operator[](const std::string& key) const noxnd
+	ConstElementRef ConstElementRef::operator[](const std::string& key) const noexcept(!IS_DEBUG)
 	{
 		return { &(*pLayout)[key],pBytes,offset };
 	}
-	ConstElementRef ConstElementRef::operator[](size_t index) const noxnd
+	ConstElementRef ConstElementRef::operator[](size_t index) const noexcept(!IS_DEBUG)
 	{
 		const auto indexingData = pLayout->CalculateIndexingOffset(offset, index);
 		return { indexingData.second,pBytes,indexingData.first };
 	}
-	ConstElementRef::Ptr ConstElementRef::operator&() const noxnd
+	ConstElementRef::Ptr ConstElementRef::operator&() const noexcept(!IS_DEBUG)
 	{
 		return Ptr{ this };
 	}
@@ -313,16 +313,16 @@ namespace Dcb
 	{
 		return pLayout->Exists();
 	}
-	ElementRef ElementRef::operator[](const std::string& key) const noxnd
+	ElementRef ElementRef::operator[](const std::string& key) const noexcept(!IS_DEBUG)
 	{
 		return { &(*pLayout)[key],pBytes,offset };
 	}
-	ElementRef ElementRef::operator[](size_t index) const noxnd
+	ElementRef ElementRef::operator[](size_t index) const noexcept(!IS_DEBUG)
 	{
 		const auto indexingData = pLayout->CalculateIndexingOffset(offset, index);
 		return { indexingData.second,pBytes,indexingData.first };
 	}
-	ElementRef::Ptr ElementRef::operator&() const noxnd
+	ElementRef::Ptr ElementRef::operator&() const noexcept(!IS_DEBUG)
 	{
 		return Ptr{ const_cast<ElementRef*>(this) };
 	}
@@ -338,16 +338,16 @@ namespace Dcb
 
 
 
-	Buffer::Buffer(RawLayout&& lay) noxnd
+	Buffer::Buffer(RawLayout&& lay) noexcept(!IS_DEBUG)
 		:
 	Buffer(LayoutCodex::Resolve(std::move(lay)))
 	{}
-	Buffer::Buffer(const CookedLayout& lay) noxnd
+	Buffer::Buffer(const CookedLayout& lay) noexcept(!IS_DEBUG)
 		:
 		pLayoutRoot(lay.ShareRoot()),
 		bytes(pLayoutRoot->GetOffsetEnd())
 	{}
-	Buffer::Buffer(CookedLayout&& lay) noxnd
+	Buffer::Buffer(CookedLayout&& lay) noexcept(!IS_DEBUG)
 		:
 		pLayoutRoot(lay.RelinquishRoot()),
 		bytes(pLayoutRoot->GetOffsetEnd())
@@ -362,11 +362,11 @@ namespace Dcb
 		pLayoutRoot(std::move(buf.pLayoutRoot)),
 		bytes(std::move(buf.bytes))
 	{}
-	ElementRef Buffer::operator[](const std::string& key) noxnd
+	ElementRef Buffer::operator[](const std::string& key) noexcept(!IS_DEBUG)
 	{
 		return { &(*pLayoutRoot)[key],bytes.data(),0u };
 	}
-	ConstElementRef Buffer::operator[](const std::string& key) const noxnd
+	ConstElementRef Buffer::operator[](const std::string& key) const noexcept(!IS_DEBUG)
 	{
 		return const_cast<Buffer&>(*this)[key];
 	}
@@ -382,7 +382,7 @@ namespace Dcb
 	{
 		return *pLayoutRoot;
 	}
-	void Buffer::CopyFrom(const Buffer& other) noxnd
+	void Buffer::CopyFrom(const Buffer& other) noexcept(!IS_DEBUG)
 	{
 		assert(&GetRootLayoutElement() == &other.GetRootLayoutElement());
 		std::copy(other.bytes.begin(), other.bytes.end(), bytes.begin());

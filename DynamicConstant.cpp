@@ -78,9 +78,9 @@ namespace Dcb
 	{
 		switch (type)
 		{
-#define X(el) case el: return *offset + Map<el>::hlslSize;
+		#define X(el) case el: return *offset + Map<el>::hlslSize;
 			LEAF_ELEMENT_TYPES
-#undef X
+		#undef X
 		case Struct:
 			{
 				const auto& data = static_cast<ExtraData::Struct&>(*pExtraData);

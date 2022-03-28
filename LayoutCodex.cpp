@@ -3,7 +3,7 @@
 
 namespace Dcb
 {
-	Dcb::CookedLayout LayoutCodex::Resolve(Dcb::RawLayout&& layout) noexcept(!IS_DEBUG)
+	CookedLayout LayoutCodex::Resolve(RawLayout&& layout) noexcept(!IS_DEBUG)
 	{
 		auto sig = layout.GetSignature();
 		auto& map = Get_().map;

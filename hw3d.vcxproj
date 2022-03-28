@@ -203,6 +203,7 @@
     <ClCompile Include="PointLight.cpp" />
     <ClCompile Include="Rasterizer.cpp" />
     <ClCompile Include="Sampler.cpp" />
+    <ClCompile Include="ScriptCommander.cpp" />
     <ClCompile Include="SolidSphere.cpp" />
     <ClCompile Include="Surface.cpp" />
     <ClCompile Include="TestCube.cpp" />
@@ -212,6 +213,7 @@
     <ClCompile Include="TimerWrapper.cpp" />
     <ClCompile Include="Topology.cpp" />
     <ClCompile Include="TransformCbuf.cpp" />
+    <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Vertex.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
     <ClCompile Include="VertexShader.cpp" />
@@ -266,6 +268,7 @@
     <ClInclude Include="TimerWrapper.h" />
     <ClInclude Include="Topology.h" />
     <ClInclude Include="TransformCbuf.h" />
+    <ClInclude Include="Utils.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="VertexBuffer.h" />
     <ClInclude Include="VertexShader.h" />

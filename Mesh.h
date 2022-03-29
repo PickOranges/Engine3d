@@ -12,7 +12,7 @@
 #include <filesystem>
 #include "DynamicConstant.h"
 #include "ConstantBuffersEx.h"
-
+#include "Stencil.h"
 
 
 class ModelException : public ExceptionBase

@@ -334,6 +334,9 @@
     <ClInclude Include="Testing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Stencil.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="SolidVS.hlsl">

@@ -266,6 +266,7 @@
     <ClInclude Include="SimpleMathDX.h" />
     <ClInclude Include="SolidSphere.h" />
     <ClInclude Include="Sphere.h" />
+    <ClInclude Include="Stencil.h" />
     <ClInclude Include="Surface.h" />
     <ClInclude Include="TestCube.h" />
     <ClInclude Include="Testing.h" />

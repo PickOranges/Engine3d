@@ -1,5 +1,6 @@
 #pragma once
 #include "Drawable.h"
+#include "Stencil.h"
 
 class SolidSphere : public Drawable
 {

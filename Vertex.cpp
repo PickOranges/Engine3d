@@ -98,8 +98,6 @@ namespace hw3d
 			{
 				return sizeof(VertexLayout::Map<type>::SysType);
 			}
-		assert("Invalid element type" && false);
-		return "Invalid";
 	};
 	template<VertexLayout::ElementType type>
 	struct CodeLookup
@@ -108,8 +106,6 @@ namespace hw3d
 		{
 			return VertexLayout::Map<type>::code;
 		}
-		assert("Invalid element type" && false);
-		return { "INVALID",0,DXGI_FORMAT_UNKNOWN,0,0,D3D11_INPUT_PER_VERTEX_DATA,0 };
 	};
 
 	const char* hw3d::VertexLayout::Element::GetCode() const noexcept

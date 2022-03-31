@@ -10,6 +10,10 @@ App::App()
 	light(wnd.Gfx())
 {
 	TestDynamicConstant();
+	cube.SetPos({ 4.0f,0.0f,0.0f });
+	cube2.SetPos({ 0.0f,4.0f,0.0f });
+
+
 	wnd.Gfx().SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 400.0f));
 }
 
@@ -39,20 +43,20 @@ void App::DoFrame()
 
 	// Now update camera params every frame(Instead of updating just once in ctor when init App).
 	wnd.Gfx().SetCamera(cam.GetMatrix());
-	light.Bind(wnd.Gfx(), cam.GetMatrix());
-	light.Draw(wnd.Gfx()); // draw the light source lastely.
-	sponza.Draw(wnd.Gfx());
+	//light.Bind(wnd.Gfx(), cam.GetMatrix());
+	//light.Draw(wnd.Gfx()); // draw the light source lastely.
+	//sponza.Draw(wnd.Gfx());
 
 
-	cube.Draw(wnd.Gfx());
-	cube2.Draw(wnd.Gfx());
-	cube.DrawOutline(wnd.Gfx());
-	cube2.DrawOutline(wnd.Gfx());
+	//cube.Draw(wnd.Gfx());
+	//cube2.Draw(wnd.Gfx());
+	//cube.DrawOutline(wnd.Gfx());
+	//cube2.DrawOutline(wnd.Gfx());
 
-
-
-
-
+	light.Submit(fc);
+	cube.Submit(fc);
+	cube2.Submit(fc);
+	fc.Execute(wnd.Gfx());
 
 	// Handles the messages from mouse and keyboard.
 	while (const auto e = wnd.kbd.ReadKey())	
@@ -120,12 +124,15 @@ void App::DoFrame()
 	cam.SpawnControlWindow();
 	light.SpawnControlWindow();
 	ShowImguiDemoWindow();
-	sponza.ShowWindow(wnd.Gfx(), "Sponza");
+	//sponza.ShowWindow(wnd.Gfx(), "Sponza");
 	cube.SpawnControlWindow(wnd.Gfx(), "Cube 1");
 	cube2.SpawnControlWindow(wnd.Gfx(), "Cube 2");
 
 	// present
 	wnd.Gfx().EndFrame();
+
+
+	fc.Reset();
 }
 
 void App::ShowImguiDemoWindow()

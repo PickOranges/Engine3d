@@ -6,7 +6,6 @@
 //class Bindable;
 namespace Bind
 {
-	class Bindable;
 	class IndexBuffer;
 	class VertexBuffer;
 	class Topology;

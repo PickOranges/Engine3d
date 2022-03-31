@@ -187,7 +187,8 @@ void TestCube::SpawnControlWindow(Graphics& gfx, const char* name) noexcept
 
 				if (auto v = buf["scale"]; v.Exists())
 				{
-					dcheck(ImGui::SliderFloat("Scale", &v, 1.0f, 2.0f, "%.3f", 3.5f));
+					//dcheck(ImGui::SliderFloat("Scale", &v, 1.0f, 2.0f, "%.3f", 3.5f));
+					dcheck(ImGui::SliderFloat("Scale", &v, 1.0f, 2.0f, "%.3f", 1.0f));
 				}
 				if (auto v = buf["color"]; v.Exists())
 				{
@@ -199,7 +200,8 @@ void TestCube::SpawnControlWindow(Graphics& gfx, const char* name) noexcept
 				}
 				if (auto v = buf["specularPower"]; v.Exists())
 				{
-					dcheck(ImGui::SliderFloat("Glossiness", &v, 1.0f, 100.0f, "%.1f", 1.5f));
+					//dcheck(ImGui::SliderFloat("Glossiness", &v, 1.0f, 100.0f, "%.1f", 1.5f));
+					dcheck(ImGui::SliderFloat("Glossiness", &v, 1.0f, 100.0f, "%.1f", 1.0f));
 				}
 				return dirty;
 			}

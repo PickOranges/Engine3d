@@ -33,4 +33,4 @@ UINT Drawable::GetIndexCount() const noexcept(!IS_DEBUG)
 }
 
 Drawable::~Drawable()
-{
+{}

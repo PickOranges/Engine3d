@@ -3,7 +3,9 @@
 #include "BindableCodex.h"
 
 
-namespace Bind {
+namespace Bind 
+{
+
 	InputLayout::InputLayout(Graphics& gfx,
 		hw3d::VertexLayout layout_in,
 		ID3DBlob* pVertexShaderBytecode)
@@ -20,6 +22,11 @@ namespace Bind {
 			pVertexShaderBytecode->GetBufferSize(),
 			&pInputLayout
 		));
+	}
+
+	const hw3d::VertexLayout InputLayout::GetLayout() const noexcept
+	{
+		return layout;
 	}
 
 	void InputLayout::Bind(Graphics& gfx) noexcept

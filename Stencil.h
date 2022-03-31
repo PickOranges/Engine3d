@@ -44,9 +44,7 @@ namespace Bind
 		{
 			GetContext(gfx)->OMSetDepthStencilState(pStencil.Get(), 0xFF);
 		}
-		//static std::shared_ptr<Stencil> Resolve( Graphics& gfx,bool blending,std::optional<float> factor = {} );
-		//static std::string GenerateUID( bool blending,std::optional<float> factor );
-		//std::string GetUID() const noexcept override;
+
 		static std::shared_ptr<Stencil> Resolve(Graphics& gfx, Mode mode)
 		{
 			return Codex::Resolve<Stencil>(gfx, mode);

@@ -94,10 +94,9 @@ namespace hw3d
 	struct SysSizeLookup
 	{
 		static constexpr auto Exec() noexcept
-			switch (type)
-			{
-				return sizeof(VertexLayout::Map<type>::SysType);
-			}
+		{
+			return sizeof(VertexLayout::Map<type>::SysType);
+		}
 	};
 	template<VertexLayout::ElementType type>
 	struct CodeLookup

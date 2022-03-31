@@ -5,6 +5,7 @@
 #include "imgui/imgui.h"
 #include "NullPixelShader.h"
 #include "Stencil.h"
+#include "BindableCodex.h"
 
 
 TestCube::TestCube(Graphics& gfx, float size)

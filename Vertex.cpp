@@ -1,3 +1,4 @@
+#define DVTX_SOURCE_FILE
 #include "Vertex.h"
 
 namespace hw3d
@@ -89,59 +90,46 @@ namespace hw3d
 	{
 		return type;
 	}
-	const char* hw3d::VertexLayout::Element::GetCode() const noexcept
+	template<VertexLayout::ElementType type>
+	struct SysSizeLookup
 	{
-		switch (type)
-		{
-		case Position2D:
-			return Map<Position2D>::code;
-		case Position3D:
-			return Map<Position3D>::code;
-		case Texture2D:
-			return Map<Texture2D>::code;
-		case Normal:
-			return Map<Normal>::code;
-		case Tangent:
-			return Map<Tangent>::code;
-		case Bitangent:
-			return Map<Bitangent>::code;
-		case Float3Color:
-			return Map<Float3Color>::code;
-		case Float4Color:
-			return Map<Float4Color>::code;
-		case BGRAColor:
-			return Map<BGRAColor>::code;
-		}
+		static constexpr auto Exec() noexcept
+			switch (type)
+			{
+				return sizeof(VertexLayout::Map<type>::SysType);
+			}
 		assert("Invalid element type" && false);
 		return "Invalid";
-	}
-	D3D11_INPUT_ELEMENT_DESC VertexLayout::Element::GetDesc() const noexcept(!IS_DEBUG)
+	};
+	template<VertexLayout::ElementType type>
+	struct CodeLookup
 	{
-		switch (type)
+		static constexpr auto Exec() noexcept
 		{
-		case Position2D:
-			return GenerateDesc<Position2D>(GetOffset());
-		case Position3D:
-			return GenerateDesc<Position3D>(GetOffset());
-		case Texture2D:
-			return GenerateDesc<Texture2D>(GetOffset());
-		case Normal:
-			return GenerateDesc<Normal>(GetOffset());
-		case Tangent:
-			return GenerateDesc<Tangent>(GetOffset());
-		case Bitangent:
-			return GenerateDesc<Bitangent>(GetOffset());
-		case Float3Color:
-			return GenerateDesc<Float3Color>(GetOffset());
-		case Float4Color:
-			return GenerateDesc<Float4Color>(GetOffset());
-		case BGRAColor:
-			return GenerateDesc<BGRAColor>(GetOffset());
+			return VertexLayout::Map<type>::code;
 		}
 		assert("Invalid element type" && false);
 		return { "INVALID",0,DXGI_FORMAT_UNKNOWN,0,0,D3D11_INPUT_PER_VERTEX_DATA,0 };
+	};
+
+	const char* hw3d::VertexLayout::Element::GetCode() const noexcept
+	{
+		return Bridge<CodeLookup>(type);
 	}
 
+	template<VertexLayout::ElementType type> struct DescGenerate {
+		static constexpr D3D11_INPUT_ELEMENT_DESC Exec(size_t offset) noexcept {
+			return {
+				VertexLayout::Map<type>::semantic,0,
+				VertexLayout::Map<type>::dxgiFormat,
+				0,(UINT)offset,D3D11_INPUT_PER_VERTEX_DATA,0
+			};
+		}
+	};
+	D3D11_INPUT_ELEMENT_DESC VertexLayout::Element::GetDesc() const noexcept(!IS_DEBUG)
+	{
+		return Bridge<DescGenerate>(type, GetOffset());
+	}
 
 	// Vertex
 	Vertex::Vertex(char* pData, const VertexLayout& layout) noexcept(!IS_DEBUG)

@@ -156,11 +156,6 @@ TestCube::TestCube(Graphics& gfx, float size)
 		AddTechnique(std::move(outline));
 	}
 
-
-
-
-
-
 }
 
 void TestCube::SetPos(DirectX::XMFLOAT3 pos) noexcept

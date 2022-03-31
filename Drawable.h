@@ -3,6 +3,8 @@
 #include <DirectXMath.h>
 #include "Technique.h"
 
+class TechniqueProbe;
+
 //class Bindable;
 namespace Bind
 {
@@ -21,6 +23,7 @@ public:
 	virtual DirectX::XMMATRIX GetTransformXM() const noexcept = 0;
 	void Submit(class FrameCommander& frame) const noexcept;
 	void Bind(Graphics& gfx) const noexcept;
+	void Accept(TechniqueProbe& probe);
 	UINT GetIndexCount() const noexcept(!IS_DEBUG);
 	virtual ~Drawable();
 

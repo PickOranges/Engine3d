@@ -4,6 +4,7 @@
 #include "TransformCbuf.h"
 #include "imgui/imgui.h"
 #include "NullPixelShader.h"
+#include "Stencil.h"
 
 
 TestCube::TestCube(Graphics& gfx, float size)
@@ -15,6 +16,7 @@ TestCube::TestCube(Graphics& gfx, float size)
 	model.Transform(dx::XMMatrixScaling(size, size, size));
 	model.SetNormalsIndependentFlat();
 	const auto geometryTag = "$cube." + std::to_string(size);
+
 	//AddBind(VertexBuffer::Resolve(gfx, geometryTag, model.vertices));
 	//AddBind(IndexBuffer::Resolve(gfx, geometryTag, model.indices));
 
@@ -58,6 +60,14 @@ TestCube::TestCube(Graphics& gfx, float size)
 	//outlineEffect.push_back(std::move(tcbdb));
 	//outlineEffect.push_back(std::make_shared<Stencil>(gfx, Stencil::Mode::Mask));
 
+
+
+
+
+
+	pVertices = VertexBuffer::Resolve(gfx, geometryTag, model.vertices);
+	pIndices = IndexBuffer::Resolve(gfx, geometryTag, model.indices);
+	pTopology = Topology::Resolve(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	{
 		// Tech 1: Normal Draw(Lambertian) 

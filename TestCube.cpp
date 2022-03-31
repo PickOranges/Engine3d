@@ -212,7 +212,6 @@ void TestCube::SpawnControlWindow(Graphics& gfx, const char* name) noexcept
 			}
 		} probe;
 
-		static Probe probe;
 		Accept(probe);
 	}
 	ImGui::End();

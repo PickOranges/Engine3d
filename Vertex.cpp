@@ -10,8 +10,22 @@ namespace hw3d
 	}
 	VertexLayout& VertexLayout::Append(ElementType type) noexcept(!IS_DEBUG)
 	{
-		elements.emplace_back(type, Size());
+		if (!Has(type))
+		{
+			elements.emplace_back(type, Size());
+		}
 		return *this;
+	}
+	bool VertexLayout::Has(ElementType type) const noexcept
+	{
+		for (auto& e : elements)
+		{
+			if (e.GetType() == type)
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 	size_t VertexLayout::Size() const noexcept(!IS_DEBUG)
 	{
@@ -60,36 +74,11 @@ namespace hw3d
 	{
 		return SizeOf(type);
 	}
-	constexpr size_t VertexLayout::Element::SizeOf(ElementType type) noexcept(!IS_DEBUG)
-	{
-		switch (type)
-		{
-		case Position2D:
-			return sizeof(Map<Position2D>::SysType);
-		case Position3D:
-			return sizeof(Map<Position3D>::SysType);
-		case Texture2D:
-			return sizeof(Map<Texture2D>::SysType);
-		case Normal:
-			return sizeof(Map<Normal>::SysType);
-		case Tangent:
-			return sizeof(Map<Tangent>::SysType);
-		case Bitangent:
-			return sizeof(Map<Bitangent>::SysType);
-		case Float3Color:
-			return sizeof(Map<Float3Color>::SysType);
-		case Float4Color:
-			return sizeof(Map<Float4Color>::SysType);
-		case BGRAColor:
-			return sizeof(Map<BGRAColor>::SysType);
-		}
-		assert("Invalid element type" && false);
-		return 0u;
-	}
 	VertexLayout::ElementType VertexLayout::Element::GetType() const noexcept
 	{
 		return type;
 	}
+
 	template<VertexLayout::ElementType type>
 	struct SysSizeLookup
 	{
@@ -98,6 +87,11 @@ namespace hw3d
 			return sizeof(VertexLayout::Map<type>::SysType);
 		}
 	};
+	constexpr size_t VertexLayout::Element::SizeOf(ElementType type) noexcept(!IS_DEBUG)
+	{
+		return Bridge<SysSizeLookup>(type);
+	}
+
 	template<VertexLayout::ElementType type>
 	struct CodeLookup
 	{
@@ -106,7 +100,6 @@ namespace hw3d
 			return VertexLayout::Map<type>::code;
 		}
 	};
-
 	const char* hw3d::VertexLayout::Element::GetCode() const noexcept
 	{
 		return Bridge<CodeLookup>(type);
@@ -125,6 +118,7 @@ namespace hw3d
 	{
 		return Bridge<DescGenerate>(type, GetOffset());
 	}
+
 
 	// Vertex
 	Vertex::Vertex(char* pData, const VertexLayout& layout) noexcept(!IS_DEBUG)
@@ -147,8 +141,6 @@ namespace hw3d
 	{
 		Resize(size);
 	}
-
-
 	void VertexBuffer::Resize(size_t newSize) noexcept(!IS_DEBUG)
 	{
 		const auto size = Size();
@@ -157,10 +149,31 @@ namespace hw3d
 			buffer.resize(buffer.size() + layout.Size() * (newSize - size));
 		}
 	}
-
 	const char* VertexBuffer::GetData() const noexcept(!IS_DEBUG)
 	{
 		return buffer.data();
+	}
+
+	template<VertexLayout::ElementType type>
+	struct AttributeAiMeshFill
+	{
+		static constexpr void Exec(VertexBuffer* pBuf, const aiMesh& mesh) noexcept(!IS_DEBUG)
+		{
+			for (auto end = mesh.mNumVertices, i = 0u; i < end; i++)
+			{
+				(*pBuf)[i].Attr<type>() = VertexLayout::Map<type>::Extract(mesh, i);
+			}
+		}
+	};
+	VertexBuffer::VertexBuffer(VertexLayout layout_in, const aiMesh& mesh)
+		:
+		layout(std::move(layout_in))
+	{
+		Resize(mesh.mNumVertices);
+		for (size_t i = 0, end = layout.GetElementCount(); i < end; i++)
+		{
+			VertexLayout::Bridge<AttributeAiMeshFill>(layout.ResolveByIndex(i).GetType(), this, mesh);
+		}
 	}
 	const VertexLayout& VertexBuffer::GetLayout() const noexcept
 	{
@@ -200,28 +213,5 @@ namespace hw3d
 	ConstVertex VertexBuffer::operator[](size_t i) const noexcept(!IS_DEBUG)
 	{
 		return const_cast<VertexBuffer&>(*this)[i];
-	}
-
-
-	template<VertexLayout::ElementType type>
-	struct AttributeAiMeshFill
-	{
-		static constexpr void Exec(VertexBuffer* pBuf, const aiMesh& mesh) noexcept(!IS_DEBUG)
-		{
-			for (auto end = mesh.mNumVertices, i = 0u; i < end; i++)
-			{
-				(*pBuf)[i].Attr<type>() = VertexLayout::Map<type>::Extract(mesh, i);
-			}
-		}
-	};
-	VertexBuffer::VertexBuffer(VertexLayout layout_in, const aiMesh& mesh)
-		:
-		layout(std::move(layout_in))
-	{
-		Resize(mesh.mNumVertices);
-		for (size_t i = 0, end = layout.GetElementCount(); i < end; i++)
-		{
-			VertexLayout::Bridge<AttributeAiMeshFill>(layout.ResolveByIndex(i).GetType(), this, mesh);
-		}
 	}
 }

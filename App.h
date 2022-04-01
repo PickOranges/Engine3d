@@ -5,13 +5,12 @@
 #include "Camera.h"
 #include "PointLight.h"
 #include <set>
-#include "Mesh.h"
 #include "TestCube.h"
 #include "Stencil.h"
 #include "FrameCommander.h"
 #include "Material.h"
 #include <memory>
-
+#include "Model.h"
 
 class App
 {

@@ -19,7 +19,7 @@ void TestDynamicMeshLoading()
 	const auto pScene = imp.ReadFile("models\\brick_wall\\brick_wall.obj",
 		aiProcess_Triangulate |
 		aiProcess_JoinIdenticalVertices |
-		/*aiProcess_ConvertToLeftHanded |*/
+		aiProcess_ConvertToLeftHanded |
 		aiProcess_GenNormals |
 		aiProcess_CalcTangentSpace
 	);
@@ -48,7 +48,7 @@ void TestMaterialSystemLoading(Graphics& gfx)
 	const auto pScene = imp.ReadFile(path,
 		aiProcess_Triangulate |
 		aiProcess_JoinIdenticalVertices |
-		/*aiProcess_ConvertToLeftHanded |*/
+		aiProcess_ConvertToLeftHanded |
 		aiProcess_GenNormals |
 		aiProcess_CalcTangentSpace
 	);

@@ -5,8 +5,8 @@
 namespace dx = DirectX;
 
 App::App()
-	: 
-	wnd(1280, 720, "Test App Class Obj"),
+	:
+	wnd(1280, 720, "The Testing Window"),
 	light(wnd.Gfx())
 {
 	TestMaterialSystemLoading(wnd.Gfx());
@@ -14,12 +14,12 @@ App::App()
 	cube2.SetPos({ 0.0f,4.0f,0.0f });
 
 	{
-		std::string path = ".\\models\\brick_wall\\brick_wall.obj";
+		std::string path = "models\\brick_wall\\brick_wall.obj";
 		Assimp::Importer imp;
 		const auto pScene = imp.ReadFile(path,
 			aiProcess_Triangulate |
 			aiProcess_JoinIdenticalVertices |
-			/*aiProcess_ConvertToLeftHanded |*/
+			aiProcess_ConvertToLeftHanded |
 			aiProcess_GenNormals |
 			aiProcess_CalcTangentSpace
 		);
@@ -27,60 +27,44 @@ App::App()
 		pLoaded = std::make_unique<Mesh>(wnd.Gfx(), mat, *pScene->mMeshes[0]);
 	}
 
+	//wall.SetRootTransform( dx::XMMatrixTranslation( -12.0f,0.0f,0.0f ) );
+	//tp.SetPos( { 12.0f,0.0f,0.0f } );
+	//gobber.SetRootTransform( dx::XMMatrixTranslation( 0.0f,0.0f,-4.0f ) );
+	//nano.SetRootTransform( dx::XMMatrixTranslation( 0.0f,-7.0f,6.0f ) );
+	//bluePlane.SetPos( cam.GetPos() );
+	//redPlane.SetPos( cam.GetPos() );
 
-	wnd.Gfx().SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 400.0f));
+	wnd.Gfx().SetProjection(dx::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 400.0f));
 }
-
-int App::Go()
-{
-	while (true)
-	{
-		// process all messages pending, but to not block for new messages
-		if (const auto ecode = Window::ProcessMessages())
-		{
-			// if return optional has value, means we're quitting so return exit code
-			return *ecode;
-		}
-		DoFrame();
-	}
-
-}
-
-App::~App()
-{}
 
 void App::DoFrame()
 {
-	const auto dt = timer.Mark()*speed_factor;
-
+	const auto dt = timer.Mark() * speed_factor;
 	wnd.Gfx().BeginFrame(0.07f, 0.0f, 0.12f);
-
-	// Now update camera params every frame(Instead of updating just once in ctor when init App).
 	wnd.Gfx().SetCamera(cam.GetMatrix());
-	//light.Bind(wnd.Gfx(), cam.GetMatrix());
-	//light.Draw(wnd.Gfx()); // draw the light source lastely.
-	//sponza.Draw(wnd.Gfx());
+	light.Bind(wnd.Gfx(), cam.GetMatrix());
 
-
-	//cube.Draw(wnd.Gfx());
-	//cube2.Draw(wnd.Gfx());
-	//cube.DrawOutline(wnd.Gfx());
-	//cube2.DrawOutline(wnd.Gfx());
-
+	//wall.Draw( wnd.Gfx() );
+	//tp.Draw( wnd.Gfx() );
+	//nano.Draw( wnd.Gfx() );
+	//gobber.Draw( wnd.Gfx() );
 	light.Submit(fc);
-	//cube.Submit(fc);
-	//cube2.Submit(fc);
+	//sponza.Draw( wnd.Gfx() );
+	//cube.Submit( fc );
+	//cube2.Submit( fc );
 	pLoaded->Submit(fc, DirectX::XMMatrixIdentity());
+	//bluePlane.Draw( wnd.Gfx() );
+	//redPlane.Draw( wnd.Gfx() );
 	fc.Execute(wnd.Gfx());
 
-	// Handles the messages from mouse and keyboard.
-	while (const auto e = wnd.kbd.ReadKey())	
+	while (const auto e = wnd.kbd.ReadKey())
 	{
-		if(!e->IsPress())
+		if (!e->IsPress())
 		{
 			continue;
 		}
-		switch(e->GetCode())
+
+		switch (e->GetCode())
 		{
 		case VK_ESCAPE:
 			if (wnd.CursorEnabled())
@@ -99,6 +83,7 @@ void App::DoFrame()
 			break;
 		}
 	}
+
 	if (!wnd.CursorEnabled())
 	{
 		if (wnd.kbd.KeyIsPressed('W'))
@@ -126,6 +111,7 @@ void App::DoFrame()
 			cam.Translate({ 0.0f,-dt,0.0f });
 		}
 	}
+
 	while (const auto delta = wnd.mouse.ReadRawDelta())
 	{
 		if (!wnd.CursorEnabled())
@@ -134,21 +120,43 @@ void App::DoFrame()
 		}
 	}
 
-	
 	// imgui windows
 	cam.SpawnControlWindow();
 	light.SpawnControlWindow();
 	ShowImguiDemoWindow();
-	//sponza.ShowWindow(wnd.Gfx(), "Sponza");
 	cube.SpawnControlWindow(wnd.Gfx(), "Cube 1");
 	cube2.SpawnControlWindow(wnd.Gfx(), "Cube 2");
+	//sponza.ShowWindow( wnd.Gfx(),"Sponza" );
+	//gobber.ShowWindow( wnd.Gfx(),"gobber" );
+	//wall.ShowWindow( wnd.Gfx(),"Wall" );
+	//tp.SpawnControlWindow( wnd.Gfx() );
+	//nano.ShowWindow( wnd.Gfx(),"Nano" );
+	//bluePlane.SpawnControlWindow( wnd.Gfx(),"Blue Plane" );
+	//redPlane.SpawnControlWindow( wnd.Gfx(),"Red Plane" );
 
 	// present
 	wnd.Gfx().EndFrame();
-
-
 	fc.Reset();
 }
+
+
+int App::Go()
+{
+	while (true)
+	{
+		// process all messages pending, but to not block for new messages
+		if (const auto ecode = Window::ProcessMessages())
+		{
+			// if return optional has value, means we're quitting so return exit code
+			return *ecode;
+		}
+		DoFrame();
+	}
+
+}
+
+App::~App()
+{}
 
 void App::ShowImguiDemoWindow()
 {

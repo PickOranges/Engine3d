@@ -1,6 +1,7 @@
 #include "InputLayout.h"
 #include "GraphicsThrowMacros.h"
 #include "BindableCodex.h"
+#include "Vertex.h"
 
 
 namespace Bind 

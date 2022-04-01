@@ -14,30 +14,6 @@ App::App()
 	wnd(1280, 720, "The Testing Window"),
 	light(wnd.Gfx())
 {
-	cube.SetPos({ 4.0f,0.0f,0.0f });
-	cube2.SetPos({ 0.0f,4.0f,0.0f });
-
-	{
-		std::string path = "models\\brick_wall\\brick_wall.obj";
-		Assimp::Importer imp;
-		const auto pScene = imp.ReadFile(path,
-			aiProcess_Triangulate |
-			aiProcess_JoinIdenticalVertices |
-			aiProcess_ConvertToLeftHanded |
-			aiProcess_GenNormals |
-			aiProcess_CalcTangentSpace
-		);
-		Material mat{ wnd.Gfx(),*pScene->mMaterials[1],path };
-		pLoaded = std::make_unique<Mesh>(wnd.Gfx(), mat, *pScene->mMeshes[0]);
-	}
-
-	//wall.SetRootTransform( dx::XMMatrixTranslation( -12.0f,0.0f,0.0f ) );
-	//tp.SetPos( { 12.0f,0.0f,0.0f } );
-	//gobber.SetRootTransform( dx::XMMatrixTranslation( 0.0f,0.0f,-4.0f ) );
-	//nano.SetRootTransform( dx::XMMatrixTranslation( 0.0f,-7.0f,6.0f ) );
-	//bluePlane.SetPos( cam.GetPos() );
-	//redPlane.SetPos( cam.GetPos() );
-
 	wnd.Gfx().SetProjection(dx::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 400.0f));
 }
 
@@ -48,17 +24,8 @@ void App::DoFrame()
 	wnd.Gfx().SetCamera(cam.GetMatrix());
 	light.Bind(wnd.Gfx(), cam.GetMatrix());
 
-	//wall.Draw( wnd.Gfx() );
-	//tp.Draw( wnd.Gfx() );
-	//nano.Draw( wnd.Gfx() );
-	//gobber.Draw( wnd.Gfx() );
 	light.Submit(fc);
-	//sponza.Draw( wnd.Gfx() );
-	//cube.Submit( fc );
-	//cube2.Submit( fc );
-	pLoaded->Submit(fc, DirectX::XMMatrixIdentity());
-	//bluePlane.Draw( wnd.Gfx() );
-	//redPlane.Draw( wnd.Gfx() );
+
 	fc.Execute(wnd.Gfx());
 
 	while (const auto e = wnd.kbd.ReadKey())
@@ -127,8 +94,6 @@ void App::DoFrame()
 
 
 
-
-
 	// Mesh techniques window
 	class Probe : public TechniqueProbe
 	{
@@ -185,28 +150,13 @@ void App::DoFrame()
 		}
 	} probe;
 
-	pLoaded->Accept(probe);
-
-
-
-
-
-
 
 
 	// imgui windows
 	cam.SpawnControlWindow();
 	light.SpawnControlWindow();
 	ShowImguiDemoWindow();
-	cube.SpawnControlWindow(wnd.Gfx(), "Cube 1");
-	cube2.SpawnControlWindow(wnd.Gfx(), "Cube 2");
-	//sponza.ShowWindow( wnd.Gfx(),"Sponza" );
-	//gobber.ShowWindow( wnd.Gfx(),"gobber" );
-	//wall.ShowWindow( wnd.Gfx(),"Wall" );
-	//tp.SpawnControlWindow( wnd.Gfx() );
-	//nano.ShowWindow( wnd.Gfx(),"Nano" );
-	//bluePlane.SpawnControlWindow( wnd.Gfx(),"Blue Plane" );
-	//redPlane.SpawnControlWindow( wnd.Gfx(),"Red Plane" );
+
 
 	// present
 	wnd.Gfx().EndFrame();

@@ -1,6 +1,7 @@
 #include "Node.h"
 #include "Mesh.h"
 #include "imgui/imgui.h"
+#include "ModelProbe.h"
 
 namespace dx = DirectX;
 
@@ -77,4 +78,16 @@ const DirectX::XMFLOAT4X4& Node::GetAppliedTransform() const noexcept
 int Node::GetId() const noexcept
 {
 	return id;
+}
+
+void Node::Accept(ModelProbe& probe)
+{
+	if (probe.PushNode(*this))
+	{
+		for (auto& cp : childPtrs)
+		{
+			cp->Accept(probe);
+		}
+		probe.PopNode(*this);
+	}
 }

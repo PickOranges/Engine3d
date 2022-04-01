@@ -11,8 +11,6 @@
 namespace dx = DirectX;
 
 Model::Model(Graphics& gfx, const std::string& pathString, const float scale)
-	/*:
-	pWindow(std::make_unique<ModelWindow>())*/
 {
 	Assimp::Importer imp;
 	const auto pScene = imp.ReadFile(pathString.c_str(),
@@ -48,17 +46,9 @@ Model::Model(Graphics& gfx, const std::string& pathString, const float scale)
 
 void Model::Submit(FrameCommander& frame) const noexcept(!IS_DEBUG)
 {
-	// I'm still not happy about updating parameters (i.e. mutating a bindable GPU state
-	// which is part of a mesh which is part of a node which is part of the model that is
-	// const in this call) Can probably do this elsewhere
-	//pWindow->ApplyParameters();
 	pRoot->Submit(frame, dx::XMMatrixIdentity());
 }
 
-//void Model::ShowWindow(Graphics& gfx, const char* windowName) noexcept
-//{
-//	pWindow->Show(gfx, windowName, *pRoot);
-//}
 
 void Model::SetRootTransform(DirectX::FXMMATRIX tf) noexcept
 {
@@ -73,10 +63,6 @@ void Model::Accept(ModelProbe& probe)
 Model::~Model() noexcept
 {}
 
-//std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const aiMaterial* const* pMaterials, const std::filesystem::path& path, float scale)
-//{
-//	return {};
-//}
 
 std::unique_ptr<Node> Model::ParseNode(int& nextId, const aiNode& node, DirectX::FXMMATRIX additionalTransform) noexcept
 {

@@ -36,7 +36,7 @@ Model::Model(Graphics& gfx, const std::string& pathString, const float scale)
 	pRoot = ParseNode(nextId, *pScene->mRootNode);
 }
 
-void Model::Submit(FrameCommander& frame) const noexcept(IS_DEBUG)
+void Model::Submit(FrameCommander& frame) const noexcept(!IS_DEBUG)
 {
 	// I'm still not happy about updating parameters (i.e. mutating a bindable GPU state
 	// which is part of a mesh which is part of a node which is part of the model that is

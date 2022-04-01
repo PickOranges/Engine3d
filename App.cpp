@@ -25,7 +25,7 @@ void App::DoFrame()
 	light.Bind(wnd.Gfx(), cam.GetMatrix());
 
 	light.Submit(fc);
-
+	sponza.Submit(fc);
 	fc.Execute(wnd.Gfx());
 
 	while (const auto e = wnd.kbd.ReadKey())

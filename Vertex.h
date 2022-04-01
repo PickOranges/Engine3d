@@ -257,6 +257,7 @@ namespace hw3d
 	{
 	public:
 		VertexBuffer(VertexLayout layout, size_t size = 0u) noexcept(!IS_DEBUG);
+		VertexBuffer(VertexLayout layout, const aiMesh& mesh);
 		const char* GetData() const noexcept(!IS_DEBUG);
 		const VertexLayout& GetLayout() const noexcept;
 		size_t Size() const noexcept(!IS_DEBUG);

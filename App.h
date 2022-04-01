@@ -10,6 +10,7 @@
 #include "Stencil.h"
 #include "FrameCommander.h"
 #include "Material.h"
+#include <memory>
 
 
 class App

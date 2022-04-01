@@ -3,9 +3,14 @@
 #include "Surface.h"
 #include <unordered_map>
 #include <sstream>
+#include <filesystem>
 #include "SimpleMath.h"
 #include "SimpleMathDX.h"
 #include "BindableCodex.h"
+#include "DynamicConstant.h"
+#include "ConstantBuffersEx.h"
+#include "LayoutCodex.h"
+#include "Stencil.h"
 
 
 namespace dx = DirectX;

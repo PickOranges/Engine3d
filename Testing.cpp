@@ -16,10 +16,10 @@ void TestDynamicMeshLoading()
 	using namespace hw3d;
 
 	Assimp::Importer imp;
-	const auto pScene = imp.ReadFile("Models\\brick_wall\\brick_wall.obj",
+	const auto pScene = imp.ReadFile("models\\brick_wall\\brick_wall.obj",
 		aiProcess_Triangulate |
 		aiProcess_JoinIdenticalVertices |
-		aiProcess_MakeLeftHanded |
+		/*aiProcess_ConvertToLeftHanded |*/
 		aiProcess_GenNormals |
 		aiProcess_CalcTangentSpace
 	);
@@ -43,12 +43,12 @@ void TestDynamicMeshLoading()
 
 void TestMaterialSystemLoading(Graphics& gfx)
 {
-	std::string path = "Models\\brick_wall\\brick_wall.obj";
+	std::string path = "models\\brick_wall\\brick_wall.obj";
 	Assimp::Importer imp;
 	const auto pScene = imp.ReadFile(path,
 		aiProcess_Triangulate |
 		aiProcess_JoinIdenticalVertices |
-		aiProcess_ConvertToLeftHanded |
+		/*aiProcess_ConvertToLeftHanded |*/
 		aiProcess_GenNormals |
 		aiProcess_CalcTangentSpace
 	);

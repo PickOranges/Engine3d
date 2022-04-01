@@ -14,12 +14,12 @@ App::App()
 	cube2.SetPos({ 0.0f,4.0f,0.0f });
 
 	{
-		std::string path = "Models\\brick_wall\\brick_wall.obj";
+		std::string path = ".\\models\\brick_wall\\brick_wall.obj";
 		Assimp::Importer imp;
 		const auto pScene = imp.ReadFile(path,
 			aiProcess_Triangulate |
 			aiProcess_JoinIdenticalVertices |
-			aiProcess_ConvertToLeftHanded |
+			/*aiProcess_ConvertToLeftHanded |*/
 			aiProcess_GenNormals |
 			aiProcess_CalcTangentSpace
 		);

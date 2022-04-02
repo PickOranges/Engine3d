@@ -100,7 +100,7 @@ namespace hw3d
 			return VertexLayout::Map<type>::code;
 		}
 	};
-	const char* hw3d::VertexLayout::Element::GetCode() const noexcept
+	const char* VertexLayout::Element::GetCode() const noexcept
 	{
 		return Bridge<CodeLookup>(type);
 	}

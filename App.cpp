@@ -11,6 +11,7 @@ App::App()
 {
 	TestDynamicConstant();
 	wnd.Gfx().SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 400.0f));
+	cube.SetPos(dx::XMFLOAT3{ 3.5f,3.5f,3.5f });
 }
 
 int App::Go()
@@ -40,16 +41,12 @@ void App::DoFrame()
 	light.Bind(wnd.Gfx(), cam.GetMatrix());
 	light.Draw(wnd.Gfx()); 
 
-
-	cube.SetPos(dx::XMFLOAT3{3.5f,3.5f,3.5f});
+	sponza.Draw(wnd.Gfx());
+	
 	cube.Draw(wnd.Gfx());
 	cube2.Draw(wnd.Gfx());
 	cube.DrawOutline(wnd.Gfx());
 	cube2.DrawOutline(wnd.Gfx());
-
-
-
-
 
 
 	// Handles the messages from mouse and keyboard.
@@ -120,6 +117,7 @@ void App::DoFrame()
 	ShowImguiDemoWindow();
 	cube.SpawnControlWindow(wnd.Gfx(), "Cube 1");
 	cube2.SpawnControlWindow(wnd.Gfx(), "Cube 2");
+	sponza.ShowWindow(wnd.Gfx(), "Sponza");
 
 	// present
 	wnd.Gfx().EndFrame();

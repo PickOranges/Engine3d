@@ -42,7 +42,6 @@ void App::DoFrame()
 	light.Draw(wnd.Gfx()); 
 
 	sponza.Draw(wnd.Gfx());
-	
 	cube.Draw(wnd.Gfx());
 	cube2.Draw(wnd.Gfx());
 	cube.DrawOutline(wnd.Gfx());

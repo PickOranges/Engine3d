@@ -1,6 +1,4 @@
 #pragma once
-//#ifndef DYNAMIC_CONSTANT_HEADER_
-//#define DYNAMIC_CONSTANT_HEADER_
 #include <cassert>
 #include <DirectXMath.h>
 #include <vector>
@@ -8,7 +6,6 @@
 #include <optional>
 #include <string>
 #include "LayoutCodex.h"
-//#endif // !
 
 
 // master list of leaf types that generates enum elements and various switches etc.

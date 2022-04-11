@@ -44,11 +44,12 @@ namespace Bind
 		{
 			GetContext(gfx)->OMSetDepthStencilState(pStencil.Get(), 0xFF);
 		}
-
+		
 		static std::shared_ptr<Stencil> Resolve(Graphics& gfx, Mode mode)
 		{
 			return Codex::Resolve<Stencil>(gfx, mode);
 		}
+
 		static std::string GenerateUID(Mode mode)
 		{
 			using namespace std::string_literals;
@@ -70,7 +71,7 @@ namespace Bind
 			return GenerateUID(mode);
 		}
 	private:
-		Microsoft::WRL::ComPtr<ID3D11DepthStencilState> pStencil;
 		Mode mode;
+		Microsoft::WRL::ComPtr<ID3D11DepthStencilState> pStencil;
 	};
 }

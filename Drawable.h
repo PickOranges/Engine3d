@@ -3,13 +3,10 @@
 #include <DirectXMath.h>
 #include "Technique.h"
 
-class TechniqueProbe;
-class Material;
-struct aiMesh;
 
 //class Bindable;
 namespace Bind
-{
+{ 
 	class IndexBuffer;
 	class VertexBuffer;
 	class Topology;
@@ -20,15 +17,14 @@ class Drawable
 {
 public:
 	Drawable() = default;
-	Drawable(Graphics & gfx, const Material & mat, const aiMesh & mesh) noexcept;
 	Drawable(const Drawable&) = delete;
-	void AddTechnique(Technique tech_in) noexcept;
 	virtual DirectX::XMMATRIX GetTransformXM() const noexcept = 0;
+	void AddTechnique(Technique tech_in) noexcept;
 	void Submit(class FrameCommander& frame) const noexcept;
-	void Bind(Graphics & gfx) const noexcept;
-	void Accept(TechniqueProbe & probe);
+	void Bind(Graphics& gfx) const noexcept;
 	UINT GetIndexCount() const noexcept(!IS_DEBUG);
 	virtual ~Drawable();
+
 protected:
 	std::shared_ptr<Bind::IndexBuffer> pIndices;
 	std::shared_ptr<Bind::VertexBuffer> pVertices;

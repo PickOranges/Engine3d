@@ -41,7 +41,7 @@ void App::DoFrame()
 	light.Draw(wnd.Gfx()); 
 
 
-
+	cube.SetPos(dx::XMFLOAT3{3.5f,3.5f,3.5f});
 	cube.Draw(wnd.Gfx());
 	cube2.Draw(wnd.Gfx());
 	cube.DrawOutline(wnd.Gfx());

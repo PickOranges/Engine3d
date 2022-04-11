@@ -11,7 +11,7 @@ App::App()
 {
 	TestDynamicConstant();
 	wnd.Gfx().SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 400.0f));
-	cube.SetPos(dx::XMFLOAT3{ 3.5f,3.5f,3.5f });
+	cube.SetPos(dx::XMFLOAT3{3.5f,3.5f,3.5f});
 }
 
 int App::Go()
@@ -42,6 +42,7 @@ void App::DoFrame()
 	light.Draw(wnd.Gfx()); 
 
 	sponza.Draw(wnd.Gfx());
+	
 	cube.Draw(wnd.Gfx());
 	cube2.Draw(wnd.Gfx());
 	cube.DrawOutline(wnd.Gfx());

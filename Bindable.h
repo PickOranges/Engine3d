@@ -2,12 +2,17 @@
 #include "Graphics.h"
 #include <memory>
 
+
+class Drawable;
+
 namespace Bind {
 	class Bindable
 	{
 	public:
 		virtual void Bind(Graphics& gfx) noexcept = 0;
 		virtual ~Bindable() = default;
+		virtual void InitializeParentReference(const Drawable&) noexcept
+		{}
 		virtual std::string GetUID() const noexcept
 		{
 			assert(false);

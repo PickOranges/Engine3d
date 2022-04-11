@@ -36,12 +36,10 @@ void App::DoFrame()
 	const auto dt = timer.Mark()*speed_factor;
 
 	wnd.Gfx().BeginFrame(0.07f, 0.0f, 0.12f);
-
-	// Now update camera params every frame(Instead of updating just once in ctor when init App).
 	wnd.Gfx().SetCamera(cam.GetMatrix());
 	light.Bind(wnd.Gfx(), cam.GetMatrix());
-	light.Draw(wnd.Gfx()); // draw the light source lastely.
-	sponza.Draw(wnd.Gfx());
+	light.Draw(wnd.Gfx()); 
+
 
 
 	cube.Draw(wnd.Gfx());
@@ -120,7 +118,6 @@ void App::DoFrame()
 	cam.SpawnControlWindow();
 	light.SpawnControlWindow();
 	ShowImguiDemoWindow();
-	sponza.ShowWindow(wnd.Gfx(), "Sponza");
 	cube.SpawnControlWindow(wnd.Gfx(), "Cube 1");
 	cube2.SpawnControlWindow(wnd.Gfx(), "Cube 2");
 
@@ -130,8 +127,6 @@ void App::DoFrame()
 
 void App::ShowImguiDemoWindow()
 {
-	// Decouppling: separate the node tree control with App class(moved into Model class).
-	// Note: Current window does NOT have actual functionality, i.e. you cannot actually control it.
 	if (showDemoWindow) {
 		ImGui::ShowDemoWindow(&showDemoWindow);
 	}

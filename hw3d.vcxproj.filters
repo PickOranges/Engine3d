@@ -18,6 +18,12 @@
     <Filter Include="imgui">
       <UniqueIdentifier>{94433caf-8b68-490c-9edd-bfaa38cb29d3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Multipass">
+      <UniqueIdentifier>{20c8417d-ff98-4840-a30e-059eb125caa8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Multipass">
+      <UniqueIdentifier>{887f7477-cb28-4e48-beb7-ceca88449da7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -155,32 +161,17 @@
     <ClCompile Include="Testing.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Technique.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Step.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Job.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Multipass</Filter>
     </ClCompile>
     <ClCompile Include="NullPixelShader.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Multipass</Filter>
     </ClCompile>
-    <ClCompile Include="Material.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Step.cpp">
+      <Filter>Source Files\Multipass</Filter>
     </ClCompile>
-    <ClCompile Include="Node.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelWindow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ModelExcpetion.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Model.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Technique.cpp">
+      <Filter>Source Files\Multipass</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -364,90 +355,60 @@
     <ClInclude Include="Stencil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Technique.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Step.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Job.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Pass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="NullPixelShader.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Multipass</Filter>
     </ClInclude>
     <ClInclude Include="FrameCommander.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Multipass</Filter>
     </ClInclude>
-    <ClInclude Include="TechniqueProbe.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Step.h">
+      <Filter>Header Files\Multipass</Filter>
     </ClInclude>
-    <ClInclude Include="Material.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="NullPixelShader.h">
+      <Filter>Header Files\Multipass</Filter>
     </ClInclude>
-    <ClInclude Include="Node.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Technique.h">
+      <Filter>Header Files\Multipass</Filter>
     </ClInclude>
-    <ClInclude Include="ModelWindow.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelException.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Model.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ModelProbe.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Pass.h">
+      <Filter>Header Files\Multipass</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Solid_VS.hlsl">
+    <FxCompile Include="SolidVS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
-    <FxCompile Include="Solid_PS.hlsl">
+    <FxCompile Include="SolidPS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
-    <FxCompile Include="PhongDif_VS.hlsl">
+    <FxCompile Include="PhongVS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
-    <FxCompile Include="PhongDif_PS.hlsl">
+    <FxCompile Include="PhongPS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="PhongPSSpecNormalMap.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
-    <FxCompile Include="PhongDifNrm_PS.hlsl">
+    <FxCompile Include="PhongPSNormalMap.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
-    <FxCompile Include="PhongDifNrm_VS.hlsl">
+    <FxCompile Include="PhongVSNormalMap.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="PhongPSNormalMapObject.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
-    <FxCompile Include="Phong_VS.hlsl">
+    <FxCompile Include="PhongVSNotex.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
-    <FxCompile Include="Phong_PS.hlsl">
+    <FxCompile Include="PhongPSNotex.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
-    <FxCompile Include="PhongDifSpc_PS.hlsl">
+    <FxCompile Include="PhongPSSpec.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="PhongPSSpecNormMask.hlsl">
-      <Filter>Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="PhongDifSpcNrm_VS.hlsl">
-      <Filter>Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="PhongDifSpc_VS.hlsl">
-      <Filter>Shader</Filter>
-    </FxCompile>
-    <FxCompile Include="PhongDifSpcNrm_PS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

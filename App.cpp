@@ -41,7 +41,7 @@ void App::DoFrame()
 	light.Bind(wnd.Gfx(), cam.GetMatrix());
 	light.Draw(wnd.Gfx()); 
 
-	sponza.Draw(wnd.Gfx());
+	//sponza.Draw(wnd.Gfx());
 	
 	cube.Draw(wnd.Gfx());
 	cube2.Draw(wnd.Gfx());
@@ -115,9 +115,10 @@ void App::DoFrame()
 	cam.SpawnControlWindow();
 	light.SpawnControlWindow();
 	ShowImguiDemoWindow();
+	//sponza.ShowWindow(wnd.Gfx(), "Sponza");
 	cube.SpawnControlWindow(wnd.Gfx(), "Cube 1");
 	cube2.SpawnControlWindow(wnd.Gfx(), "Cube 2");
-	sponza.ShowWindow(wnd.Gfx(), "Sponza");
+
 
 	// present
 	wnd.Gfx().EndFrame();

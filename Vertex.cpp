@@ -10,22 +10,8 @@ namespace hw3d
 	}
 	VertexLayout& VertexLayout::Append(ElementType type) noexcept(!IS_DEBUG)
 	{
-		if (!Has(type))
-		{
-			elements.emplace_back(type, Size());
-		}
+		elements.emplace_back(type, Size());
 		return *this;
-	}
-	bool VertexLayout::Has(ElementType type) const noexcept
-	{
-		for (auto& e : elements)
-		{
-			if (e.GetType() == type)
-			{
-				return true;
-			}
-		}
-		return false;
 	}
 	size_t VertexLayout::Size() const noexcept(!IS_DEBUG)
 	{
@@ -74,19 +60,22 @@ namespace hw3d
 	{
 		return SizeOf(type);
 	}
+	
 	VertexLayout::ElementType VertexLayout::Element::GetType() const noexcept
 	{
 		return type;
 	}
+	
 
 	template<VertexLayout::ElementType type>
-	struct SysSizeLookup
-	{
+	struct SysSizeLookup {
 		static constexpr auto Exec() noexcept
 		{
 			return sizeof(VertexLayout::Map<type>::SysType);
 		}
 	};
+
+
 	constexpr size_t VertexLayout::Element::SizeOf(ElementType type) noexcept(!IS_DEBUG)
 	{
 		return Bridge<SysSizeLookup>(type);
@@ -95,12 +84,13 @@ namespace hw3d
 	template<VertexLayout::ElementType type>
 	struct CodeLookup
 	{
-		static constexpr auto Exec() noexcept
-		{
+		static constexpr auto Exec() noexcept {
 			return VertexLayout::Map<type>::code;
 		}
 	};
-	const char* VertexLayout::Element::GetCode() const noexcept
+
+
+	const char* hw3d::VertexLayout::Element::GetCode() const noexcept
 	{
 		return Bridge<CodeLookup>(type);
 	}
@@ -114,6 +104,7 @@ namespace hw3d
 			};
 		}
 	};
+
 	D3D11_INPUT_ELEMENT_DESC VertexLayout::Element::GetDesc() const noexcept(!IS_DEBUG)
 	{
 		return Bridge<DescGenerate>(type, GetOffset());
@@ -141,6 +132,8 @@ namespace hw3d
 	{
 		Resize(size);
 	}
+
+
 	void VertexBuffer::Resize(size_t newSize) noexcept(!IS_DEBUG)
 	{
 		const auto size = Size();
@@ -149,31 +142,10 @@ namespace hw3d
 			buffer.resize(buffer.size() + layout.Size() * (newSize - size));
 		}
 	}
+
 	const char* VertexBuffer::GetData() const noexcept(!IS_DEBUG)
 	{
 		return buffer.data();
-	}
-
-	template<VertexLayout::ElementType type>
-	struct AttributeAiMeshFill
-	{
-		static constexpr void Exec(VertexBuffer* pBuf, const aiMesh& mesh) noexcept(!IS_DEBUG)
-		{
-			for (auto end = mesh.mNumVertices, i = 0u; i < end; i++)
-			{
-				(*pBuf)[i].Attr<type>() = VertexLayout::Map<type>::Extract(mesh, i);
-			}
-		}
-	};
-	VertexBuffer::VertexBuffer(VertexLayout layout_in, const aiMesh& mesh)
-		:
-		layout(std::move(layout_in))
-	{
-		Resize(mesh.mNumVertices);
-		for (size_t i = 0, end = layout.GetElementCount(); i < end; i++)
-		{
-			VertexLayout::Bridge<AttributeAiMeshFill>(layout.ResolveByIndex(i).GetType(), this, mesh);
-		}
 	}
 	const VertexLayout& VertexBuffer::GetLayout() const noexcept
 	{

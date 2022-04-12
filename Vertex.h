@@ -7,6 +7,7 @@
 #include <assimp/scene.h>
 #include <utility>
 
+
 #define DVTX_ELEMENT_AI_EXTRACTOR(member) static SysType Extract( const aiMesh& mesh,size_t i ) noexcept {return *reinterpret_cast<const SysType*>(&mesh.member[i]);}
 
 #define LAYOUT_ELEMENT_TYPES \
@@ -28,11 +29,10 @@ namespace hw3d
 	public:
 		enum ElementType
 		{
-#define X(el) el,
+			#define X(el) el,
 			LAYOUT_ELEMENT_TYPES
-#undef X
+			#undef X
 		};
-
 		template<ElementType> struct Map;
 		template<> struct Map<Position2D>
 		{
@@ -120,13 +120,14 @@ namespace hw3d
 		{
 			switch (type)
 			{
-#define X(el) case VertexLayout::el: return F<VertexLayout::el>::Exec( std::forward<Args>( args )... );
+				#define X(el) case VertexLayout::el: return F<VertexLayout::el>::Exec( std::forward<Args>( args )... );
 				LAYOUT_ELEMENT_TYPES
-#undef X
+				#undef X
 			}
 			assert("Invalid element type" && false);
 			return F<VertexLayout::Count>::Exec(std::forward<Args>(args)...);
 		}
+
 
 		class Element
 		{
@@ -139,10 +140,13 @@ namespace hw3d
 			ElementType GetType() const noexcept;
 			D3D11_INPUT_ELEMENT_DESC GetDesc() const noexcept(!IS_DEBUG);
 			const char* GetCode() const noexcept;
+
 		private:
 			ElementType type;
 			size_t offset;
 		};
+
+
 	public:
 		template<ElementType Type>
 		const Element& Resolve() const noexcept(!IS_DEBUG)
@@ -163,7 +167,18 @@ namespace hw3d
 		size_t GetElementCount() const noexcept;
 		std::vector<D3D11_INPUT_ELEMENT_DESC> GetD3DLayout() const noexcept(!IS_DEBUG);
 		std::string GetCode() const noexcept(!IS_DEBUG);
-		bool Has(ElementType type) const noexcept;
+		template<ElementType Type>
+		bool Has() const noexcept
+		{
+			for (auto& e : elements)
+			{
+				if (e.GetType() == Type)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
 	private:
 		std::vector<Element> elements;
 	};
@@ -196,7 +211,7 @@ namespace hw3d
 			auto pAttribute = pData + element.GetOffset();
 			VertexLayout::Bridge<AttributeSetting>(
 				element.GetType(), this, pAttribute, std::forward<T>(val)
-				);
+			);
 		}
 	protected:
 		Vertex(char* pData, const VertexLayout& layout) noexcept(!IS_DEBUG);
@@ -244,12 +259,11 @@ namespace hw3d
 	{
 	public:
 		VertexBuffer(VertexLayout layout, size_t size = 0u) noexcept(!IS_DEBUG);
-		VertexBuffer(VertexLayout layout, const aiMesh& mesh);
 		const char* GetData() const noexcept(!IS_DEBUG);
 		const VertexLayout& GetLayout() const noexcept;
-		void Resize(size_t newSize) noexcept(!IS_DEBUG);
 		size_t Size() const noexcept(!IS_DEBUG);
 		size_t SizeBytes() const noexcept(!IS_DEBUG);
+		void Resize(size_t newSize) noexcept(!IS_DEBUG);
 		template<typename ...Params>
 		void EmplaceBack(Params&&... params) noexcept(!IS_DEBUG)
 		{
@@ -268,6 +282,8 @@ namespace hw3d
 		VertexLayout layout;
 	};
 }
+
+
 
 #undef DVTX_ELEMENT_AI_EXTRACTOR
 #ifndef DVTX_SOURCE_FILE

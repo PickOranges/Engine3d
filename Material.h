@@ -1,30 +1,35 @@
 #pragma once
-#include "Graphics.h"
+#include <assimp/scene.h>
 #include "BindableBase.h"
 #include <vector>
 #include <filesystem>
 #include "Technique.h"
 
-struct aiMaterial;
-struct aiMesh;
-
 class Material
 {
 public:
-	Material(Graphics& gfx, const aiMaterial& material, const std::filesystem::path& path) noexcept(!IS_DEBUG);
-	hw3d::VertexBuffer ExtractVertices(const aiMesh& mesh) const noexcept;
+	Material(Graphics& gfx, const aiMaterial* pMaterial, const std::filesystem::path& path) noxnd
+	{
 
-	std::vector<Technique> GetTechniques() const noexcept;
-	std::vector<unsigned short> ExtractIndices(const aiMesh& mesh) const noexcept;
-	std::shared_ptr<Bind::VertexBuffer> MakeVertexBindable(Graphics& gfx, const aiMesh& mesh) const noexcept(!IS_DEBUG);
-	std::shared_ptr<Bind::IndexBuffer> MakeIndexBindable(Graphics& gfx, const aiMesh& mesh) const noexcept(!IS_DEBUG);
-
+	}
+	Dvtx::VertexBuffer ExtractVertices(const aiMesh& mesh) const noexcept
+	{
+		using Type = Dvtx::VertexLayout::ElementType;
+		Dvtx::VertexBuffer buf{ vtxLayout };
+		buf.Resize(mesh.mNumVertices);
+		if (vtxLayout.Has<Type::Position3D>())
+		{
+			for (int i = 0; i < mesh.mNumVertices; i++)
+			{
+				buf[i].
+			}
+		}
+	}
+	std::vector<Technique> GetTechniques() const noexcept
+	{
+		return techniques;
+	}
 private:
-	std::string MakeMeshTag(const aiMesh& mesh) const noexcept;
-
-private:
-	hw3d::VertexLayout vtxLayout;
+	Dvtx::VertexLayout vtxLayout;
 	std::vector<Technique> techniques;
-	std::string modelPath;
-	std::string name;
 };

@@ -1,9 +1,12 @@
 #pragma once
 #include "Graphics.h"
 #include <memory>
+#include <string>
 
 
 class Drawable;
+class TechniqueProbe;
+
 
 namespace Bind {
 	class Bindable
@@ -18,6 +21,8 @@ namespace Bind {
 			assert(false);
 			return "";
 		}
+		virtual void Accept(TechniqueProbe&)
+		{}
 	protected:
 		static ID3D11DeviceContext* GetContext(Graphics & gfx) noexcept;
 		static ID3D11Device* GetDevice(Graphics & gfx) noexcept;

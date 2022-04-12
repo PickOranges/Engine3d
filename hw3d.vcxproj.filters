@@ -370,6 +370,9 @@
     <ClInclude Include="TechniqueProbe.h">
       <Filter>Header Files\Multipass</Filter>
     </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="SolidVS.hlsl">

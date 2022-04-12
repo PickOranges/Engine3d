@@ -1,8 +1,8 @@
 #pragma once
 #include "Graphics.h"
-#include <DirectXMath.h>
 #include "Technique.h"
 
+class TechniqueProbe;
 
 //class Bindable;
 namespace Bind
@@ -22,6 +22,7 @@ public:
 	void AddTechnique(Technique tech_in) noexcept;
 	void Submit(class FrameCommander& frame) const noexcept;
 	void Bind(Graphics& gfx) const noexcept;
+	void Accept(TechniqueProbe& probe);
 	UINT GetIndexCount() const noexcept(!IS_DEBUG);
 	virtual ~Drawable();
 

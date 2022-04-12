@@ -34,3 +34,12 @@ UINT Drawable::GetIndexCount() const noexcept(!IS_DEBUG)
 
 Drawable::~Drawable()
 {}
+
+
+void Drawable::Accept(TechniqueProbe& probe)
+{
+	for (auto& t : techniques)
+	{
+		t.Accept(probe);
+	}
+}

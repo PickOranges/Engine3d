@@ -10,22 +10,7 @@ float3 MapNormal(
     const float3x3 tanToTarget = float3x3(tan, bitan, normal);
     // sample and unpack the normal from texture into target space   
     const float3 normalSample = nmap.Sample(splr, tc).xyz;
-    //const float3 tanNormal = normalSample * 2.0f - 1.0f;
-
-
-
-
-
-    // big orange modified on 4.13.2022
-    // this is for debugging of the commit "simple mesh loading test(brick_wall model loading)"
-    const float x = normalSample.x;
-    const float y = normalSample.y;
-    const float z = -normalSample.z;
-    const float3 tanNormal = float3(x,y,z);
-
-
-
-
+    const float3 tanNormal = normalSample * 2.0f - 1.0f;
     // bring normal from tanspace into target space
     return normalize(mul(tanNormal, tanToTarget));
 }

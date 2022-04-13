@@ -11,7 +11,12 @@
 #include <optional>
 #include <filesystem>
 #include "DynamicConstant.h"
+#include <string>
+#include "FrameCommander.h"
 
+
+
+class Material;
 
 class ModelException : public ExceptionBase
 {
@@ -29,7 +34,7 @@ private:
 class Mesh : public Drawable
 {
 public:
-	using Drawable::Drawable;
+	Mesh(Graphics& gfx, const Material& mat, const aiMesh& mesh) noexcept(!IS_DEBUG);
 	DirectX::XMMATRIX GetTransformXM() const noexcept override;
 	void Submit(FrameCommander& frame, DirectX::FXMMATRIX accumulatedTranform) const noexcept(!IS_DEBUG);
 private:

@@ -37,6 +37,11 @@ const std::string& ModelException::GetNote() const noexcept
 }
 
 // Mesh
+Mesh::Mesh(Graphics& gfx, const Material& mat, const aiMesh& mesh) noexcept(!IS_DEBUG)
+	:
+Drawable(gfx, mat, mesh)
+{}
+
 DirectX::XMMATRIX Mesh::GetTransformXM() const noexcept
 {
 	return DirectX::XMLoadFloat4x4(&transform);

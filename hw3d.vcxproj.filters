@@ -384,10 +384,10 @@
     <FxCompile Include="SolidPS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
-    <FxCompile Include="PhongVS.hlsl">
+    <FxCompile Include="PhongDifVS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
-    <FxCompile Include="PhongPS.hlsl">
+    <FxCompile Include="PhongDifPS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="PhongPSSpecNormalMap.hlsl">

@@ -393,10 +393,10 @@
     <FxCompile Include="PhongPSSpecNormalMap.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
-    <FxCompile Include="PhongPSNormalMap.hlsl">
+    <FxCompile Include="PhongDifNrmPS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
-    <FxCompile Include="PhongVSNormalMap.hlsl">
+    <FxCompile Include="PhongDifNrmVS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="PhongPSNormalMapObject.hlsl">

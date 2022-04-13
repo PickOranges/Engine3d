@@ -25,6 +25,11 @@ viewNormal = normalize(viewNormal);
 if (normalMapEnabled)
 {
     viewNormal = MapNormal(normalize(viewTan), normalize(viewBitan), viewNormal, tc, nmap, splr);
+    // sample and unpack normal data
+    //const float3 normalSample = nmap.Sample(splr, tc).xyz;
+    //const float3 objectNormal = normalSample * 2.0f - 1.0f;
+    //// bring normal from object space into view space
+    //viewNormal = normalize(mul(objectNormal, (float3x3) modelView));
 }
 // fragment to light vector data
 const LightVectorData lv = CalculateLightVectorData(viewLightPos, viewFragPos);

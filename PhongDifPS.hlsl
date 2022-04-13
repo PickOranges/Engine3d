@@ -4,9 +4,9 @@
 
 cbuffer ObjectCBuf
 {
-    float3 specularColor;
-    float specularWeight;
-    float specularGloss;
+	float specularIntensity;
+	float specularPower;
+	float padding[2];
 };
 
 Texture2D tex;
@@ -23,7 +23,7 @@ const float att = Attenuate(attConst, attLin, attQuad, lv.distToL);
 // diffuse
 const float3 diffuse = Diffuse(diffuseColor, diffuseIntensity, att, lv.dirToL, viewNormal);
 // specular
-const float3 specular = Speculate(diffuseColor * diffuseIntensity * specularColor, specularWeight, viewNormal, lv.vToL, viewFragPos, att, specularGloss);
+const float3 specular = Speculate(diffuseColor, diffuseIntensity * specularIntensity, viewNormal, lv.vToL, viewFragPos, att, specularPower);
 // final color
 return float4(saturate((diffuse + ambient) * tex.Sample(splr, tc).rgb + specular), 1.0f);
 }

@@ -5,7 +5,7 @@
 #include "Camera.h"
 #include "PointLight.h"
 #include <set>
-#include "Mesh.h"
+#include "Model.h"
 #include "TestCube.h"
 #include "Stencil.h"
 #include "FrameCommander.h"
@@ -37,8 +37,8 @@ private:
 
 
 	//Model sponza{ wnd.Gfx(),"models\\sponza\\sponza.obj",1.0f / 20.0f };
-	TestCube cube{ wnd.Gfx(),4.0f }; 
-	TestCube cube2{ wnd.Gfx(),4.0f };
+	//TestCube cube{ wnd.Gfx(),4.0f }; 
+	//TestCube cube2{ wnd.Gfx(),4.0f };
 	std::unique_ptr<Mesh> pLoaded;
 };
 

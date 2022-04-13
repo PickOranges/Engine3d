@@ -170,6 +170,9 @@
     <ClCompile Include="Technique.cpp">
       <Filter>Source Files\Multipass</Filter>
     </ClCompile>
+    <ClCompile Include="Material.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Win.h">

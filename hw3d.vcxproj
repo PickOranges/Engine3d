@@ -200,6 +200,7 @@
     <ClCompile Include="Job.cpp" />
     <ClCompile Include="Keyboard.cpp" />
     <ClCompile Include="LayoutCodex.cpp" />
+    <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Mouse.cpp" />
     <ClCompile Include="NullPixelShader.cpp" />

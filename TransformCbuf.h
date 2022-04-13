@@ -2,9 +2,10 @@
 #include "ConstantBuffers.h"
 #include "Drawable.h"
 #include <DirectXMath.h>
+#include "Bindable.h"
 
 namespace Bind {
-	class TransformCbuf : public Bindable
+	class TransformCbuf : public CloningBindable
 	{
 	protected:
 		struct Transforms
@@ -16,6 +17,7 @@ namespace Bind {
 		TransformCbuf(Graphics& gfx, UINT slot = 0u);
 		void Bind(Graphics& gfx) noexcept override;
 		void InitializeParentReference(const Drawable& parent) noexcept override;
+		std::unique_ptr<CloningBindable> Clone() const noexcept override;
 
 	protected:
 		void UpdateBindImpl(Graphics& gfx, const Transforms& tf) noexcept;

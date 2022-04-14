@@ -5,6 +5,7 @@
 cbuffer ObjectCBuf
 {
     bool useGlossAlpha;
+    bool useSpecularMap;
     float3 specularColor;
     float specularWeight;
     float specularGloss;
@@ -34,7 +35,18 @@ float specularPowerLoaded = specularGloss;
 //if (hasGloss)
 
 
-const float3 specularReflectionColor = specularSample.rgb;
+//const float3 specularReflectionColor = specularSample.rgb;
+float3 specularReflectionColor;
+if (useSpecularMap)
+{
+    specularReflectionColor = specularSample.rgb;
+}
+else
+{
+    specularReflectionColor = specularColor;
+}
+
+
 if (useGlossAlpha)
 {
     specularPowerLoaded = pow(2.0f, specularSample.a * 13.0f);

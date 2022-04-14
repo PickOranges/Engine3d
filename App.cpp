@@ -56,8 +56,8 @@ void App::DoFrame()
 
 
 	light.Submit(fc);
-	cube.Submit(fc);
-	cube2.Submit(fc);
+	//cube.Submit(fc);
+	//cube2.Submit(fc);
 	sponza.Submit(fc);
 	//pLoaded->Submit(fc, DirectX::XMMatrixIdentity());
 	fc.Execute(wnd.Gfx());
@@ -174,6 +174,10 @@ void App::DoFrame()
 			{
 				dcheck(ImGui::SliderFloat(tag("Spec. Weight"), &v, 0.0f, 2.0f));
 			}
+			if (auto v = buf["useSpecularMap"]; v.Exists())
+			{
+				dcheck(ImGui::Checkbox(tag("Spec. Map Enable"), &v));
+			}
 			if (auto v = buf["useNormalMap"]; v.Exists())
 			{
 				dcheck(ImGui::Checkbox(tag("Normal Map Enable"), &v));
@@ -184,7 +188,7 @@ void App::DoFrame()
 			}
 			return dirty;
 		}
-	} probe;
+	};
 	
 
 	class MP : ModelProbe
@@ -220,6 +224,12 @@ void App::DoFrame()
 					);
 				}
 			}
+			if (pSelectedNode != nullptr)
+			{
+				TP probe;
+				pSelectedNode->Accept(probe);
+			}
+
 			ImGui::End();
 		}
 	protected:
@@ -308,8 +318,8 @@ void App::DoFrame()
 	ShowImguiDemoWindow();
 
 
-	cube.SpawnControlWindow(wnd.Gfx(), "Cube 1");
-	cube2.SpawnControlWindow(wnd.Gfx(), "Cube 2");
+	//cube.SpawnControlWindow(wnd.Gfx(), "Cube 1");
+	//cube2.SpawnControlWindow(wnd.Gfx(), "Cube 2");
 
 
 	// present

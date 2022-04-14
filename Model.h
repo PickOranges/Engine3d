@@ -16,7 +16,7 @@ class Model
 public:
 	Model(Graphics& gfx, const std::string& pathString, float scale = 1.0f);
 	void Submit(FrameCommander& frame) const noexcept(!IS_DEBUG);
-	void ShowWindow(Graphics& gfx, const char* windowName = nullptr) noexcept;
+	//void ShowWindow(Graphics& gfx, const char* windowName = nullptr) noexcept;
 	void SetRootTransform(DirectX::FXMMATRIX tf) noexcept;
 	~Model() noexcept;
 private:
@@ -25,5 +25,5 @@ private:
 private:
 	std::unique_ptr<Node> pRoot;
 	std::vector<std::unique_ptr<Mesh>> meshPtrs;
-	std::unique_ptr<class ModelWindow> pWindow;
+	//std::unique_ptr<class ModelWindow> pWindow;
 };

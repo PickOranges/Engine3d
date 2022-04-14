@@ -7,6 +7,16 @@
 #include <set>
 #include "Model.h"
 #include "TestCube.h"
+#pragma once
+#include "Window.h"
+#include "TimerWrapper.h"
+#include "ImguiManager.h"
+#include "Camera.h"
+#include "PointLight.h"
+#include "TestPlane.h"
+#include "TestCube.h"
+#include "Model.h"
+#include <set>
 #include "Stencil.h"
 #include "FrameCommander.h"
 #include "Material.h"
@@ -36,9 +46,9 @@ private:
 	bool showDemoWindow = false;
 
 
-	//Model sponza{ wnd.Gfx(),"models\\sponza\\sponza.obj",1.0f / 20.0f };
-	TestCube cube{ wnd.Gfx(),4.0f }; 
-	TestCube cube2{ wnd.Gfx(),4.0f };
-	std::unique_ptr<Mesh> pLoaded;
+	Model sponza{ wnd.Gfx(),"models\\sponza\\sponza.obj",1.0f / 20.0f };
+	//TestCube cube{ wnd.Gfx(),4.0f }; 
+	//TestCube cube2{ wnd.Gfx(),4.0f };
+	//std::unique_ptr<Mesh> pLoaded;
 };
 

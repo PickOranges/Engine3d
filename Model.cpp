@@ -77,7 +77,7 @@ Model::~Model() noexcept
 std::unique_ptr<Node> Model::ParseNode(int& nextId, const aiNode& node, dx::FXMMATRIX additionalTransform) noexcept
 {
 	namespace dx = DirectX;
-	const auto transform = dx::XMMatrixTranspose(dx::XMLoadFloat4x4(
+	const auto transform = additionalTransform*dx::XMMatrixTranspose(dx::XMLoadFloat4x4(
 		reinterpret_cast<const dx::XMFLOAT4X4*>(&node.mTransformation)
 	));
 

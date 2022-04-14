@@ -74,6 +74,11 @@ Model::~Model() noexcept
 //	return {};
 //}
 
+void Model::Accept(ModelProbe& probe)
+{
+	pRoot->Accept(probe);
+}
+
 std::unique_ptr<Node> Model::ParseNode(int& nextId, const aiNode& node, dx::FXMMATRIX additionalTransform) noexcept
 {
 	namespace dx = DirectX;

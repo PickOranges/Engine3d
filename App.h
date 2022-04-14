@@ -39,12 +39,12 @@ private:
 	FrameCommander fc;
 
 
-	//PointLight light;
+	PointLight light;
 	float speed_factor = 1.0f;
 	bool showDemoWindow = false;
 
 
-	//Model sponza{ wnd.Gfx(),"models\\sponza\\sponza.obj",1.0f/20.f };
+	Model sponza{ wnd.Gfx(),"models\\sponza\\sponza.obj",1.0f/20.f };
 	//TestCube cube{ wnd.Gfx(),4.0f }; 
 	//TestCube cube2{ wnd.Gfx(),4.0f };
 	//std::unique_ptr<Mesh> pLoaded;

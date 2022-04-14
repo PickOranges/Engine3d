@@ -3,10 +3,12 @@
 #include <string>
 #include <memory>
 #include <filesystem>
+#include "SimpleMathDX.h"
 
 class Node;
 class Mesh;
 class FrameCommander;
+class ModelWindow;
 struct aiMesh;
 struct aiMaterial;
 struct aiNode;
@@ -22,7 +24,8 @@ public:
 	~Model() noexcept;
 private:
 	static std::unique_ptr<Mesh> ParseMesh(Graphics& gfx, const aiMesh& mesh, const aiMaterial* const* pMaterials, const std::filesystem::path& path, float scale);
-	std::unique_ptr<Node> ParseNode(int& nextId, const aiNode& node, DirectX::FXMMATRIX additionalTransform) noexcept;
+	//std::unique_ptr<Node> ParseNode(int& nextId, const aiNode& node, DirectX::FXMMATRIX additionalTransform) noexcept;
+	std::unique_ptr<Node> ParseNode(int& nextId, const aiNode& node, float scale) noexcept;
 private:
 	std::unique_ptr<Node> pRoot;
 	std::vector<std::unique_ptr<Mesh>> meshPtrs;

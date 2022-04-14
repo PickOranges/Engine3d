@@ -1,20 +1,13 @@
 #include "App.h"
-#include "imgui/imgui.h"
-#include "Testing.h"
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>
-#include "Mesh.h"
-#include "DynamicConstant.h"
-#include "ModelProbe.h"
-#include "Node.h"
+
+
 
 namespace dx = DirectX;
 
 App::App()
 	: 
-	wnd(1280, 720, "Test App Class Obj"),
-	light(wnd.Gfx())
+	wnd(1280, 720, "Test App Class Obj")/*,*/
+	//light(wnd.Gfx())
 {
 	wnd.Gfx().SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 400.0f));
 	//cube.SetPos({ 4.0f,0.0f,0.0f });
@@ -59,13 +52,13 @@ void App::DoFrame()
 
 	wnd.Gfx().BeginFrame(0.07f, 0.0f, 0.12f);
 	wnd.Gfx().SetCamera(cam.GetMatrix());
-	light.Bind(wnd.Gfx(), cam.GetMatrix());
+	//light.Bind(wnd.Gfx(), cam.GetMatrix());
 
 
-	light.Submit(fc);
+	//light.Submit(fc);
 	//cube.Submit(fc);
 	//cube2.Submit(fc);
-	sponza.Submit(fc);
+	//sponza.Submit(fc);
 	//pLoaded->Submit(fc, DirectX::XMMatrixIdentity());
 	fc.Execute(wnd.Gfx());
 
@@ -193,6 +186,7 @@ void App::DoFrame()
 		}
 	} probe;
 	
+
 	class MP : ModelProbe
 	{
 	public:
@@ -253,9 +247,9 @@ void App::DoFrame()
 
 	
 	// imgui windows
-	modelProbe.SpawnWindow(sponza);
+	//modelProbe.SpawnWindow(sponza);
 	cam.SpawnControlWindow();
-	light.SpawnControlWindow();
+	//light.SpawnControlWindow();
 	ShowImguiDemoWindow();
 
 

@@ -1,7 +1,7 @@
 #pragma once
 #include <DirectXMath.h>
 
-DirectX::XMFLOAT3 ExtractEulerAngles(const DirectX::XMFLOAT4X4& mat)
+inline DirectX::XMFLOAT3 ExtractEulerAngles(const DirectX::XMFLOAT4X4& mat)
 {
 	DirectX::XMFLOAT3 euler;
 
@@ -20,12 +20,12 @@ DirectX::XMFLOAT3 ExtractEulerAngles(const DirectX::XMFLOAT4X4& mat)
 	return euler;
 }
 
-DirectX::XMFLOAT3 ExtractTranslation(const DirectX::XMFLOAT4X4& matrix)
+inline DirectX::XMFLOAT3 ExtractTranslation(const DirectX::XMFLOAT4X4& matrix)
 {
 	return { matrix._41,matrix._42,matrix._43 };
 }
 
-DirectX::XMMATRIX ScaleTranslation(DirectX::XMMATRIX matrix, float scale)
+inline DirectX::XMMATRIX ScaleTranslation(DirectX::XMMATRIX matrix, float scale)
 {
 	matrix.r[3].m128_f32[0] *= scale;
 	matrix.r[3].m128_f32[1] *= scale;

@@ -3,7 +3,8 @@
 #include "Surface.h"
 #include <unordered_map>
 #include <sstream>
-#include "SimpleMathDX.h"
+#include <filesystem>
+#include "DynamicConstant.h"
 #include "ConstantBuffersEx.h"
 #include "LayoutCodex.h"
 #include "Stencil.h"
@@ -37,9 +38,9 @@ namespace dx = DirectX;
 //}
 
 // Mesh
-Mesh::Mesh(Graphics& gfx, const Material& mat, const aiMesh& mesh) noexcept(!IS_DEBUG)
+Mesh::Mesh(Graphics& gfx, const Material& mat, const aiMesh& mesh, float scale) noexcept(!IS_DEBUG)
 	:
-Drawable(gfx, mat, mesh)
+	Drawable(gfx, mat, mesh, scale)
 {}
 
 DirectX::XMMATRIX Mesh::GetTransformXM() const noexcept

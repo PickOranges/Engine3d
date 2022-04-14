@@ -29,18 +29,20 @@ TestCube::TestCube(Graphics& gfx, float size)
 			only.AddBindable(Texture::Resolve(gfx, "Images\\brickwall.jpg"));
 			only.AddBindable(Sampler::Resolve(gfx));
 
-			auto pvs = VertexShader::Resolve(gfx, "Phong_VS.cso");
+			auto pvs = VertexShader::Resolve(gfx, "PhongDif_VS.cso");
 			auto pvsbc = pvs->GetBytecode();
 			only.AddBindable(std::move(pvs));
 
-			only.AddBindable(PixelShader::Resolve(gfx, "Phong_PS.cso"));
+			only.AddBindable(PixelShader::Resolve(gfx, "PhongDif_PS.cso"));
 
 			Dcb::RawLayout lay;
-			lay.Add<Dcb::Float>("specularIntensity");
-			lay.Add<Dcb::Float>("specularPower");
+			lay.Add<Dcb::Float3>("specularColor");
+			lay.Add<Dcb::Float>("specularWeight");
+			lay.Add<Dcb::Float>("specularGloss");
 			auto buf = Dcb::Buffer(std::move(lay));
-			buf["specularIntensity"] = 0.1f;
-			buf["specularPower"] = 20.0f;
+			buf["specularColor"] = dx::XMFLOAT3{ 1.0f,1.0f,1.0f };
+			buf["specularWeight"] = 0.1f;
+			buf["specularGloss"] = 20.0f;
 			only.AddBindable(std::make_shared<Bind::CachingPixelConstantBufferEx>(gfx, buf, 1u));
 
 			only.AddBindable(InputLayout::Resolve(gfx, model.vertices.GetLayout(), pvsbc));

@@ -15,22 +15,22 @@ App::App()
 	light(wnd.Gfx())
 {
 	wnd.Gfx().SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 400.0f));
-	cube.SetPos({ 4.0f,0.0f,0.0f });
-	cube2.SetPos({ 0.0f,4.0f,0.0f });
+	//cube.SetPos({ 4.0f,0.0f,0.0f });
+	//cube2.SetPos({ 0.0f,4.0f,0.0f });
 
-	{
-		std::string path = "models\\brick_wall\\brick_wall.obj";
-		Assimp::Importer imp;
-		const auto pScene = imp.ReadFile(path,
-			aiProcess_Triangulate |
-			aiProcess_JoinIdenticalVertices |
-			aiProcess_ConvertToLeftHanded |
-			aiProcess_GenNormals |
-			aiProcess_CalcTangentSpace
-		);
-		Material mat{ wnd.Gfx(),*pScene->mMaterials[1],path };
-		pLoaded = std::make_unique<Mesh>(wnd.Gfx(), mat, *pScene->mMeshes[0]);
-	}
+	//{
+	//	std::string path = "models\\brick_wall\\brick_wall.obj";
+	//	Assimp::Importer imp;
+	//	const auto pScene = imp.ReadFile(path,
+	//		aiProcess_Triangulate |
+	//		aiProcess_JoinIdenticalVertices |
+	//		aiProcess_ConvertToLeftHanded |
+	//		aiProcess_GenNormals |
+	//		aiProcess_CalcTangentSpace
+	//	);
+	//	Material mat{ wnd.Gfx(),*pScene->mMaterials[1],path };
+	//	pLoaded = std::make_unique<Mesh>(wnd.Gfx(), mat, *pScene->mMeshes[0]);
+	//}
 }
 
 int App::Go()
@@ -63,7 +63,8 @@ void App::DoFrame()
 	light.Submit(fc);
 	//cube.Submit(fc);
 	//cube2.Submit(fc);
-	pLoaded->Submit(fc, DirectX::XMMatrixIdentity());
+	sponza.Submit(fc);
+	//pLoaded->Submit(fc, DirectX::XMMatrixIdentity());
 	fc.Execute(wnd.Gfx());
 
 
@@ -189,7 +190,7 @@ void App::DoFrame()
 			return dirty;
 		}
 	} probe;
-	pLoaded->Accept(probe);
+	//pLoaded->Accept(probe);
 
 
 

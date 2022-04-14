@@ -15,8 +15,8 @@ App::App()
 	light(wnd.Gfx())
 {
 	wnd.Gfx().SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 400.0f));
-	/*cube.SetPos({ 4.0f,0.0f,0.0f });
-	cube2.SetPos({ 0.0f,4.0f,0.0f });*/
+	cube.SetPos({ 4.0f,0.0f,0.0f });
+	cube2.SetPos({ 0.0f,4.0f,0.0f });
 
 	{
 		std::string path = "models\\brick_wall\\brick_wall.obj";
@@ -61,6 +61,8 @@ void App::DoFrame()
 
 
 	light.Submit(fc);
+	//cube.Submit(fc);
+	//cube2.Submit(fc);
 	pLoaded->Submit(fc, DirectX::XMMatrixIdentity());
 	fc.Execute(wnd.Gfx());
 

@@ -11,6 +11,12 @@
 #include <random>
 #include <vector>
 
+
+class DepthStencil;
+
+
+
+
 namespace Bind {
 	class Bindable;
 }
@@ -20,7 +26,7 @@ namespace wrl = Microsoft::WRL;
 
 class Graphics
 {
-	friend class Bind:: Bindable;
+	friend class GraphicsResource;
 
 public:
 	class GHrException : public HrException {
@@ -71,10 +77,19 @@ public:
 	void EnableImgui() noexcept;
 	void DisableImgui() noexcept;
 	bool IsImguiEnabled() const noexcept;
+
+
+	void BindSwapBuffer() noexcept;
+	void BindSwapBuffer(const DepthStencil& ds) noexcept;
+	UINT GetWidth() const noexcept;
+	UINT GetHeight() const noexcept;
 private:
 	bool imguiEnabled = true;
 	DirectX::XMMATRIX camera;
 	DirectX::XMMATRIX projection;
+
+	UINT width;
+	UINT height;
 #ifndef NDEBUG
 	DxgiInfoManager infoManager;
 #endif

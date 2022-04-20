@@ -2,7 +2,7 @@
 #include "Graphics.h"
 #include <memory>
 #include <string>
-#include "TechniqueProbe.h"
+#include "GraphicsResource.h"
 
 
 class Drawable;
@@ -10,7 +10,7 @@ class TechniqueProbe;
 
 
 namespace Bind {
-	class Bindable
+	class Bindable : public GraphicsResource
 	{
 	public:
 		virtual void Bind(Graphics& gfx) noexcept = 0;
@@ -24,10 +24,6 @@ namespace Bind {
 		}
 		virtual void Accept(TechniqueProbe&)
 		{}
-	protected:
-		static ID3D11DeviceContext* GetContext(Graphics & gfx) noexcept;
-		static ID3D11Device* GetDevice(Graphics & gfx) noexcept;
-		static DxgiInfoManager& GetInfoManager(Graphics & gfx) noexcept(!IS_DEBUG);
 	};
 
 

@@ -2,7 +2,7 @@ Texture2D tex;
 SamplerState splr;
 
 
-static const int r = 3;
+static const int r = 12;
 static const float divisor = (2 * r + 1) * (2 * r + 1);
 
 

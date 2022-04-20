@@ -31,7 +31,7 @@ public:
 		pIbFull = Bind::IndexBuffer::Resolve(gfx, "$Full", std::move(indices));
 
 		// setup fullscreen shaders
-		pPsFull = Bind::PixelShader::Resolve(gfx, "TEST_NegColor_PS.cso");
+		pPsFull = Bind::PixelShader::Resolve(gfx, "TEST_GaussBlurBruteForce_PS.cso");
 		pVsFull = Bind::VertexShader::Resolve(gfx, "TEST_Fullscreen_VS.cso");
 		pLayoutFull = Bind::InputLayout::Resolve(gfx, lay, pVsFull->GetBytecode());
 	}

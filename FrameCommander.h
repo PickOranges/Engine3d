@@ -34,6 +34,7 @@ public:
 		pPsFull = Bind::PixelShader::Resolve(gfx, "TEST_GaussBlurBruteForce_PS.cso");
 		pVsFull = Bind::VertexShader::Resolve(gfx, "TEST_Fullscreen_VS.cso");
 		pLayoutFull = Bind::InputLayout::Resolve(gfx, lay, pVsFull->GetBytecode());
+		pSamplerFull = Bind::Sampler::Resolve(gfx, false, true);
 	}
 
 
@@ -73,6 +74,8 @@ public:
 		pVsFull->Bind(gfx);
 		pPsFull->Bind(gfx);
 		pLayoutFull->Bind(gfx);
+
+		pSamplerFull->Bind(gfx);
 		gfx.DrawIndexed(pIbFull->GetCount());
 	}
 	void Reset() noexcept
@@ -93,4 +96,5 @@ private:
 	std::shared_ptr<Bind::VertexShader> pVsFull;
 	std::shared_ptr<Bind::PixelShader> pPsFull;
 	std::shared_ptr<Bind::InputLayout> pLayoutFull;
+	std::shared_ptr<Bind::Sampler> pSamplerFull;
 };

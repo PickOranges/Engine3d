@@ -26,7 +26,7 @@ RenderTarget::RenderTarget(Graphics& gfx, UINT width, UINT height)
 		&textureDesc, nullptr, &pTexture
 	));
 
-	// create the resource view on the texture
+	// create the shader resource view on the texture
 	D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
 	srvDesc.Format = textureDesc.Format;
 	srvDesc.ViewDimension = D3D11_SRV_DIMENSION_TEXTURE2D;
@@ -36,7 +36,7 @@ RenderTarget::RenderTarget(Graphics& gfx, UINT width, UINT height)
 		pTexture.Get(), &srvDesc, &pTextureView
 	));
 
-	// create the target view on the texture
+	// create the render target view on the texture
 	D3D11_RENDER_TARGET_VIEW_DESC rtvDesc = {};
 	rtvDesc.Format = textureDesc.Format;
 	rtvDesc.ViewDimension = D3D11_RTV_DIMENSION_TEXTURE2D;

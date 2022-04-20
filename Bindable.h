@@ -8,6 +8,7 @@
 
 class Drawable;
 class TechniqueProbe;
+class GraphicsResource;
 
 
 namespace Bind {

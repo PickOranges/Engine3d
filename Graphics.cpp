@@ -123,7 +123,7 @@ void Graphics::BeginFrame(float red, float green, float blue) noexcept
 		ImGui::NewFrame();
 	}
 
-	const float color[] = { red,green,blue,1.f };
+	const float color[] = { red,green,blue,0.0f };
 	pContext->ClearRenderTargetView(pTarget.Get(),color);
 }
 

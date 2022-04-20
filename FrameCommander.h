@@ -66,7 +66,7 @@ public:
 		Stencil::Resolve(gfx, Stencil::Mode::Mask)->Bind(gfx);
 		passes[2].Execute(gfx);
 
-		// fullscreen funky pass
+		// fullscreen blur pass
 		gfx.BindSwapBuffer();
 		rt.BindAsTexture(gfx, 0);
 		pVbFull->Bind(gfx);
@@ -74,7 +74,6 @@ public:
 		pVsFull->Bind(gfx);
 		pPsFull->Bind(gfx);
 		pLayoutFull->Bind(gfx);
-
 		pSamplerFull->Bind(gfx);
 		gfx.DrawIndexed(pIbFull->GetCount());
 	}

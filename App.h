@@ -40,7 +40,6 @@ private:
 
 	FrameCommander fc{ wnd.Gfx() };
 
-
 	PointLight light;
 	float speed_factor = 1.0f;
 	bool showDemoWindow = false;

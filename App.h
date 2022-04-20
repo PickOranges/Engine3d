@@ -38,7 +38,7 @@ private:
 	TimerWrapper timer;
 	Camera cam;
 
-	FrameCommander fc;
+	FrameCommander fc{ wnd.Gfx() };
 
 
 	PointLight light;

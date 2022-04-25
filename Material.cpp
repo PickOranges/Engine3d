@@ -152,6 +152,7 @@ modelPath(path.string())
 
 		// this can be pass-constant
 		draw.AddBindable(PixelShader::Resolve(gfx, "Solid_PS.cso"));
+
 		{
 			Dcb::RawLayout lay;
 			lay.Add<Dcb::Float3>("materialColor");

@@ -412,6 +412,9 @@
     <ClInclude Include="DepthStencil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BlurPack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Solid_VS.hlsl">
@@ -463,6 +466,9 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="TEST_Fullscreen_VS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="Blur_PS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

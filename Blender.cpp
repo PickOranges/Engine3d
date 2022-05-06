@@ -22,6 +22,8 @@ namespace Bind
 		auto& brt = blendDesc.RenderTarget[0];
 		if (blending)
 		{
+			brt.BlendEnable = TRUE;
+
 			if (factors_in)
 			{
 				brt.SrcBlend = D3D11_BLEND_BLEND_FACTOR;

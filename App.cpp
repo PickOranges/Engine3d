@@ -9,10 +9,11 @@ App::App()
 	wnd(1280, 720, "Test App Class Obj"),
 	light(wnd.Gfx())
 {
-	TestDynamicConstant();
+	
 	wnd.Gfx().SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 400.0f));
 	cube.SetPos({ 4.0f,0.0f,0.0f });
 	cube2.SetPos({ 0.0f,4.0f,0.0f });
+	
 
 	//{
 	//	std::string path = "models\\brick_wall\\brick_wall.obj";
@@ -342,6 +343,7 @@ void App::DoFrame()
 
 	cube.SpawnControlWindow(wnd.Gfx(), "Cube 1");
 	cube2.SpawnControlWindow(wnd.Gfx(), "Cube 2");
+	fc.ShowWindows(wnd.Gfx());
 
 
 	// present

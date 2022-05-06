@@ -15,9 +15,9 @@ public:
 	FrameCommander(Graphics& gfx)
 		:
 		ds(gfx, gfx.GetWidth(), gfx.GetHeight()),
-		rt1(gfx, gfx.GetWidth(), gfx.GetHeight()),
-		rt2(gfx, gfx.GetWidth(), gfx.GetHeight()),
-		blur(gfx, 7, 2.6f, "TEST_GaussBlurBruteForce_PS.cso")
+		rt1(gfx, gfx.GetWidth() / 2, gfx.GetHeight() / 2),
+		rt2(gfx, gfx.GetWidth() / 2, gfx.GetHeight() / 2),
+		blur(gfx, 7, 2.6f, "BlurOutline_PS.cso")
 	{
 		namespace dx = DirectX;
 

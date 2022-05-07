@@ -1,5 +1,7 @@
 #include "App.h"
 #include "TechniqueProbe.h"
+#include "BufferClearPass.h"
+#include "LambertianPass.h"
 
 
 namespace dx = DirectX;
@@ -14,20 +16,26 @@ App::App()
 	cube.SetPos({ 4.0f,0.0f,0.0f });
 	cube2.SetPos({ 0.0f,4.0f,0.0f });
 	
+	{
+		{
+			auto bcp = std::make_unique<BufferClearPass>("clear");
+			bcp->SetInputSource("renderTarget", "$.backbuffer");
+			bcp->SetInputSource("depthStencil", "$.masterDepth");
+			rg.AppendPass(std::move(bcp));
+		}
+		{
+			auto lp = std::make_unique<LambertianPass>("lambertian");
+			lp->SetInputSource("renderTarget", "clear.renderTarget");
+			lp->SetInputSource("depthStencil", "clear.depthStencil");
+			rg.AppendPass(std::move(lp));
+		}
+		rg.SetSinkTarget("backbuffer", "lambertian.renderTarget");
+		rg.Finalize();
 
-	//{
-	//	std::string path = "models\\brick_wall\\brick_wall.obj";
-	//	Assimp::Importer imp;
-	//	const auto pScene = imp.ReadFile(path,
-	//		aiProcess_Triangulate |
-	//		aiProcess_JoinIdenticalVertices |
-	//		aiProcess_ConvertToLeftHanded |
-	//		aiProcess_GenNormals |
-	//		aiProcess_CalcTangentSpace
-	//	);
-	//	Material mat{ wnd.Gfx(),*pScene->mMaterials[1],path };
-	//	pLoaded = std::make_unique<Mesh>(wnd.Gfx(), mat, *pScene->mMeshes[0]);
-	//}
+		cube.LinkTechniques(rg);
+		cube2.LinkTechniques(rg);
+		light.LinkTechniques(rg);
+	}
 }
 
 int App::Go()
@@ -57,12 +65,15 @@ void App::DoFrame()
 	light.Bind(wnd.Gfx(), cam.GetMatrix());
 
 
-	light.Submit(fc);
-	cube.Submit(fc);
-	cube2.Submit(fc);
-	sponza.Submit(fc);
-	//pLoaded->Submit(fc, DirectX::XMMatrixIdentity());
-	fc.Execute(wnd.Gfx());
+
+	light.Submit();
+	cube.Submit();
+	cube2.Submit();
+	rg.Execute(wnd.Gfx());
+
+
+
+
 
 
 	// Handles the messages from mouse and keyboard.
@@ -328,14 +339,8 @@ void App::DoFrame()
 
 
 
-
-
-
-
-
 	
 	// imgui windows
-	modelProbe.SpawnWindow(sponza);
 	cam.SpawnControlWindow();
 	light.SpawnControlWindow();
 	ShowImguiDemoWindow();
@@ -343,13 +348,13 @@ void App::DoFrame()
 
 	cube.SpawnControlWindow(wnd.Gfx(), "Cube 1");
 	cube2.SpawnControlWindow(wnd.Gfx(), "Cube 2");
-	fc.ShowWindows(wnd.Gfx());
+	
 
 
 	// present
 	wnd.Gfx().EndFrame();
 
-	fc.Reset();
+	rg.Reset();
 }
 
 void App::ShowImguiDemoWindow()

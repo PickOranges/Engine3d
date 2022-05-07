@@ -6,4 +6,3 @@ void StepLinkingProbe::OnSetStep()
 {
 	pStep->Link(rg);
 }
-12

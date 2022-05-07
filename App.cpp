@@ -252,9 +252,7 @@ void App::DoFrame()
 						dx::XMMatrixTranslation(tf.x, tf.y, tf.z)
 					);
 				}
-			}
-			if (pSelectedNode != nullptr)
-			{
+
 				TP probe;
 				pSelectedNode->Accept(probe);
 			}
@@ -278,27 +276,6 @@ void App::DoFrame()
 			// processing for selecting node
 			if (ImGui::IsItemClicked())
 			{
-				struct Probe : public TechniqueProbe
-				{
-					virtual void OnSetTechnique()
-					{
-						if (pTech->GetName() == "Outline")
-						{
-							pTech->SetActiveState(highlighted);
-						}
-					}
-					bool highlighted = false;
-				} probe;
-
-				// remove highlight on prev-selected node
-				if (pSelectedNode != nullptr)
-				{
-					pSelectedNode->Accept(probe);
-				}
-				// add highlight to newly-selected node
-				probe.highlighted = true;
-				node.Accept(probe);
-
 				pSelectedNode = &node;
 			}
 			// signal if children should also be recursed

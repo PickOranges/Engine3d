@@ -7,11 +7,11 @@
 
 using namespace Bind;
 
-void Drawable::Submit(FrameCommander& frame) const noexcept
+void Drawable::Submit() const noexcept
 {
 	for (const auto& tech : techniques)
 	{
-		tech.Submit(frame, *this);
+		tech.Submit(*this);
 	}
 }
 
@@ -44,6 +44,15 @@ UINT Drawable::GetIndexCount() const noexcept(!IS_DEBUG)
 {
 	return pIndices->GetCount();
 }
+
+void Drawable::LinkTechniques(RenderGraph& rg)
+{
+	for (auto& tech : techniques)
+	{
+		tech.Link(rg);
+	}
+}
+
 
 Drawable::~Drawable()
 {}

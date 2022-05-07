@@ -191,8 +191,29 @@
     <ClCompile Include="Pass.cpp">
       <Filter>Source Files\Multipass</Filter>
     </ClCompile>
-    <ClCompile Include="FrameCommander.cpp">
-      <Filter>Source Files\Multipass</Filter>
+    <ClCompile Include="BindingPass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PassInput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderGraphCompileException.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PassOutput.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderGraph.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderQueuePass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BufferClearPass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FullscreenPass.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -376,9 +397,6 @@
     <ClInclude Include="Job.h">
       <Filter>Header Files\Multipass</Filter>
     </ClInclude>
-    <ClInclude Include="FrameCommander.h">
-      <Filter>Header Files\Multipass</Filter>
-    </ClInclude>
     <ClInclude Include="Step.h">
       <Filter>Header Files\Multipass</Filter>
     </ClInclude>
@@ -419,6 +437,36 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BlurPack.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BindingPass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BufferResource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PassInput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderGraphCompileException.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PassOutput.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderGraph.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderQueuePass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BufferClearPass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FullscreenPass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LambertianPass.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

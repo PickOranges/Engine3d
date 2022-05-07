@@ -49,10 +49,10 @@ DirectX::XMMATRIX Mesh::GetTransformXM() const noexcept
 }
 
 
-void Mesh::Submit(FrameCommander& frame, dx::FXMMATRIX accumulatedTranform) const noexcept(!IS_DEBUG)
+void Mesh::Submit(dx::FXMMATRIX accumulatedTranform) const noexcept(!IS_DEBUG)
 {
 	dx::XMStoreFloat4x4(&transform, accumulatedTranform);
-	Drawable::Submit(frame);
+	Drawable::Submit();
 }
 
 //// Node

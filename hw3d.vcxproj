@@ -222,7 +222,6 @@
     <ClCompile Include="RenderQueuePass.cpp" />
     <ClCompile Include="RenderTarget.cpp" />
     <ClCompile Include="Sampler.cpp" />
-    <ClCompile Include="ScriptCommander.cpp" />
     <ClCompile Include="SolidSphere.cpp" />
     <ClCompile Include="Step.cpp" />
     <ClCompile Include="StepLinkingProbe.cpp" />
@@ -235,6 +234,7 @@
     <ClCompile Include="TimerWrapper.cpp" />
     <ClCompile Include="Topology.cpp" />
     <ClCompile Include="TransformCbuf.cpp" />
+    <ClCompile Include="TransformCbufScaling.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="Vertex.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
@@ -323,6 +323,7 @@
     <ClInclude Include="TimerWrapper.h" />
     <ClInclude Include="Topology.h" />
     <ClInclude Include="TransformCbuf.h" />
+    <ClInclude Include="TransformCbufScaling.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="Vertex.h" />
     <ClInclude Include="VertexBuffer.h" />

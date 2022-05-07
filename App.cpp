@@ -48,6 +48,7 @@ App::App()
 		cube.LinkTechniques(rg);
 		cube2.LinkTechniques(rg);
 		light.LinkTechniques(rg);
+		sponza.LinkTechniques(rg);
 	}
 }
 
@@ -82,6 +83,8 @@ void App::DoFrame()
 	light.Submit();
 	cube.Submit();
 	cube2.Submit();
+	sponza.Submit();
+
 	rg.Execute(wnd.Gfx());
 
 
@@ -354,10 +357,10 @@ void App::DoFrame()
 
 	
 	// imgui windows
+	modelProbe.SpawnWindow(sponza);
 	cam.SpawnControlWindow();
 	light.SpawnControlWindow();
 	ShowImguiDemoWindow();
-
 
 	cube.SpawnControlWindow(wnd.Gfx(), "Cube 1");
 	cube2.SpawnControlWindow(wnd.Gfx(), "Cube 2");

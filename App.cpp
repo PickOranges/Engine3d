@@ -1,5 +1,5 @@
 #include "App.h"
-
+#include "TechniqueProbe.h"
 
 
 namespace dx = DirectX;

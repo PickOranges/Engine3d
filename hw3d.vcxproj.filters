@@ -487,6 +487,9 @@
     <ClInclude Include="RenderGraphCompileException.h">
       <Filter>Header Files\Multipass</Filter>
     </ClInclude>
+    <ClInclude Include="TestModelProbe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Solid_VS.hlsl">

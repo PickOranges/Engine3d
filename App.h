@@ -15,8 +15,6 @@
 #include "Model.h"
 #include "Mesh.h"
 #include "RenderGraph.h"
-#include "Stencil.h"
-
 #include "TestCube.h"
 #include "Testing.h"
 
@@ -32,7 +30,8 @@ public:
 	int Go();
 	~App();
 private:
-	void DoFrame(); // contain top-level game logic.
+	void DoFrame(float dt);
+	void HandleInput(float dt);
 	void ShowImguiDemoWindow();
 private:
 	ImguiManager imgui;

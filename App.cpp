@@ -19,38 +19,11 @@ App::App()
 	cube.SetPos({ 4.0f,0.0f,0.0f });
 	cube2.SetPos({ 0.0f,4.0f,0.0f });
 	
-	{
-		{
-			auto pass = std::make_unique<BufferClearPass>("clear");
-			pass->SetInputSource("renderTarget", "$.backbuffer");
-			pass->SetInputSource("depthStencil", "$.masterDepth");
-			rg.AppendPass(std::move(pass));
-		}
-		{
-			auto pass = std::make_unique<LambertianPass>(wnd.Gfx(), "lambertian");
-			pass->SetInputSource("renderTarget", "clear.renderTarget");
-			pass->SetInputSource("depthStencil", "clear.depthStencil");
-			rg.AppendPass(std::move(pass));
-		}
-		{
-			auto pass = std::make_unique<OutlineMaskGenerationPass>(wnd.Gfx(), "outlineMask");
-			pass->SetInputSource("depthStencil", "lambertian.depthStencil");
-			rg.AppendPass(std::move(pass));
-		}
-		{
-			auto pass = std::make_unique<OutlineDrawingPass>(wnd.Gfx(), "outlineDraw");
-			pass->SetInputSource("renderTarget", "lambertian.renderTarget");
-			pass->SetInputSource("depthStencil", "outlineMask.depthStencil");
-			rg.AppendPass(std::move(pass));
-		}
-		rg.SetSinkTarget("backbuffer", "outlineDraw.renderTarget");
-		rg.Finalize();
-
-		cube.LinkTechniques(rg);
-		cube2.LinkTechniques(rg);
-		light.LinkTechniques(rg);
-		sponza.LinkTechniques(rg);
-	}
+	cube.LinkTechniques(rg);
+	cube2.LinkTechniques(rg);
+	light.LinkTechniques(rg);
+	sponza.LinkTechniques(rg);
+	
 }
 
 int App::Go()

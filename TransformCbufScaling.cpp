@@ -32,3 +32,8 @@ Dcb::RawLayout Bind::TransformCbufScaling::MakeLayout()
 	layout.Add<Dcb::Float>("scale");
 	return layout;
 }
+
+std::unique_ptr<Bind::CloningBindable> Bind::TransformCbufScaling::Clone() const noexcept
+{
+	return std::make_unique<TransformCbufScaling>(*this);
+}

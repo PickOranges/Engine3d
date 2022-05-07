@@ -478,6 +478,12 @@
     <ClInclude Include="StepLinkingProbe.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="OutlineDrawingPass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="OutlineMaskGenerationPass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Solid_VS.hlsl">

@@ -9,12 +9,13 @@
 #include "Camera.h"
 #include "PointLight.h"
 #include <set>
-#include "FrameCommander.h"
 #include "DynamicConstant.h"
 #include "ModelProbe.h"
 #include "Node.h"
 #include "Model.h"
 #include "Mesh.h"
+#include "RenderGraph.h"
+#include "Stencil.h"
 
 #include "TestCube.h"
 #include "Testing.h"
@@ -39,14 +40,14 @@ private:
 	TimerWrapper timer;
 	Camera cam;
 
-	FrameCommander fc{ wnd.Gfx() };
+	RenderGraph rg{ wnd.Gfx() };
 
 	PointLight light;
 	float speed_factor = 1.0f;
 	bool showDemoWindow = false;
 
 
-	Model sponza{ wnd.Gfx(),"models\\sponza\\sponza.obj",1.0f/20.f };
+	//Model sponza{ wnd.Gfx(),"models\\sponza\\sponza.obj",1.0f/20.f };
 	TestCube cube{ wnd.Gfx(),4.0f }; 
 	TestCube cube2{ wnd.Gfx(),4.0f };
 	//std::unique_ptr<Mesh> pLoaded;

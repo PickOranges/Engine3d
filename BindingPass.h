@@ -1,5 +1,6 @@
 #pragma once
 #include "Pass.h"
+#include <memory>
 
 namespace Bind
 {
@@ -12,6 +13,7 @@ protected:
 	BindingPass(std::string name, std::vector<std::shared_ptr<Bind::Bindable>> binds = {});
 	void AddBind(std::shared_ptr<Bind::Bindable> bind) noexcept;
 	void BindAll(Graphics& gfx) const noexcept;
+	void Finalize() override;
 private:
 	std::vector<std::shared_ptr<Bind::Bindable>> binds;
 };

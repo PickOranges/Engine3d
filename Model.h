@@ -17,7 +17,7 @@ class Model
 {
 public:
 	Model(Graphics& gfx, const std::string& pathString, float scale = 1.0f);
-	void Submit(FrameCommander& frame) const noexcept(!IS_DEBUG);
+	void Submit() const noexcept(!IS_DEBUG);
 	//void ShowWindow(Graphics& gfx, const char* windowName = nullptr) noexcept;
 	void SetRootTransform(DirectX::FXMMATRIX tf) noexcept;
 	void Accept(class ModelProbe& probe);

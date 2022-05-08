@@ -24,6 +24,6 @@ private:
 	static constexpr int radius = 4;
 	static constexpr float sigma = 2.0f;
 	
-	std::shared_ptr<Bind::CachingPixelConstantBufferEx> blurControl;
-	std::shared_ptr<Bind::CachingPixelConstantBufferEx> blurDirection;
+	std::shared_ptr<typename Bind::CachingPixelConstantBufferEx> blurControl;
+	std::shared_ptr<typename Bind::CachingPixelConstantBufferEx> blurDirection;
 };

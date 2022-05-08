@@ -22,7 +22,7 @@ Step::Step(std::string targetPassName)
 	targetPassName{ std::move(targetPassName) }
 {}
 
-Step::Step(const Step& src) noexcept
+Step::Step(const Step& src) noexcept(!IS_DEBUG)
 	:
 	targetPassName(src.targetPassName)
 {

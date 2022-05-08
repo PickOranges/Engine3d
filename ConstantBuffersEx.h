@@ -4,8 +4,7 @@
 #include "DynamicConstant.h"
 #include "TechniqueProbe.h"
 
-namespace Bind
-{
+namespace Bind{
 	class ConstantBufferEx : public Bindable
 	{
 	public:
@@ -26,6 +25,7 @@ namespace Bind
 		// this exists for validation of the update buffer layout
 		// reason why it's not getbuffer is becasue nocache doesn't store buffer
 		virtual const Dcb::LayoutElement& GetRootLayoutElement() const noexcept = 0;
+
 	protected:
 		ConstantBufferEx(Graphics& gfx, const Dcb::LayoutElement& layoutRoot, UINT slot, const Dcb::Buffer* pBuf)
 			:
@@ -127,4 +127,4 @@ namespace Bind
 
 	using CachingPixelConstantBufferEx = CachingConstantBufferEx<PixelConstantBufferEx>;
 	using CachingVertexConstantBufferEx = CachingConstantBufferEx<VertexConstantBufferEx>;
-}
+};

@@ -59,7 +59,7 @@ void Model::SetRootTransform(DirectX::FXMMATRIX tf) noexcept
 	pRoot->SetAppliedTransform(tf);
 }
 
-void Model::LinkTechniques(RenderGraph& rg)
+void Model::LinkTechniques(Rgph::RenderGraph& rg)
 {
 	for (auto& pMesh : meshPtrs)
 	{

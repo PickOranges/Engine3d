@@ -22,8 +22,8 @@ namespace Rgph
 	{
 	public:
 		Pass(std::string name) noexcept;
-		virtual void Execute(Graphics& gfx) const noxnd = 0;
-		virtual void Reset() noxnd;
+		virtual void Execute(Graphics& gfx) const noexcept(!IS_DEBUG) = 0;
+		virtual void Reset() noexcept(!IS_DEBUG);
 		const std::string& GetName() const noexcept;
 		const std::vector<std::unique_ptr<Sink>>& GetSinks() const;
 		Source& GetSource(const std::string& registeredName) const;
@@ -34,9 +34,6 @@ namespace Rgph
 	protected:
 		void RegisterSink(std::unique_ptr<Sink> sink);
 		void RegisterSource(std::unique_ptr<Source> source);
-		void BindBufferResources(Graphics& gfx) const noxnd;
-		std::shared_ptr<Bind::RenderTarget> renderTarget;
-		std::shared_ptr<Bind::DepthStencil> depthStencil;
 	private:
 		std::vector<std::unique_ptr<Sink>> sinks;
 		std::vector<std::unique_ptr<Source>> sources;

@@ -63,9 +63,10 @@ namespace Bind
 	{
 	public:
 		using ConstantBufferEx::ConstantBufferEx;
-		void Bind(Graphics& gfx) noexcept override
+		void Bind(Graphics& gfx) noexcept(!IS_DEBUG) override
 		{
-			GetContext(gfx)->PSSetConstantBuffers(slot, 1u, pConstantBuffer.GetAddressOf());
+			INFOMAN_NOHR(gfx);
+			GFX_THROW_INFO_ONLY(GetContext(gfx)->PSSetConstantBuffers(slot, 1u, pConstantBuffer.GetAddressOf()));
 		}
 	};
 
@@ -73,9 +74,10 @@ namespace Bind
 	{
 	public:
 		using ConstantBufferEx::ConstantBufferEx;
-		void Bind(Graphics& gfx) noexcept override
+		void Bind(Graphics& gfx) noexcept(!IS_DEBUG) override
 		{
-			GetContext(gfx)->VSSetConstantBuffers(slot, 1u, pConstantBuffer.GetAddressOf());
+			INFOMAN_NOHR(gfx);
+			GFX_THROW_INFO_ONLY(GetContext(gfx)->VSSetConstantBuffers(slot, 1u, pConstantBuffer.GetAddressOf()));
 		}
 	};
 
@@ -106,7 +108,7 @@ namespace Bind
 			buf.CopyFrom(buf_in);
 			dirty = true;
 		}
-		void Bind(Graphics& gfx) noexcept override
+		void Bind(Graphics& gfx) noexcept(!IS_DEBUG) override
 		{
 			if (dirty)
 			{

@@ -4,7 +4,8 @@
 #include "DynamicConstant.h"
 #include "TechniqueProbe.h"
 
-namespace Bind{
+namespace Bind
+{
 
 	class ConstantBufferEx : public Bindable
 	{

@@ -9,6 +9,8 @@
 #include "Mesh.h"
 #include "Testing.h"
 #include "SimpleMathDX.h"
+#include <algorithm>
+#include <array>
 
 
 namespace dx = DirectX;

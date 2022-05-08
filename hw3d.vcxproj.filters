@@ -203,10 +203,10 @@
     <ClCompile Include="FullscreenPass.cpp">
       <Filter>Source Files\Multipass</Filter>
     </ClCompile>
-    <ClCompile Include="PassInput.cpp">
+    <ClCompile Include="Sink.cpp">
       <Filter>Source Files\Multipass</Filter>
     </ClCompile>
-    <ClCompile Include="PassOutput.cpp">
+    <ClCompile Include="Source.cpp">
       <Filter>Source Files\Multipass</Filter>
     </ClCompile>
     <ClCompile Include="RenderQueuePass.cpp">
@@ -481,10 +481,7 @@
     <ClInclude Include="OutlineMaskGenerationPass.h">
       <Filter>Header Files\Multipass</Filter>
     </ClInclude>
-    <ClInclude Include="PassInput.h">
-      <Filter>Header Files\Multipass</Filter>
-    </ClInclude>
-    <ClInclude Include="PassOutput.h">
+    <ClInclude Include="Sink.h">
       <Filter>Header Files\Multipass</Filter>
     </ClInclude>
     <ClInclude Include="RenderQueuePass.h">
@@ -513,6 +510,9 @@
     </ClInclude>
     <ClInclude Include="ScaleOutlineRenderGraph.h">
       <Filter>Source Files\Multipass</Filter>
+    </ClInclude>
+    <ClInclude Include="Source.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

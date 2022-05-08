@@ -5,6 +5,7 @@
 #include "TechniqueProbe.h"
 
 namespace Bind{
+
 	class ConstantBufferEx : public Bindable
 	{
 	public:
@@ -125,6 +126,7 @@ namespace Bind{
 		Dcb::Buffer buf;
 	};
 
-	using CachingPixelConstantBufferEx = CachingConstantBufferEx<PixelConstantBufferEx>;
-	using CachingVertexConstantBufferEx = CachingConstantBufferEx<VertexConstantBufferEx>;
-};
+	using CachingPixelConstantBufferEx =  CachingConstantBufferEx<typename PixelConstantBufferEx>;
+	using CachingVertexConstantBufferEx = CachingConstantBufferEx<typename VertexConstantBufferEx>;
+
+}

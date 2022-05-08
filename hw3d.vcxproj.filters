@@ -451,9 +451,6 @@
     <ClInclude Include="DepthStencil.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BlurPack.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="BufferResource.h">
       <Filter>Header Files</Filter>
     </ClInclude>

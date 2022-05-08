@@ -17,7 +17,8 @@
 #include "RenderGraph.h"
 #include "TestCube.h"
 #include "Testing.h"
-#include "TestRenderGraph.h"
+#include "ScaleOutlineRenderGraph.h"
+#include "BlurOutlineRenderGraph.h"
 
 
 class Model;
@@ -39,7 +40,7 @@ private:
 	TimerWrapper timer;
 	Camera cam;
 
-	TestRenderGraph rg{ wnd.Gfx() };
+	BlurOutlineRenderGraph rg{ wnd.Gfx() };
 
 	PointLight light;
 	float speed_factor = 1.0f;

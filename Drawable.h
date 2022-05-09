@@ -6,6 +6,11 @@ class TechniqueProbe;
 class Material;
 struct aiMesh;
 
+namespace Rgph
+{
+	class RenderGraph;
+}
+
 //class Bindable;
 namespace Bind
 { 
@@ -23,10 +28,11 @@ public:
 	Drawable(const Drawable&) = delete;
 	virtual DirectX::XMMATRIX GetTransformXM() const noexcept = 0;
 	void AddTechnique(Technique tech_in) noexcept;
-	void Submit(class FrameCommander& frame) const noexcept;
+	void Submit() const noexcept;
 	void Bind(Graphics& gfx) const noexcept;
 	void Accept(TechniqueProbe& probe);
 	UINT GetIndexCount() const noexcept(!IS_DEBUG);
+	void LinkTechniques(Rgph::RenderGraph&);
 	virtual ~Drawable();
 
 protected:

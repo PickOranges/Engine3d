@@ -6,6 +6,7 @@
 
 namespace Bind
 {
+
 	class ConstantBufferEx : public Bindable
 	{
 	public:
@@ -26,6 +27,7 @@ namespace Bind
 		// this exists for validation of the update buffer layout
 		// reason why it's not getbuffer is becasue nocache doesn't store buffer
 		virtual const Dcb::LayoutElement& GetRootLayoutElement() const noexcept = 0;
+
 	protected:
 		ConstantBufferEx(Graphics& gfx, const Dcb::LayoutElement& layoutRoot, UINT slot, const Dcb::Buffer* pBuf)
 			:
@@ -61,9 +63,10 @@ namespace Bind
 	{
 	public:
 		using ConstantBufferEx::ConstantBufferEx;
-		void Bind(Graphics& gfx) noexcept override
+		void Bind(Graphics& gfx) noexcept(!IS_DEBUG) override
 		{
-			GetContext(gfx)->PSSetConstantBuffers(slot, 1u, pConstantBuffer.GetAddressOf());
+			INFOMAN_NOHR(gfx);
+			GFX_THROW_INFO_ONLY(GetContext(gfx)->PSSetConstantBuffers(slot, 1u, pConstantBuffer.GetAddressOf()));
 		}
 	};
 
@@ -71,9 +74,10 @@ namespace Bind
 	{
 	public:
 		using ConstantBufferEx::ConstantBufferEx;
-		void Bind(Graphics& gfx) noexcept override
+		void Bind(Graphics& gfx) noexcept(!IS_DEBUG) override
 		{
-			GetContext(gfx)->VSSetConstantBuffers(slot, 1u, pConstantBuffer.GetAddressOf());
+			INFOMAN_NOHR(gfx);
+			GFX_THROW_INFO_ONLY(GetContext(gfx)->VSSetConstantBuffers(slot, 1u, pConstantBuffer.GetAddressOf()));
 		}
 	};
 
@@ -104,7 +108,7 @@ namespace Bind
 			buf.CopyFrom(buf_in);
 			dirty = true;
 		}
-		void Bind(Graphics& gfx) noexcept override
+		void Bind(Graphics& gfx) noexcept(!IS_DEBUG) override
 		{
 			if (dirty)
 			{
@@ -125,6 +129,7 @@ namespace Bind
 		Dcb::Buffer buf;
 	};
 
-	using CachingPixelConstantBufferEx = CachingConstantBufferEx<PixelConstantBufferEx>;
-	using CachingVertexConstantBufferEx = CachingConstantBufferEx<VertexConstantBufferEx>;
+	using CachingPixelConstantBufferEx =  CachingConstantBufferEx<typename PixelConstantBufferEx>;
+	using CachingVertexConstantBufferEx = CachingConstantBufferEx<typename VertexConstantBufferEx>;
+
 }

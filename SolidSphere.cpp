@@ -20,7 +20,7 @@ SolidSphere::SolidSphere(Graphics& gfx, float radius)
 
 	{
 		Technique solid;
-		Step only(0);
+		Step only("lambertian");
 
 		auto pvs = VertexShader::Resolve(gfx, "Solid_VS.cso");
 		auto pvsbc = pvs->GetBytecode();
@@ -39,7 +39,7 @@ SolidSphere::SolidSphere(Graphics& gfx, float radius)
 
 		only.AddBindable(std::make_shared<TransformCbuf>(gfx));
 
-		only.AddBindable(Blender::Resolve(gfx, false));
+		/*only.AddBindable(Blender::Resolve(gfx, false));*/
 
 		only.AddBindable(Rasterizer::Resolve(gfx, false));
 

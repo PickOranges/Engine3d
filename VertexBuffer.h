@@ -9,7 +9,7 @@ namespace Bind {
 	public:
 		VertexBuffer(Graphics& gfx, const hw3d::VertexBuffer& vbuf);
 		VertexBuffer(Graphics& gfx, const std::string& tag, const hw3d::VertexBuffer& vbuf);
-		void Bind(Graphics& gfx) noexcept override;
+		void Bind(Graphics& gfx) noexcept(!IS_DEBUG) override;
 		const hw3d::VertexLayout& GetLayout() const noexcept;
 
 		static std::shared_ptr<VertexBuffer> Resolve(Graphics& gfx, const std::string& tag,

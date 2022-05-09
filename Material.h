@@ -4,10 +4,19 @@
 #include <vector>
 #include <filesystem>
 #include "Technique.h"
+#include "Vertex.h"
 
 
 struct aiMaterial;
 struct aiMesh;
+
+
+namespace Bind
+{
+	class VertexBuffer;
+	class IndexBuffer;
+}
+
 
 class Material
 {

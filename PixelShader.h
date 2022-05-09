@@ -6,7 +6,7 @@ namespace Bind {
 	{
 	public:
 		PixelShader(Graphics& gfx, const std::string& path);
-		void Bind(Graphics& gfx) noexcept override;
+		void Bind(Graphics& gfx) noexcept(!IS_DEBUG) override;
 
 		static std::shared_ptr<PixelShader> Resolve(Graphics& gfx, const std::string& path);
 		static std::string GenerateUID(const std::string& path);

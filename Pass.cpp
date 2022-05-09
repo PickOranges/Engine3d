@@ -4,120 +4,85 @@
 #include "DepthStencil.h"
 #include <sstream>
 #include "Utils.h"
-#include "PassInput.h"
-#include "PassOutput.h"
+#include "Sink.h"
+#include "Source.h"
 
 
-Pass::Pass(std::string name) noexcept
-	:
-	name(std::move(name))
-{}
-
-Pass::~Pass()
-{}
-
-
-void Pass::Reset() noexcept(!IS_DEBUG) {}
-
-const std::string& Pass::GetName() const noexcept
-{
-	return name;
-}
-
-void Pass::Finalize()
-{
-	for (auto& in : inputs)
 	{
-		in->PostLinkValidate();
+	if (src->GetName() == name)
+	{
+		return *src;
 	}
-	for (auto& out : outputs)
-	{
-		out->PostLinkValidate();
-	}
-}
-
-const std::vector<std::unique_ptr<PassInput>>& Pass::GetInputs() const
-{
-	return inputs;
-}
-
-PassOutput& Pass::GetOutput(const std::string& name) const
-{
-	for (auto& out : outputs)
-	{
-		if (out->GetName() == name)
-		{
-			return *out;
 		}
-	}
 
 	std::ostringstream oss;
 	oss << "Output named [" << name << "] not found in pass: " << GetName();
 	throw RGC_EXCEPTION(oss.str());
-}
+	}
 
-PassInput& Pass::GetInput(const std::string& registeredName) const
-{
-	for (auto& in : inputs)
+	Sink& Pass::GetSink(const std::string& registeredName) const
 	{
-		if (in->GetRegisteredName() == registeredName)
+		for (auto& si : sinks)
 		{
-			return *in;
+			if (si->GetRegisteredName() == registeredName)
+			{
+				return *si;
+			}
 		}
+
+		std::ostringstream oss;
+		oss << "Input named [" << registeredName << "] not found in pass: " << GetName();
+		throw RGC_EXCEPTION(oss.str());
 	}
 
-	std::ostringstream oss;
-	oss << "Input named [" << registeredName << "] not found in pass: " << GetName();
-	throw RGC_EXCEPTION(oss.str());
-}
-
-void Pass::RegisterInput(std::unique_ptr<PassInput> input)
-{
-	// check for overlap of input names
-	for (auto& in : inputs)
+	void Pass::RegisterSink(std::unique_ptr<Sink> sink)
 	{
-		if (in->GetRegisteredName() == input->GetRegisteredName())
+		// check for overlap of input names
+		for (auto& si : sinks)
 		{
-			throw RGC_EXCEPTION("Registered input overlaps with existing: " + input->GetRegisteredName());
+			if (si->GetRegisteredName() == sink->GetRegisteredName())
+			{
+				throw RGC_EXCEPTION("Registered input overlaps with existing: " + sink->GetRegisteredName());
+			}
 		}
+
+		sinks.push_back(std::move(sink));
 	}
 
-	inputs.push_back(std::move(input));
-}
-
-void Pass::RegisterOutput(std::unique_ptr<PassOutput> output)
-{
-	// check for overlap of output names
-	for (auto& out : outputs)
+	void Pass::RegisterSource(std::unique_ptr<Source> source)
 	{
-		if (out->GetName() == output->GetName())
+		// check for overlap of output names
+		for (auto& src : sources)
 		{
-			throw RGC_EXCEPTION("Registered output overlaps with existing: " + output->GetName());
+			if (src->GetName() == source->GetName())
+			{
+				throw RGC_EXCEPTION("Registered output overlaps with existing: " + source->GetName());
+			}
 		}
+
+		sources.push_back(std::move(source));
 	}
 
-	outputs.push_back(std::move(output));
-}
-
-void Pass::SetInputSource(const std::string& registeredName, const std::string& target)
-{
-	auto& input = GetInput(registeredName);
-	auto targetSplit = SplitString(target, ".");
-	if (targetSplit.size() != 2u)
+	void Pass::SetSinkLinkage(const std::string& registeredName, const std::string& target)
 	{
-		throw RGC_EXCEPTION("Input target has incorrect format");
+		auto& sink = GetSink(registeredName);
+		auto targetSplit = SplitString(target, ".");
+		if (targetSplit.size() != 2u)
+		{
+			throw RGC_EXCEPTION("Input target has incorrect format");
+		}
+		sink.SetTarget(std::move(targetSplit[0]), std::move(targetSplit[1]));
 	}
-	input.SetTarget(std::move(targetSplit[0]), std::move(targetSplit[1]));
-}
 
-void Pass::BindBufferResources(Graphics& gfx) const noexcept(!IS_DEBUG)
-{
-	if (renderTarget)
+	void Pass::BindBufferResources(Graphics& gfx) const noxnd
 	{
-		renderTarget->BindAsBuffer(gfx, depthStencil.get());
-	}
-	else
-	{
-		depthStencil->BindAsBuffer(gfx);
+		if (renderTarget)
+		{
+			renderTarget->BindAsBuffer(gfx, depthStencil.get());
+		}
+		else
+		{
+			depthStencil->BindAsBuffer(gfx);
+		}
 	}
 }

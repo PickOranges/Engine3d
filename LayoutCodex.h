@@ -1,11 +1,8 @@
 #pragma once
-//#ifndef LAYOUT_CODEX_HEADER_
-//#define LAYOUT_CODEX_HEADER_
 #include "DynamicConstant.h"
 #include <string>
 #include <memory>
 #include <unordered_map>
-//#endif // !
 
 
 namespace Dcb

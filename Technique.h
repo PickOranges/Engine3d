@@ -5,7 +5,11 @@
 
 class TechniqueProbe;
 class Drawable;
-class RenderGraph;
+
+namespace Rgph
+{
+	class RenderGraph;
+}
 
 class Technique
 {
@@ -19,7 +23,7 @@ public:
 	void InitializeParentReferences(const Drawable& parent) noexcept;
 	void Accept(TechniqueProbe& probe);
 	const std::string& GetName() const noexcept;
-	void Link(RenderGraph&);
+	void Link(Rgph::RenderGraph&);
 private:
 	bool active = true;
 	std::vector<Step> steps;

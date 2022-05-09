@@ -33,10 +33,11 @@ namespace Bind {
 		return layout;
 	}
 
-	void VertexBuffer::Bind(Graphics& gfx) noexcept
+	void VertexBuffer::Bind(Graphics& gfx) noexcept(!IS_DEBUG)
 	{
 		const UINT offset = 0u;
-		GetContext(gfx)->IASetVertexBuffers(0u, 1u, pVertexBuffer.GetAddressOf(), &stride, &offset);
+		INFOMAN_NOHR(gfx);
+		GFX_THROW_INFO_ONLY(GetContext(gfx)->IASetVertexBuffers(0u, 1u, pVertexBuffer.GetAddressOf(), &stride, &offset));
 	}
 
 	std::shared_ptr<VertexBuffer> VertexBuffer::Resolve(Graphics& gfx, const std::string& tag,

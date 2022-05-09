@@ -1,12 +1,9 @@
 #include "InputLayout.h"
 #include "GraphicsThrowMacros.h"
 #include "BindableCodex.h"
-#include "Vertex.h"
 
 
-namespace Bind 
-{
-
+namespace Bind {
 	InputLayout::InputLayout(Graphics& gfx,
 		hw3d::VertexLayout layout_in,
 		ID3DBlob* pVertexShaderBytecode)

@@ -19,19 +19,15 @@ namespace Rgph
 		RenderGraph(gfx)
 	{
 		{
-			auto pass = std::make_unique<BufferClearPass>("clearRT");
-			pass->SetSinkLinkage("buffer", "$.backbuffer");
-			AppendPass(std::move(pass));
-		}
-		{
-			auto pass = std::make_unique<BufferClearPass>("clearDS");
-			pass->SetSinkLinkage("buffer", "$.masterDepth");
+			auto pass = std::make_unique<BufferClearPass>("clear");
+			pass->SetSinkLinkage("renderTarget", "$.backbuffer");
+			pass->SetSinkLinkage("depthStencil", "$.masterDepth");
 			AppendPass(std::move(pass));
 		}
 		{
 			auto pass = std::make_unique<LambertianPass>(gfx, "lambertian");
-			pass->SetSinkLinkage("renderTarget", "clearRT.buffer");
-			pass->SetSinkLinkage("depthStencil", "clearDS.buffer");
+			pass->SetSinkLinkage("renderTarget", "clear.renderTarget");
+			pass->SetSinkLinkage("depthStencil", "clear.depthStencil");
 			AppendPass(std::move(pass));
 		}
 		{

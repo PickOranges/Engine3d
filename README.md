@@ -10,6 +10,7 @@ Graphics Engine for learning purpose. Written in C++ and DirectX11/DLSL.
 ## Dependencies
 
 ## Demo
+![Highlight when Mouse-picking a Submesh](/Images/screenshots/Screenshot(0).png)
 
 ## References
 - 3 resources: books, online courses

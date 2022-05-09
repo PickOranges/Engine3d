@@ -1,11 +1,17 @@
 #include "ShaderOps.hlsli"
 #include "LightVectorData.hlsli"
-
 #include "PointLight.hlsli"
 
 cbuffer ObjectCBuf
 {
+    //bool normalMapEnabled;
+    //bool specularMapEnabled;
+    //bool hasGloss;
+    //float specularPowerConst;
+    //float3 specularColor;
+    //float specularMapWeight;
     bool useGlossAlpha;
+    bool useSpecularMap;
     float3 specularColor;
     float specularWeight;
     float specularGloss;
@@ -22,12 +28,12 @@ SamplerState splr;
 
 float4 main(float3 viewFragPos : Position, float3 viewNormal : Normal, float3 viewTan : Tangent, float3 viewBitan : Bitangent, float2 tc : Texcoord) : SV_Target
 {
-    // sample diffuse texture
+    // do alpha test    
     float4 dtex = tex.Sample(splr, tc);
 
-    #ifdef MASK_BOI
-    // bail if highly translucent
-    clip(dtex.a < 0.1f ? -1 : 1);
+
+    #ifdef _MASK
+    clip(dtex.a < 0.5f ? -1 : 1);
     // flip normal when backface
     if (dot(viewNormal, viewFragPos) >= 0.0f)
     {
@@ -35,12 +41,15 @@ float4 main(float3 viewFragPos : Position, float3 viewNormal : Normal, float3 vi
     }
     #endif
 
+
     // normalize the mesh normal
     viewNormal = normalize(viewNormal);
     // replace normal with mapped if normal mapping enabled
     if (useNormalMap)
     {
-        viewNormal = MapNormal(normalize(viewTan), normalize(viewBitan), viewNormal, tc, nmap, splr);
+        //viewNormal = MapNormal(normalize(viewTan), normalize(viewBitan), viewNormal, tc, nmap, splr);
+        const float3 mappedNormal = MapNormal(normalize(viewTan), normalize(viewBitan), viewNormal, tc, nmap, splr);
+        viewNormal = lerp(viewNormal, mappedNormal, normalMapWeight);
     }
     // fragment to light vector data
     const LightVectorData lv = CalculateLightVectorData(viewLightPos, viewFragPos);
@@ -48,7 +57,17 @@ float4 main(float3 viewFragPos : Position, float3 viewNormal : Normal, float3 vi
     float3 specularReflectionColor;
     float specularPower = specularGloss;
     const float4 specularSample = spec.Sample(splr, tc);
-    specularReflectionColor = specularSample.rgb;
+    //specularReflectionColor = specularSample.rgb;
+    if (useSpecularMap)
+    {
+        specularReflectionColor = specularSample.rgb;
+    }
+    else
+    {
+        specularReflectionColor = specularColor;
+    }
+
+
     if (useGlossAlpha)
     {
         specularPower = pow(2.0f, specularSample.a * 13.0f);

@@ -1,8 +1,7 @@
 #pragma once
 #include "Drawable.h"
 #include "Bindable.h"
-#include "IndexBuffer.h"
-#include "Stencil.h"
+#include "BindableBase.h"
 
 class TestCube : public Drawable
 {
@@ -12,8 +11,8 @@ public:
 	void SetRotation(float roll, float pitch, float yaw) noexcept;
 	DirectX::XMMATRIX GetTransformXM() const noexcept override;
 	void SpawnControlWindow(Graphics& gfx, const char* name) noexcept;
+
 private:
-	std::vector<std::shared_ptr<Bind::Bindable>> outlineEffect;
 	DirectX::XMFLOAT3 pos = { 1.0f,1.0f,1.0f };
 	float roll = 0.0f;
 	float pitch = 0.0f;

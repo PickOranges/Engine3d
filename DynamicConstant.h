@@ -1,6 +1,4 @@
 #pragma once
-//#ifndef DYNAMIC_CONSTANT_HEADER_
-//#define DYNAMIC_CONSTANT_HEADER_
 #include <cassert>
 #include <DirectXMath.h>
 #include <vector>
@@ -8,7 +6,6 @@
 #include <optional>
 #include <string>
 #include "LayoutCodex.h"
-//#endif // !
 
 
 // master list of leaf types that generates enum elements and various switches etc.
@@ -18,7 +15,8 @@
 	X( Float3 ) \
 	X( Float4 ) \
 	X( Matrix ) \
-	X( Bool )
+	X( Bool ) \
+	X( Integer )
 
 namespace Dcb
 {
@@ -80,6 +78,13 @@ namespace Dcb
 		using SysType = bool;
 		static constexpr size_t hlslSize = 4u;
 		static constexpr const char* code = "BL";
+		static constexpr bool valid = true;
+	};
+	template<> struct Map<Integer>
+	{
+		using SysType = int;
+		static constexpr size_t hlslSize = sizeof(SysType);
+		static constexpr const char* code = "IN";
 		static constexpr bool valid = true;
 	};
 

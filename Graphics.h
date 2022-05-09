@@ -11,8 +11,12 @@
 #include <random>
 #include <vector>
 
+
+
+
 namespace Bind {
 	class Bindable;
+	class RenderTarget;
 }
 
 namespace wrl = Microsoft::WRL;
@@ -20,7 +24,7 @@ namespace wrl = Microsoft::WRL;
 
 class Graphics
 {
-	friend class Bind:: Bindable;
+	friend class GraphicsResource;
 
 public:
 	class GHrException : public HrException {
@@ -71,17 +75,25 @@ public:
 	void EnableImgui() noexcept;
 	void DisableImgui() noexcept;
 	bool IsImguiEnabled() const noexcept;
+
+
+	UINT GetWidth() const noexcept;
+	UINT GetHeight() const noexcept;
+
+	std::shared_ptr<Bind::RenderTarget> GetTarget();
 private:
 	bool imguiEnabled = true;
 	DirectX::XMMATRIX camera;
 	DirectX::XMMATRIX projection;
+
+	UINT width;
+	UINT height;
 #ifndef NDEBUG
 	DxgiInfoManager infoManager;
 #endif
 	wrl::ComPtr<ID3D11Device> pDevice;
 	wrl::ComPtr<IDXGISwapChain> pSwap;
 	wrl::ComPtr<ID3D11DeviceContext> pContext;
-	wrl::ComPtr<ID3D11RenderTargetView> pTarget;
-	wrl::ComPtr<ID3D11DepthStencilView> pDSV;
+	std::shared_ptr<Bind::RenderTarget> pTarget;
 };
 

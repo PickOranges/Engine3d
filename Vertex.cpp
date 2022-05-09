@@ -74,19 +74,22 @@ namespace hw3d
 	{
 		return SizeOf(type);
 	}
+	
 	VertexLayout::ElementType VertexLayout::Element::GetType() const noexcept
 	{
 		return type;
 	}
+	
 
 	template<VertexLayout::ElementType type>
-	struct SysSizeLookup
-	{
+	struct SysSizeLookup {
 		static constexpr auto Exec() noexcept
 		{
 			return sizeof(VertexLayout::Map<type>::SysType);
 		}
 	};
+
+
 	constexpr size_t VertexLayout::Element::SizeOf(ElementType type) noexcept(!IS_DEBUG)
 	{
 		return Bridge<SysSizeLookup>(type);
@@ -95,12 +98,13 @@ namespace hw3d
 	template<VertexLayout::ElementType type>
 	struct CodeLookup
 	{
-		static constexpr auto Exec() noexcept
-		{
+		static constexpr auto Exec() noexcept {
 			return VertexLayout::Map<type>::code;
 		}
 	};
-	const char* VertexLayout::Element::GetCode() const noexcept
+
+
+	const char* hw3d::VertexLayout::Element::GetCode() const noexcept
 	{
 		return Bridge<CodeLookup>(type);
 	}
@@ -114,6 +118,7 @@ namespace hw3d
 			};
 		}
 	};
+
 	D3D11_INPUT_ELEMENT_DESC VertexLayout::Element::GetDesc() const noexcept(!IS_DEBUG)
 	{
 		return Bridge<DescGenerate>(type, GetOffset());
@@ -141,18 +146,7 @@ namespace hw3d
 	{
 		Resize(size);
 	}
-	void VertexBuffer::Resize(size_t newSize) noexcept(!IS_DEBUG)
-	{
-		const auto size = Size();
-		if (size < newSize)
-		{
-			buffer.resize(buffer.size() + layout.Size() * (newSize - size));
-		}
-	}
-	const char* VertexBuffer::GetData() const noexcept(!IS_DEBUG)
-	{
-		return buffer.data();
-	}
+
 
 	template<VertexLayout::ElementType type>
 	struct AttributeAiMeshFill
@@ -174,6 +168,21 @@ namespace hw3d
 		{
 			VertexLayout::Bridge<AttributeAiMeshFill>(layout.ResolveByIndex(i).GetType(), this, mesh);
 		}
+	}
+
+
+	void VertexBuffer::Resize(size_t newSize) noexcept(!IS_DEBUG)
+	{
+		const auto size = Size();
+		if (size < newSize)
+		{
+			buffer.resize(buffer.size() + layout.Size() * (newSize - size));
+		}
+	}
+
+	const char* VertexBuffer::GetData() const noexcept(!IS_DEBUG)
+	{
+		return buffer.data();
 	}
 	const VertexLayout& VertexBuffer::GetLayout() const noexcept
 	{

@@ -6,6 +6,9 @@
 #include "GraphicsThrowMacros.h"
 #include "imgui/imgui_impl_dx11.h"
 #include "imgui/imgui_impl_win32.h"
+#include "DepthStencil.h"
+#include "RenderTarget.h"
+#include <array>
 
 
 namespace dx = DirectX;
@@ -15,6 +18,9 @@ namespace dx = DirectX;
 
 
 Graphics::Graphics(HWND hWnd, int width, int height)
+	:
+	width(width),
+	height(height)
 {
 	DXGI_SWAP_CHAIN_DESC sd = {};
 	sd.BufferDesc.Width = width;
@@ -57,49 +63,11 @@ Graphics::Graphics(HWND hWnd, int width, int height)
 	));
 
 	// gain access to texture subresource in swap chain (back buffer)
-	wrl::ComPtr<ID3D11Resource> pBackBuffer;
-	GFX_THROW_INFO(pSwap->GetBuffer(0, __uuidof(ID3D11Resource), &pBackBuffer));
-	GFX_THROW_INFO(pDevice->CreateRenderTargetView(pBackBuffer.Get(), nullptr, &pTarget));
+	wrl::ComPtr<ID3D11Texture2D> pBackBuffer;
+	GFX_THROW_INFO(pSwap->GetBuffer(0, __uuidof(ID3D11Texture2D), &pBackBuffer));
+	pTarget = std::shared_ptr<Bind::RenderTarget>{ new Bind::OutputOnlyRenderTarget(*this,pBackBuffer.Get()) };
 
-	//// create depth stensil state
-	//D3D11_DEPTH_STENCIL_DESC dsDesc = {};
-	//dsDesc.DepthEnable = true;
-	//dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
-	//dsDesc.DepthFunc = D3D11_COMPARISON_LESS;
-	//wrl::ComPtr<ID3D11DepthStencilState> pDSState;
-	//GFX_THROW_INFO(pDevice->CreateDepthStencilState(&dsDesc, &pDSState));
-	//// bind depth state
-	//pContext->OMSetDepthStencilState(pDSState.Get(),1u);
-
-	// create depht stencil texture
-	wrl::ComPtr<ID3D11Texture2D> pDepthStencil;
-	D3D11_TEXTURE2D_DESC descDepth = {};
-	descDepth.Width = width;
-	descDepth.Height = height;
-	descDepth.MipLevels = 1u;
-	descDepth.ArraySize = 1u;
-	//descDepth.Format = DXGI_FORMAT_D32_FLOAT;
-	descDepth.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
-	descDepth.SampleDesc.Count = 1u;
-	descDepth.SampleDesc.Quality = 0u;
-	descDepth.Usage = D3D11_USAGE_DEFAULT;
-	descDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL;
-	GFX_THROW_INFO(pDevice->CreateTexture2D(&descDepth, nullptr, &pDepthStencil));
-
-	// create view of depth stencil texture
-	D3D11_DEPTH_STENCIL_VIEW_DESC descDSV = {};
-	//descDSV.Format = DXGI_FORMAT_D32_FLOAT;
-	descDSV.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;
-	descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
-	descDSV.Texture2D.MipSlice = 0u;
-	GFX_THROW_INFO(pDevice->CreateDepthStencilView(
-		pDepthStencil.Get(), &descDSV, &pDSV
-	));
-
-	// bind depth stencil view to OM(output-merger)
-	pContext->OMSetRenderTargets(1u, pTarget.GetAddressOf(), pDSV.Get());
-
-	// configure viewport
+	// viewport always fullscreen (for now)
 	D3D11_VIEWPORT vp;
 	vp.Width = (float)width;
 	vp.Height = (float)height;
@@ -156,10 +124,6 @@ void Graphics::BeginFrame(float red, float green, float blue) noexcept
 		ImGui::NewFrame();
 	}
 
-	const float color[] = { red,green,blue,1.f };
-	pContext->ClearRenderTargetView(pTarget.Get(),color);
-	//pContext->ClearDepthStencilView(pDSV.Get(),D3D11_CLEAR_DEPTH,1.0f,0u);
-	pContext->ClearDepthStencilView(pDSV.Get(), D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0u);
 }
 
 void Graphics::DrawIndexed(UINT count) noexcept(!IS_DEBUG)
@@ -293,4 +257,21 @@ void Graphics::DisableImgui() noexcept
 bool Graphics::IsImguiEnabled() const noexcept
 {
 	return imguiEnabled;
+}
+
+
+UINT Graphics::GetWidth() const noexcept
+{
+	return width;
+}
+
+UINT Graphics::GetHeight() const noexcept
+{
+	return height;
+}
+
+
+std::shared_ptr<Bind::RenderTarget> Graphics::GetTarget()
+{
+	return pTarget;
 }

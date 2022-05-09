@@ -5,20 +5,19 @@
 #include <assimp/scene.h>
 #include "Material.h"
 
-
 using namespace Bind;
 
-void Drawable::Submit(FrameCommander& frame) const noexcept
+void Drawable::Submit() const noexcept
 {
 	for (const auto& tech : techniques)
 	{
-		tech.Submit(frame, *this);
+		tech.Submit(*this);
 	}
 }
 
-Drawable::Drawable(Graphics& gfx, const Material& mat, const aiMesh& mesh) noexcept
+Drawable::Drawable(Graphics& gfx, const Material& mat, const aiMesh& mesh, float scale) noexcept
 {
-	pVertices = mat.MakeVertexBindable(gfx, mesh);
+	pVertices = mat.MakeVertexBindable(gfx, mesh,scale);
 	pIndices = mat.MakeIndexBindable(gfx, mesh);
 	pTopology = Bind::Topology::Resolve(gfx);
 
@@ -41,6 +40,24 @@ void Drawable::Bind(Graphics& gfx) const noexcept
 	pVertices->Bind(gfx);
 }
 
+UINT Drawable::GetIndexCount() const noexcept(!IS_DEBUG)
+{
+	return pIndices->GetCount();
+}
+
+void Drawable::LinkTechniques(Rgph::RenderGraph& rg)
+{
+	for (auto& tech : techniques)
+	{
+		tech.Link(rg);
+	}
+}
+
+
+Drawable::~Drawable()
+{}
+
+
 void Drawable::Accept(TechniqueProbe& probe)
 {
 	for (auto& t : techniques)
@@ -48,11 +65,3 @@ void Drawable::Accept(TechniqueProbe& probe)
 		t.Accept(probe);
 	}
 }
-
-UINT Drawable::GetIndexCount() const noexcept(!IS_DEBUG)
-{
-	return pIndices->GetCount();
-}
-
-Drawable::~Drawable()
-{}

@@ -15,7 +15,7 @@ Node::Node(int id, const std::string& name, std::vector<Mesh*> meshPtrs, const D
 	dx::XMStoreFloat4x4(&appliedTransform, dx::XMMatrixIdentity());
 }
 
-void Node::Submit(FrameCommander& frame, DirectX::FXMMATRIX accumulatedTransform) const noexcept(!IS_DEBUG)
+void Node::Submit(DirectX::FXMMATRIX accumulatedTransform) const noexcept(!IS_DEBUG)
 {
 	const auto built =
 		dx::XMLoadFloat4x4(&appliedTransform) *
@@ -23,11 +23,11 @@ void Node::Submit(FrameCommander& frame, DirectX::FXMMATRIX accumulatedTransform
 		accumulatedTransform;
 	for (const auto pm : meshPtrs)
 	{
-		pm->Submit(frame, accumulatedTransform);
+		pm->Submit(built);
 	}
 	for (const auto& pc : childPtrs)
 	{
-		pc->Submit(frame, accumulatedTransform);
+		pc->Submit(built);
 	}
 }
 
@@ -65,6 +65,7 @@ void Node::AddChild(std::unique_ptr<Node> pChild) noexcept(!IS_DEBUG)
 //	}
 //}
 
+
 void Node::SetAppliedTransform(DirectX::FXMMATRIX transform) noexcept
 {
 	dx::XMStoreFloat4x4(&appliedTransform, transform);
@@ -89,5 +90,13 @@ void Node::Accept(ModelProbe& probe)
 			cp->Accept(probe);
 		}
 		probe.PopNode(*this);
+	}
+}
+
+void Node::Accept(TechniqueProbe & probe)
+{
+	for (auto& mp : meshPtrs)
+	{
+		mp->Accept(probe);
 	}
 }

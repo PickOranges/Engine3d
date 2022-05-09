@@ -1,31 +1,32 @@
 #pragma once
 #include "Graphics.h"
-#include <string>
 #include <memory>
+#include <string>
+#include "TechniqueProbe.h"
+#include "GraphicsResource.h"
+
 
 class Drawable;
 class TechniqueProbe;
+class GraphicsResource;
+class Graphics;
 
-namespace Bind 
-{
-	class Bindable
+
+namespace Bind {
+	class Bindable : public GraphicsResource
 	{
 	public:
-		virtual void Bind(Graphics& gfx) noexcept = 0;
+		virtual void Bind(Graphics& gfx) noexcept(!IS_DEBUG) = 0;
+		virtual ~Bindable() = default;
 		virtual void InitializeParentReference(const Drawable&) noexcept
-		{}
-		virtual void Accept(TechniqueProbe&)
 		{}
 		virtual std::string GetUID() const noexcept
 		{
 			assert(false);
 			return "";
 		}
-		virtual ~Bindable() = default;
-	protected:
-		static ID3D11DeviceContext* GetContext(Graphics& gfx) noexcept;
-		static ID3D11Device* GetDevice(Graphics& gfx) noexcept;
-		static DxgiInfoManager& GetInfoManager(Graphics& gfx);
+		virtual void Accept(TechniqueProbe&)
+		{}
 	};
 
 

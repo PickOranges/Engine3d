@@ -7,54 +7,13 @@
 #include <assimp/postprocess.h>
 #include "Material.h"
 #include "Mesh.h"
+#include "Testing.h"
+#include "SimpleMathDX.h"
+#include <algorithm>
+#include <array>
 
 
 namespace dx = DirectX;
-
-void TestDynamicMeshLoading()
-{
-	using namespace hw3d;
-
-	Assimp::Importer imp;
-	const auto pScene = imp.ReadFile("models\\brick_wall\\brick_wall.obj",
-		aiProcess_Triangulate |
-		aiProcess_JoinIdenticalVertices |
-		aiProcess_ConvertToLeftHanded |
-		aiProcess_GenNormals |
-		aiProcess_CalcTangentSpace
-	);
-	auto layout = VertexLayout{}
-		.Append(VertexLayout::Position3D)
-		.Append(VertexLayout::Normal)
-		.Append(VertexLayout::Tangent)
-		.Append(VertexLayout::Bitangent)
-		.Append(VertexLayout::Texture2D);
-	VertexBuffer buf{ std::move(layout),*pScene->mMeshes[0] };
-
-	for (auto i = 0ull, end = buf.Size(); i < end; i++)
-	{
-		const auto a = buf[i].Attr<VertexLayout::Position3D>();
-		const auto b = buf[i].Attr<VertexLayout::Normal>();
-		const auto c = buf[i].Attr<VertexLayout::Tangent>();
-		const auto d = buf[i].Attr<VertexLayout::Bitangent>();
-		const auto e = buf[i].Attr<VertexLayout::Texture2D>();
-	}
-}
-
-void TestMaterialSystemLoading(Graphics& gfx)
-{
-	std::string path = "models\\brick_wall\\brick_wall.obj";
-	Assimp::Importer imp;
-	const auto pScene = imp.ReadFile(path,
-		aiProcess_Triangulate |
-		aiProcess_JoinIdenticalVertices |
-		aiProcess_ConvertToLeftHanded |
-		aiProcess_GenNormals |
-		aiProcess_CalcTangentSpace
-	);
-	Material mat{ gfx,*pScene->mMaterials[1],path };
-	Mesh mesh{ gfx,mat,*pScene->mMeshes[0] };
-}
 
 void TestDynamicConstant()
 {
@@ -178,6 +137,16 @@ void TestDynamicConstant()
 		auto act = b.GetSizeInBytes();
 		assert(act == 16u * 4u * 4u * 6u);
 	}
+	// size test array of floats
+	{
+		Dcb::RawLayout s;
+		s.Add<Dcb::Array>("arr");
+		s["arr"].Set<Dcb::Float>(16);
+		auto b = Dcb::Buffer(std::move(s));
+
+		auto act = b.GetSizeInBytes();
+		assert(act == 256u);
+	}
 	// size test array of structs with padding
 	{
 		Dcb::RawLayout s;
@@ -275,3 +244,61 @@ void TestDynamicConstant()
 		assert(buf.GetSizeInBytes() == 32u);
 	}
 }
+
+
+void TestDynamicMeshLoading()
+{
+	using namespace hw3d;
+
+	Assimp::Importer imp;
+	const auto pScene = imp.ReadFile("models\\brick_wall\\brick_wall.obj",
+		aiProcess_Triangulate |
+		aiProcess_JoinIdenticalVertices |
+		aiProcess_ConvertToLeftHanded |
+		aiProcess_GenNormals |
+		aiProcess_CalcTangentSpace
+	);
+	auto layout = VertexLayout{}
+		.Append(VertexLayout::Position3D)
+		.Append(VertexLayout::Normal)
+		.Append(VertexLayout::Tangent)
+		.Append(VertexLayout::Bitangent)
+		.Append(VertexLayout::Texture2D);
+	VertexBuffer buf{ std::move(layout),*pScene->mMeshes[0] };
+
+	for (auto i = 0ull, end = buf.Size(); i < end; i++)
+	{
+		const auto a = buf[i].Attr<VertexLayout::Position3D>();
+		const auto b = buf[i].Attr<VertexLayout::Normal>();
+		const auto c = buf[i].Attr<VertexLayout::Tangent>();
+		const auto d = buf[i].Attr<VertexLayout::Bitangent>();
+		const auto e = buf[i].Attr<VertexLayout::Texture2D>();
+	}
+}
+
+
+void TestMaterialSystemLoading(Graphics& gfx)
+{
+	std::string path = "models\\brick_wall\\brick_wall.obj";
+	Assimp::Importer imp;
+	const auto pScene = imp.ReadFile(path,
+		aiProcess_Triangulate |
+		aiProcess_JoinIdenticalVertices |
+		aiProcess_ConvertToLeftHanded |
+		aiProcess_GenNormals |
+		aiProcess_CalcTangentSpace
+	);
+	Material mat{ gfx,*pScene->mMaterials[1],path };
+	Mesh mesh{ gfx,mat,*pScene->mMeshes[0] };
+}
+
+void TestScaleMatrixTranslation()
+{
+	auto tlMat = DirectX::XMMatrixTranslation(20.f, 30.f, 40.f);
+	tlMat = ScaleTranslation(tlMat, 0.1f);
+	dx::XMFLOAT4X4 f4;
+	dx::XMStoreFloat4x4(&f4, tlMat);
+	auto etl = ExtractTranslation(f4);
+	assert(etl.x == 2.f && etl.y == 3.f && etl.z == 4.f);
+}
+

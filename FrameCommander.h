@@ -1,43 +1,47 @@
 #pragma once
 #include <array>
+#include <optional>
+#include "Pass.h"
+#include "RenderTarget.h"
+#include "DepthStencil.h"
 #include "BindableBase.h"
 #include "Graphics.h"
 #include "Job.h"
-#include "Pass.h"
+#include "BlurPack.h"
+
+
+namespace Bind
+{
+	class VertexBuffer;
+	class IndexBuffer;
+	class VertexShader;
+	class InputLayout;
+	class Sampler;
+	class Sampler;
+	class Blender;
+}
+
 
 class FrameCommander
 {
 public:
-	void Accept(Job job, size_t target) noexcept
-	{
-		passes[target].Accept(job);
-	}
-	void Execute(Graphics& gfx) const noexcept(!IS_DEBUG)
-	{
-		using namespace Bind;
-		// normally this would be a loop with each pass defining it setup / etc.
-		// and later on it would be a complex graph with parallel execution contingent
-		// on input / output requirements
-
-		// main phong lighting pass
-		Stencil::Resolve(gfx, Stencil::Mode::Off)->Bind(gfx);
-		passes[0].Execute(gfx);
-		// outline masking pass
-		Stencil::Resolve(gfx, Stencil::Mode::Write)->Bind(gfx);
-		NullPixelShader::Resolve(gfx)->Bind(gfx);
-		passes[1].Execute(gfx);
-		// outline drawing pass
-		Stencil::Resolve(gfx, Stencil::Mode::Mask)->Bind(gfx);
-
-		passes[2].Execute(gfx);
-	}
-	void Reset() noexcept
-	{
-		for (auto& p : passes)
-		{
-			p.Reset();
-		}
-	}
+	FrameCommander(Graphics& gfx);
+	void Accept(Job job, size_t target) noexcept;
+	void Execute(Graphics& gfx) noexcept(!IS_DEBUG);
+	void Reset() noexcept;
+	void ShowWindows(Graphics& gfx);
 private:
 	std::array<Pass, 3> passes;
+	int downFactor = 1;
+	DepthStencil ds;
+	std::optional<RenderTarget> rt1;
+	std::optional<RenderTarget> rt2;
+	BlurPack blur;
+	std::shared_ptr<Bind::VertexBuffer> pVbFull;
+	std::shared_ptr<Bind::IndexBuffer> pIbFull;
+	std::shared_ptr<Bind::VertexShader> pVsFull;
+	std::shared_ptr<Bind::InputLayout> pLayoutFull;
+	std::shared_ptr<Bind::Sampler> pSamplerFullPoint;
+	std::shared_ptr<Bind::Sampler> pSamplerFullBilin;
+	std::shared_ptr<Bind::Blender> pBlenderMerge;
 };

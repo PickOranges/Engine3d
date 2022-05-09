@@ -24,7 +24,7 @@ int App::Go()
 		{
 			// if return optional has value, means we're quitting so return exit code
 			return *ecode;
-		}
+		} 
 		DoFrame();
 	}
 

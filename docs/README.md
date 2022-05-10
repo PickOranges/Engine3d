@@ -4,6 +4,7 @@ Graphics Engine for learning purpose. Written in C++ and DirectX11/HLSL. [Click 
 ## Features
 - Reflection via Metaprogramming
 - Shader Relection
+- Exception Handling
 - Node Tree
 - Resource Pool
 - Render Queue

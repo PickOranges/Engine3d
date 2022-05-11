@@ -1,5 +1,5 @@
 # Engine3d
-Graphics Engine for learning purpose. Written in C++ and DirectX11/HLSL. [Click here for source code.](https://github.com/PickOranges/Engine3d)
+Graphics Engine for learning purpose. Written in C++ and DirectX11/HLSL. [Click here to view source code.](https://github.com/PickOranges/Engine3d)
 
 ## Features
 - Reflection via Metaprogramming

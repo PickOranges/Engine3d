@@ -140,13 +140,13 @@
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <FloatingPointModel>Precise</FloatingPointModel>
-      <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\Users\cheng\source\repos\hw3d\dxtex\include;C:\Users\cheng\source\repos\assimp-master\assimp-master\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>C:\Users\cheng\source\repos\Engine3d\dxtex\include;C:\Users\cheng\source\repos\assimp-master\assimp-master\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>C:\Users\cheng\source\repos\assimp-master\assimp-master\lib\Debug\assimp-vc142-mtd.lib;C:\Users\cheng\source\repos\assimp-master\assimp-master\contrib\zlib\Debug\zlibstaticd.lib;C:\Users\cheng\source\repos\hw3d\dxtex\bin\Debug\DirectXTex.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>C:\Users\cheng\source\repos\assimp-master\assimp-master\lib\Debug\assimp-vc142-mtd.lib;C:\Users\cheng\source\repos\assimp-master\assimp-master\contrib\zlib\Debug\zlibstaticd.lib;C:\Users\cheng\source\repos\Engine3d\dxtex\bin\Debug\DirectXTex.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <FxCompile>
       <ObjectFileOutput>$(ProjectDir)%(Filename).cso</ObjectFileOutput>
@@ -161,17 +161,19 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>IS_DEBUG=false</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <FloatingPointModel>Precise</FloatingPointModel>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>C:\Users\cheng\source\repos\hw3d\dxtex\include;C:\Users\cheng\source\repos\assimp\assimp-master\lib\Debug;C:\Users\cheng\source\repos\assimp\assimp-master\bin\Debug;C:\Users\cheng\source\repos\assimp\assimp-master\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\cheng\source\repos\Engine3d\dxtex\include;C:\Users\cheng\source\repos\assimp-master\assimp-master\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <UndefinePreprocessorDefinitions>
+      </UndefinePreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>C:\Users\cheng\source\repos\hw3d\dxtex\bin\Debug;C:\Users\cheng\source\repos\hw3d\dxtex\bin\Release;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>C:\Users\cheng\source\repos\assimp-master\assimp-master\lib\Release\assimp-vc142-mt.lib;C:\Users\cheng\source\repos\assimp-master\assimp-master\contrib\zlib\Release\zlibstatic.lib;C:\Users\cheng\source\repos\Engine3d\dxtex\bin\Release\DirectXTex.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <FxCompile>
       <ShaderModel>5.0</ShaderModel>

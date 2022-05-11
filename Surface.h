@@ -3,7 +3,7 @@
 #include "ExceptionBase.h"
 #include <string>
 #include <optional>
-#include <DirectXTex.h>
+#include "dxtex\include\DirectXTex.h"
 
 
 class Surface

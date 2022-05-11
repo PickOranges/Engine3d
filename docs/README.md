@@ -28,7 +28,7 @@ Graphics Engine for learning purpose. Written in C++ and DirectX11/HLSL. [Click 
 - Physically Based Rendering
 
 ## References
-- Youtube: ChiliTomatoNoodle.
-- Games104: https://games104.boomingtech.com/sc/course-list/.
+- ChiliTomatoNoodle: https://www.youtube.com/c/ChiliTomatoNoodle
+- Course Games104: https://games104.boomingtech.com/sc/course-list/
 - Design Patterns - Elements of Reusable Object-Oriented Software. 1997.
 - Game Engine Architecture, 3rd Edition.

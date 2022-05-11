@@ -2,8 +2,7 @@
 Graphics Engine for learning purpose. Written in C++ and DirectX11/HLSL. [Click here to view source code.](https://github.com/PickOranges/Engine3d)
 
 ## Features
-- Reflection via Metaprogramming
-- Shader Relection
+- Reflection
 - Exception Handling
 - Node Tree
 - Resource Pool

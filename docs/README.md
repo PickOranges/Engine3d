@@ -31,6 +31,6 @@ Graphics Engine for learning purpose. Written in C++ and DirectX11/HLSL. [Click 
 - Course Games104: https://games104.boomingtech.com/sc/course-list/
 - Course Games101: https://www.bilibili.com/video/BV1X7411F744?p=1
 - Course Games202: https://www.bilibili.com/video/BV1YK4y1T7yY?p=1
-- Course: https://www.youtube.com/c/ChiliTomatoNoodle
+- CG Courses: https://www.youtube.com/c/ChiliTomatoNoodle
 - Game Engine Architecture, 3rd Edition.
 - Design Patterns - Elements of Reusable Object-Oriented Software. 1997.

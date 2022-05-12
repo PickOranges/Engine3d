@@ -10,7 +10,7 @@ Graphics Engine for learning purpose. Written in C++ and DirectX11/HLSL. [Click 
 - Multipass Rendering
 - Normal Mapping
 - Gauss Filter
-- Outline Effect via Stencil Buffer (Highlight Mouse-Picking Submesh)
+- Outline Effect via Stencil Buffer (Highlight Mouse-Picked Submesh)
 
 ## Sceenshots
 ![Screenshot (130)](https://user-images.githubusercontent.com/55946962/167479209-ab5b1ccb-15bc-4bc1-ae3d-b36d055f4892.png)

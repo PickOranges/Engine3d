@@ -75,7 +75,7 @@ void App::DoFrame()
 			break;
 		}
 	}
-	if (!wnd.CursorEnabled())
+	if (wnd.CursorEnabled())
 	{
 		if (wnd.kbd.KeyIsPressed('W'))
 		{

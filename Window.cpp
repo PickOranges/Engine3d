@@ -139,7 +139,8 @@ LRESULT Window::HandleMsgSetup(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam
 		// set message proc to normal (non-setup) handler now that setup is finished
 		SetWindowLongPtr(hWnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(&Window::HandleMsgThunk));
 		// forward message to window class handler
-		return pWnd->HandleMsg(hWnd, msg, wParam, lParam);
+		//return pWnd->HandleMsg(hWnd, msg, wParam, lParam);
+		return pWnd->HandleMsgThunk(hWnd, msg, wParam, lParam);
 	}
 	// if we get a message before the WM_NCCREATE message, handle with default handler
 	return DefWindowProc(hWnd, msg, wParam, lParam);

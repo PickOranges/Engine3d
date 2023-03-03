@@ -23,9 +23,9 @@ namespace Dcb
 
 	enum Type
 	{
-#define X(el) el,
+		#define X(el) el,
 		LEAF_ELEMENT_TYPES
-#undef X
+		#undef X
 		Struct,
 		Array,
 		Empty,

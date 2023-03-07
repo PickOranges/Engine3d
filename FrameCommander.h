@@ -15,7 +15,7 @@ public:
 	FrameCommander(Graphics& gfx)
 		:
 		ds(gfx, gfx.GetWidth(), gfx.GetHeight()),
-		rt1({ gfx,gfx.GetWidth() / downFactor,gfx.GetHeight() / downFactor }),
+		rt1({ gfx,gfx.GetWidth(), gfx.GetHeight()}),
 		rt2({ gfx,gfx.GetWidth() / downFactor,gfx.GetHeight() / downFactor }),
 		blur(gfx, 7, 2.6f, "BlurOutline_PS.cso")
 	{
@@ -39,16 +39,8 @@ public:
 		gfx.BindSwapBuffer(ds);
 		// main phong lighting pass
 		Blender::Resolve(gfx, false)->Bind(gfx);
-		Stencil::Resolve(gfx, Stencil::Mode::Off)->Bind(gfx);
 		passes[0].Execute(gfx);
-		// outline masking pass
-		Stencil::Resolve(gfx, Stencil::Mode::Write)->Bind(gfx);
-		NullPixelShader::Resolve(gfx)->Bind(gfx);
-		passes[1].Execute(gfx);
-		// outline drawing pass
-		rt1->BindAsTarget(gfx);
-		Stencil::Resolve(gfx, Stencil::Mode::Off)->Bind(gfx);
-		passes[2].Execute(gfx);
+
 
 	}
 	void Reset() noexcept

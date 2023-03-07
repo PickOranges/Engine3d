@@ -13,4 +13,5 @@ public:
 	void Clear(Graphics& gfx) const noexcept;
 private:
 	Microsoft::WRL::ComPtr<ID3D11DepthStencilView> pDepthStencilView;
+	Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> pShaderResourceView;
 };

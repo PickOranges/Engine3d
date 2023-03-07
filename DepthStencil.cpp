@@ -45,8 +45,8 @@ DepthStencil::DepthStencil(Graphics& gfx, UINT width, UINT height)
 
 void DepthStencil::BindAsDepthStencil(Graphics& gfx) const noexcept
 {
-	GetContext(gfx)->PSSetShaderResources((UINT)0, (UINT)1, pShaderResourceView.GetAddressOf());
-	GetContext(gfx)->OMSetRenderTargets(5, nullptr, pDepthStencilView.Get());
+	GetContext(gfx)->PSSetShaderResources((UINT)5, (UINT)1, pShaderResourceView.GetAddressOf());
+	GetContext(gfx)->OMSetRenderTargets(0, nullptr, pDepthStencilView.Get());
 }
 
 void DepthStencil::Clear(Graphics& gfx) const noexcept

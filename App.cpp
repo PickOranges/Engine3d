@@ -42,11 +42,11 @@ void App::DoFrame()
 	light.Bind(wnd.Gfx(), cam.GetMatrix());
 
 
-	light.Submit(fc);
+	/*light.Submit(fc);
 	cube.Submit(fc);
 	cube2.Submit(fc);
 	sponza.Submit(fc);
-	fc.Execute(wnd.Gfx());
+	fc.Execute(wnd.Gfx());*/
 
 
 	// Handles the messages from mouse and keyboard.
@@ -327,13 +327,13 @@ void App::DoFrame()
 
 	//cube.SpawnControlWindow(wnd.Gfx(), "Cube 1");
 	//cube2.SpawnControlWindow(wnd.Gfx(), "Cube 2");
-	fc.ShowWindows(wnd.Gfx());
+	//fc.ShowWindows(wnd.Gfx());
 
 
 	// present
 	wnd.Gfx().EndFrame();
 
-	fc.Reset();
+	//fc.Reset();
 }
 
 void App::ShowImguiDemoWindow()

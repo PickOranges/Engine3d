@@ -9,7 +9,7 @@
 #include "Camera.h"
 #include "PointLight.h"
 #include <set>
-#include "FrameCommander.h"
+//#include "FrameCommander.h"
 #include "DynamicConstant.h"
 #include "ModelProbe.h"
 #include "Node.h"
@@ -39,7 +39,7 @@ private:
 	TimerWrapper timer;
 	Camera cam;
 
-	FrameCommander fc{ wnd.Gfx() };
+	//FrameCommander fc{ wnd.Gfx() };
 
 	PointLight light;
 	float speed_factor = 1.0f;

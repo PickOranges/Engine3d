@@ -12,13 +12,10 @@
 #include <vector>
 
 
-class DepthStencil;
-
-
-
-
-namespace Bind {
+namespace Bind
+{
 	class Bindable;
+	class RenderTarget;
 }
 
 namespace wrl = Microsoft::WRL;
@@ -79,8 +76,8 @@ public:
 	bool IsImguiEnabled() const noexcept;
 
 
-	void BindSwapBuffer() noexcept;
-	void BindSwapBuffer(const DepthStencil& ds) noexcept;
+	std::shared_ptr<Bind::RenderTarget> GetTarget();
+
 	UINT GetWidth() const noexcept;
 	UINT GetHeight() const noexcept;
 private:

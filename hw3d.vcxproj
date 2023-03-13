@@ -182,6 +182,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
+    <ClCompile Include="BindingPass.cpp" />
     <ClCompile Include="Blender.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="DepthStencil.cpp" />
@@ -245,6 +246,7 @@
     <ClInclude Include="Bindable.h" />
     <ClInclude Include="BindableBase.h" />
     <ClInclude Include="BindableCodex.h" />
+    <ClInclude Include="BindingPass.h" />
     <ClInclude Include="Blender.h" />
     <ClInclude Include="BlurPack.h" />
     <ClInclude Include="BufferResource.h" />

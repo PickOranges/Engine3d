@@ -250,37 +250,6 @@ bool Graphics::IsImguiEnabled() const noexcept
 }
 
 
-void Graphics::BindSwapBuffer() noexcept
-{
-	pContext->OMSetRenderTargets(1u, pTarget.GetAddressOf(), nullptr);
-
-	// configure viewport
-	D3D11_VIEWPORT vp;
-	vp.Width = (float)width;
-	vp.Height = (float)height;
-	vp.MinDepth = 0.0f;
-	vp.MaxDepth = 1.0f;
-	vp.TopLeftX = 0.0f;
-	vp.TopLeftY = 0.0f;
-	pContext->RSSetViewports(1u, &vp);
-}
-
-void Graphics::BindSwapBuffer(const DepthStencil& ds) noexcept
-{
-	pContext->OMSetRenderTargets(1u, pTarget.GetAddressOf(), ds.pDepthStencilView.Get());
-
-	// configure viewport
-	D3D11_VIEWPORT vp;
-	vp.Width = (float)width;
-	vp.Height = (float)height;
-	vp.MinDepth = 0.0f;
-	vp.MaxDepth = 1.0f;
-	vp.TopLeftX = 0.0f;
-	vp.TopLeftY = 0.0f;
-	pContext->RSSetViewports(1u, &vp);
-}
-
-
 UINT Graphics::GetWidth() const noexcept
 {
 	return width;

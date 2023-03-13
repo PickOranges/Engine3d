@@ -224,6 +224,9 @@
     <ClCompile Include="Sink.cpp">
       <Filter>Source Files\Jobber\Passlib\Base</Filter>
     </ClCompile>
+    <ClCompile Include="BindingPass.cpp">
+      <Filter>Source Files\Jobber\Passlib\Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Win.h">
@@ -451,9 +454,6 @@
     <ClInclude Include="BlurPack.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BufferResource.h">
-      <Filter>Header Files\Multipass</Filter>
-    </ClInclude>
     <ClInclude Include="Pass1.h">
       <Filter>Header Files\Jobber\Passlib\Base</Filter>
     </ClInclude>
@@ -465,6 +465,12 @@
     </ClInclude>
     <ClInclude Include="RenderGraphCompileException.h">
       <Filter>Header Files\Jobber</Filter>
+    </ClInclude>
+    <ClInclude Include="BufferResource.h">
+      <Filter>Header Files\Jobber</Filter>
+    </ClInclude>
+    <ClInclude Include="BindingPass.h">
+      <Filter>Header Files\Jobber\Passlib\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

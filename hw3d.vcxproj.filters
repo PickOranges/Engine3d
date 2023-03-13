@@ -24,6 +24,30 @@
     <Filter Include="Source Files\Multipass">
       <UniqueIdentifier>{887f7477-cb28-4e48-beb7-ceca88449da7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Jobber">
+      <UniqueIdentifier>{fec1c040-3459-4363-8e35-a7964fe160f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Jobber\Passlib">
+      <UniqueIdentifier>{7a260209-6fab-4b30-8fed-299b64eb6517}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Jobber\Graphlib">
+      <UniqueIdentifier>{af1beaef-95bc-4e7c-a6af-8067c6cf5356}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Jobber\Passlib\Base">
+      <UniqueIdentifier>{19c42dbc-af8d-4038-8226-e31c1c1c1468}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Jobber">
+      <UniqueIdentifier>{d5f2a553-1e5c-4ba5-bc53-2bcccf674fb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Jobber\Passlib">
+      <UniqueIdentifier>{2451a82c-7368-45c8-a742-59bfa4d7c456}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Jobber\Graphlib">
+      <UniqueIdentifier>{4efd747d-8a29-4268-a097-c782afbd2224}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Jobber\Passlib\Base">
+      <UniqueIdentifier>{277927f1-cc2f-4814-8d03-0142484a6606}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="WinMain.cpp">
@@ -187,6 +211,18 @@
     </ClCompile>
     <ClCompile Include="DepthStencil.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderGraphCompileException.cpp">
+      <Filter>Source Files\Jobber</Filter>
+    </ClCompile>
+    <ClCompile Include="Source.cpp">
+      <Filter>Source Files\Jobber\Passlib</Filter>
+    </ClCompile>
+    <ClCompile Include="Pass1.cpp">
+      <Filter>Source Files\Jobber\Passlib\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Sink.cpp">
+      <Filter>Source Files\Jobber\Passlib\Base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -414,6 +450,21 @@
     </ClInclude>
     <ClInclude Include="BlurPack.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BufferResource.h">
+      <Filter>Header Files\Multipass</Filter>
+    </ClInclude>
+    <ClInclude Include="Pass1.h">
+      <Filter>Header Files\Jobber\Passlib\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Sink.h">
+      <Filter>Header Files\Jobber\Passlib\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Source.h">
+      <Filter>Header Files\Jobber\Passlib\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderGraphCompileException.h">
+      <Filter>Header Files\Jobber</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

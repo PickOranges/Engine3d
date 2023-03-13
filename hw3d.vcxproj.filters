@@ -215,9 +215,6 @@
     <ClCompile Include="RenderGraphCompileException.cpp">
       <Filter>Source Files\Jobber</Filter>
     </ClCompile>
-    <ClCompile Include="Source.cpp">
-      <Filter>Source Files\Jobber\Passlib</Filter>
-    </ClCompile>
     <ClCompile Include="Pass1.cpp">
       <Filter>Source Files\Jobber\Passlib\Base</Filter>
     </ClCompile>
@@ -225,6 +222,12 @@
       <Filter>Source Files\Jobber\Passlib\Base</Filter>
     </ClCompile>
     <ClCompile Include="BindingPass.cpp">
+      <Filter>Source Files\Jobber\Passlib\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Source.cpp">
+      <Filter>Source Files\Jobber\Passlib\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderQueuePass.cpp">
       <Filter>Source Files\Jobber\Passlib\Base</Filter>
     </ClCompile>
   </ItemGroup>
@@ -470,6 +473,9 @@
       <Filter>Header Files\Jobber</Filter>
     </ClInclude>
     <ClInclude Include="BindingPass.h">
+      <Filter>Header Files\Jobber\Passlib\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderQueuePass.h">
       <Filter>Header Files\Jobber\Passlib\Base</Filter>
     </ClInclude>
   </ItemGroup>

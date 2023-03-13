@@ -1,5 +1,23 @@
 #include "App.h"
-
+#include <memory>
+#include <algorithm>
+#include "SimpleMath.h"
+#include "Surface.h"
+#include "imgui/imgui.h"
+#include "VertexBuffer.h"
+#include "Utils.h"
+#include "Testing.h"
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
+#include <assimp/postprocess.h>
+#include "Mesh.h"
+#include "DynamicConstant.h"
+#include "ModelProbe.h"
+#include "Node.h"
+#include "SimpleMathDX.h"
+#include "TechniqueProbe.h"
+#include "BufferClearPass.h"
+#include "LambertianPass.h"
 
 
 namespace dx = DirectX;
@@ -9,10 +27,16 @@ App::App()
 	wnd(1280, 720, "Test App Class Obj"),
 	light(wnd.Gfx())
 {
-	
-	wnd.Gfx().SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 400.0f));
 	cube.SetPos({ 4.0f,0.0f,0.0f });
 	cube2.SetPos({ 0.0f,4.0f,0.0f });
+
+	{
+		cube.LinkTechniques(rg);
+		cube2.LinkTechniques(rg);
+		light.LinkTechniques(rg);
+
+		wnd.Gfx().SetProjection(dx::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 400.0f));
+	}
 }
 
 int App::Go()
@@ -42,21 +66,21 @@ void App::DoFrame()
 	light.Bind(wnd.Gfx(), cam.GetMatrix());
 
 
-	/*light.Submit(fc);
-	cube.Submit(fc);
-	cube2.Submit(fc);
-	sponza.Submit(fc);
-	fc.Execute(wnd.Gfx());*/
+	light.Submit();
+	cube.Submit();
+	cube2.Submit();
+	rg.Execute(wnd.Gfx());
 
 
 	// Handles the messages from mouse and keyboard.
-	while (const auto e = wnd.kbd.ReadKey())	
+	while (const auto e = wnd.kbd.ReadKey())
 	{
-		if(!e->IsPress())
+		if (!e->IsPress())
 		{
 			continue;
 		}
-		switch(e->GetCode())
+
+		switch (e->GetCode())
 		{
 		case VK_ESCAPE:
 			if (wnd.CursorEnabled())
@@ -75,6 +99,7 @@ void App::DoFrame()
 			break;
 		}
 	}
+
 	if (wnd.CursorEnabled())
 	{
 		if (wnd.kbd.KeyIsPressed('W'))
@@ -102,6 +127,7 @@ void App::DoFrame()
 			cam.Translate({ 0.0f,-dt,0.0f });
 		}
 	}
+
 	while (const auto delta = wnd.mouse.ReadRawDelta())
 	{
 		if (!wnd.CursorEnabled())
@@ -109,10 +135,6 @@ void App::DoFrame()
 			cam.Rotate((float)delta->x, (float)delta->y);
 		}
 	}
-
-
-
-
 
 
 
@@ -307,33 +329,17 @@ void App::DoFrame()
 
 
 
-
-
-
-
-
-
-
-
-
-
-	
 	// imgui windows
-	modelProbe.SpawnWindow(sponza);
 	cam.SpawnControlWindow();
 	light.SpawnControlWindow();
 	ShowImguiDemoWindow();
-
-
-	//cube.SpawnControlWindow(wnd.Gfx(), "Cube 1");
-	//cube2.SpawnControlWindow(wnd.Gfx(), "Cube 2");
-	//fc.ShowWindows(wnd.Gfx());
+	cube.SpawnControlWindow(wnd.Gfx(), "Cube 1");
+	cube2.SpawnControlWindow(wnd.Gfx(), "Cube 2");
 
 
 	// present
 	wnd.Gfx().EndFrame();
-
-	//fc.Reset();
+	rg.Reset();
 }
 
 void App::ShowImguiDemoWindow()

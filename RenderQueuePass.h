@@ -3,8 +3,7 @@
 #include "Job.h"
 #include <vector>
 
-namespace Rgph
-{
+
 	class RenderQueuePass : public BindingPass
 	{
 	public:
@@ -15,4 +14,3 @@ namespace Rgph
 	private:
 		std::vector<Job> jobs;
 	};
-}

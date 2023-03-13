@@ -1,27 +1,18 @@
 #pragma once
-#include <assimp/Importer.hpp>
-#include <assimp/postprocess.h>
-#include <assimp/scene.h>
-#include "imgui/imgui.h"
 #include "Window.h"
 #include "TimerWrapper.h"
 #include "ImguiManager.h"
 #include "Camera.h"
 #include "PointLight.h"
-#include <set>
-//#include "FrameCommander.h"
-#include "DynamicConstant.h"
-#include "ModelProbe.h"
-#include "Node.h"
-#include "Model.h"
-#include "Mesh.h"
-
+#include "TestPlane.h"
 #include "TestCube.h"
-#include "Testing.h"
+#include "Model.h"
+#include <set>
+#include "Stencil.h"
+#include "Material.h"
+#include "RenderGraph.h"
 
 
-
-class Model;
 
 class App
 {
@@ -34,18 +25,18 @@ private:
 	void DoFrame(); // contain top-level game logic.
 	void ShowImguiDemoWindow();
 private:
+	bool showDemoWindow = false;
 	ImguiManager imgui;
 	Window wnd;
+	RenderGraph rg{ wnd.Gfx() };
+
+
 	TimerWrapper timer;
-	Camera cam;
-
-	//FrameCommander fc{ wnd.Gfx() };
-
-	PointLight light;
 	float speed_factor = 1.0f;
-	bool showDemoWindow = false;
+	Camera cam;
+	PointLight light;
 
-
+	
 	Model sponza{ wnd.Gfx(),"models\\sponza\\sponza.obj",1.0f/20.f };
 	TestCube cube{ wnd.Gfx(),4.0f }; 
 	TestCube cube2{ wnd.Gfx(),4.0f };

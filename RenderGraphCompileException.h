@@ -3,8 +3,7 @@
 
 #define RGC_EXCEPTION( message ) RenderGraphCompileException( (message),__LINE__,__FILE__ )
 
-namespace Rgph
-{
+
 	class RenderGraphCompileException : public Exception
 	{
 	public:
@@ -15,4 +14,3 @@ namespace Rgph
 	private:
 		std::string message;
 	};
-}

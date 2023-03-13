@@ -9,8 +9,6 @@ namespace Bind
 	class RenderTarget;
 }
 
-namespace Rgph
-{
 	class HorizontalBlurPass : public FullscreenPass
 	{
 	public:
@@ -19,4 +17,3 @@ namespace Rgph
 	private:
 		std::shared_ptr<Bind::CachingPixelConstantBufferEx> direction;
 	};
-}

@@ -1,7 +1,6 @@
 #include "RenderQueuePass.h"
 
-namespace Rgph
-{
+
 	void RenderQueuePass::Accept(Job job) noexcept
 	{
 		jobs.push_back(job);
@@ -21,4 +20,3 @@ namespace Rgph
 	{
 		jobs.clear();
 	}
-}

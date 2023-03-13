@@ -3,8 +3,7 @@
 #include <algorithm>
 #include <cctype>
 
-namespace Rgph
-{
+
 	Source::Source(std::string nameIn)
 		:
 		name(std::move(nameIn))
@@ -36,4 +35,3 @@ namespace Rgph
 	{
 		return name;
 	}
-}

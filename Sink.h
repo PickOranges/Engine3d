@@ -21,8 +21,7 @@ namespace Bind
 }
 
 
-namespace Rgph
-{
+
 	class Pass;
 
 	class Sink
@@ -157,4 +156,4 @@ namespace Rgph
 		std::shared_ptr<T>& target;
 		bool linked = false;
 	};
-}
+

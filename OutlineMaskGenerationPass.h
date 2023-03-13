@@ -9,8 +9,7 @@
 
 class Graphics;
 
-namespace Rgph
-{
+
 	class OutlineMaskGenerationPass : public RenderQueuePass
 	{
 	public:
@@ -27,4 +26,3 @@ namespace Rgph
 			AddBind(Rasterizer::Resolve(gfx, false));
 		}
 	};
-}

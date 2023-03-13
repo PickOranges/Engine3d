@@ -9,7 +9,7 @@ namespace Bind
 	class BufferResource;
 }
 
-namespace Rgph {
+
 
 	class Source
 	{
@@ -77,4 +77,3 @@ namespace Rgph {
 	private:
 		std::shared_ptr<T>& bind;
 	};
-}

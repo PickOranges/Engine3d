@@ -1,5 +1,5 @@
 #pragma once
-include "RenderQueuePass.h"
+#include "RenderQueuePass.h"
 #include "Job.h"
 #include <vector>
 #include "Sink.h"
@@ -8,8 +8,7 @@ include "RenderQueuePass.h"
 
 class Graphics;
 
-namespace Rgph
-{
+
 	class LambertianPass : public RenderQueuePass
 	{
 	public:
@@ -25,4 +24,3 @@ namespace Rgph
 			AddBind(Stencil::Resolve(gfx, Stencil::Mode::Off));
 		}
 	};
-}

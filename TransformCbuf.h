@@ -2,7 +2,6 @@
 #include "ConstantBuffers.h"
 #include "Drawable.h"
 #include <DirectXMath.h>
-#include "Bindable.h"
 
 namespace Bind {
 	class TransformCbuf : public CloningBindable
@@ -15,30 +14,14 @@ namespace Bind {
 		};
 	public:
 		TransformCbuf(Graphics& gfx, UINT slot = 0u);
-		void Bind(Graphics& gfx) noexcept override;
+		void Bind(Graphics& gfx) noexcept(!IS_DEBUG) override;
 		void InitializeParentReference(const Drawable& parent) noexcept override;
 		std::unique_ptr<CloningBindable> Clone() const noexcept override;
-
 	protected:
-		void UpdateBindImpl(Graphics& gfx, const Transforms& tf) noexcept;
-		Transforms GetTransforms(Graphics& gfx) noexcept;
-
+		void UpdateBindImpl(Graphics& gfx, const Transforms& tf) noexcept(!IS_DEBUG);
+		Transforms GetTransforms(Graphics& gfx) noexcept(!IS_DEBUG);
 	private:
 		static std::unique_ptr<VertexConstantBuffer<Transforms>> pVcbuf;
 		const Drawable* pParent = nullptr;
 	};
-
-
-
-	//// This class is for binding TF on both VertexShader and PixelShader
-	//class TransformCbufDual : public TransformCbuf
-	//{
-	//public:
-	//	TransformCbufDual(Graphics& gfx, const Drawable& parent, UINT slotV = 0u, UINT slotP = 0u);
-	//	void Bind(Graphics& gfx) noexcept override;
-	//protected:
-	//	void UpdateBindImpl(Graphics& gfx, const Transforms& tf) noexcept;
-	//private:
-	//	static std::unique_ptr<PixelConstantBuffer<Transforms>> pPcbuf;
-	//};
 }

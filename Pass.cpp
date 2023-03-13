@@ -1,5 +1,5 @@
 
-#include "Pass1.h"
+#include "Pass.h"
 #include "RenderTarget.h"
 #include "DepthStencil.h"
 #include "Utils.h"
@@ -10,7 +10,7 @@
 #include "Source.h"
 
 
-namespace Rgph {
+
 	Pass::Pass(std::string name) noexcept
 		:
 		name(std::move(name))
@@ -115,4 +115,3 @@ namespace Rgph {
 		sink.SetTarget(std::move(targetSplit[0]), std::move(targetSplit[1]));
 	}
 
-}

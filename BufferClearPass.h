@@ -1,13 +1,12 @@
 #pragma once
-#include "Pass1.h"
+#include "Pass.h"
 
 namespace Bind
 {
 	class BufferResource;
 }
 
-namespace Rgph
-{
+
 	class BufferClearPass : public Pass
 	{
 	public:
@@ -16,4 +15,3 @@ namespace Rgph
 	private:
 		std::shared_ptr<Bind::BufferResource> buffer;
 	};
-}

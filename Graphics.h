@@ -93,7 +93,6 @@ private:
 	wrl::ComPtr<ID3D11Device> pDevice;
 	wrl::ComPtr<IDXGISwapChain> pSwap;
 	wrl::ComPtr<ID3D11DeviceContext> pContext;
-	wrl::ComPtr<ID3D11RenderTargetView> pTarget;
-	wrl::ComPtr<ID3D11DepthStencilView> pDSV;
+	std::shared_ptr<Bind::RenderTarget> pTarget;
 };
 

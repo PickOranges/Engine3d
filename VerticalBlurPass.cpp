@@ -8,8 +8,7 @@
 
 using namespace Bind;
 
-namespace Rgph
-{
+
 	VerticalBlurPass::VerticalBlurPass(std::string name, Graphics& gfx)
 		:
 		FullscreenPass(std::move(name), gfx)
@@ -39,4 +38,3 @@ namespace Rgph
 		direction->Bind(gfx);
 		FullscreenPass::Execute(gfx);
 	}
-}

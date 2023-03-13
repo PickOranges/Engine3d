@@ -8,7 +8,7 @@
 #include <cctype>
 
 
-namespace Rgph {
+
 	Sink::Sink(std::string registeredNameIn)
 		:
 		registeredName(std::move(registeredNameIn))
@@ -73,4 +73,3 @@ namespace Rgph {
 		}
 	}
 
-}

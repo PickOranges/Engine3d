@@ -55,7 +55,7 @@ void Model::Submit(FrameCommander& frame) const noexcept(!IS_DEBUG)
 	// which is part of a mesh which is part of a node which is part of the model that is
 	// const in this call) Can probably do this elsewhere
 	//pWindow->ApplyParameters();
-	pRoot->Submit(frame, dx::XMMatrixIdentity());
+	pRoot->Submit(dx::XMMatrixIdentity());
 }
 
 //void Model::ShowWindow(Graphics& gfx, const char* windowName) noexcept

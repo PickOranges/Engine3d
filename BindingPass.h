@@ -1,5 +1,5 @@
 #pragma once
-#include "Pass1.h"
+#include "Pass.h"
 #include "Sink.h"
 
 namespace Bind
@@ -7,8 +7,6 @@ namespace Bind
 	class Bindable;
 }
 
-namespace Rgph
-{
 	class BindingPass : public Pass
 	{
 	protected:
@@ -31,4 +29,3 @@ namespace Rgph
 	private:
 		std::vector<std::shared_ptr<Bind::Bindable>> binds;
 	};
-}

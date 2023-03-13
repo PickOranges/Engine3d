@@ -9,8 +9,7 @@
 
 class Graphics;
 
-namespace Rgph
-{
+
 	class OutlineDrawingPass : public RenderQueuePass
 	{
 	public:
@@ -29,4 +28,3 @@ namespace Rgph
 			AddBind(Rasterizer::Resolve(gfx, false));
 		}
 	};
-}

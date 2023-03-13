@@ -7,11 +7,11 @@
 
 using namespace Bind;
 
-void Drawable::Submit(FrameCommander& frame) const noexcept
+void Drawable::Submit() const noexcept
 {
 	for (const auto& tech : techniques)
 	{
-		tech.Submit(frame, *this);
+		tech.Submit(*this);
 	}
 }
 
@@ -54,5 +54,13 @@ void Drawable::Accept(TechniqueProbe& probe)
 	for (auto& t : techniques)
 	{
 		t.Accept(probe);
+	}
+}
+
+void Drawable::LinkTechniques(RenderGraph& rg)
+{
+	for (auto& tech : techniques)
+	{
+		tech.Link(rg);
 	}
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include "Drawable.h"
 #include "Bindable.h"
-#include "BindableBase.h"
+#include "IndexBuffer.h"
 
 class TestCube : public Drawable
 {

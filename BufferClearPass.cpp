@@ -5,8 +5,6 @@
 #include "Source.h"
 
 
-namespace Rgph
-{
 	BufferClearPass::BufferClearPass(std::string name)
 		:
 		Pass(std::move(name))
@@ -19,4 +17,4 @@ namespace Rgph
 	{
 		buffer->Clear(gfx);
 	}
-}
+

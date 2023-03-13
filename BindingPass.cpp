@@ -4,8 +4,7 @@
 #include "DepthStencil.h"
 #include "RenderGraphCompileException.h"
 
-namespace Rgph
-{
+
 	BindingPass::BindingPass(std::string name, std::vector<std::shared_ptr<Bind::Bindable>> binds)
 		:
 		Pass(std::move(name)),
@@ -46,4 +45,3 @@ namespace Rgph
 			depthStencil->BindAsBuffer(gfx);
 		}
 	}
-}

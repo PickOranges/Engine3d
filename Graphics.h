@@ -61,7 +61,6 @@ public:
 	Graphics& operator=(const Graphics&) = delete;
 	~Graphics();
 	void EndFrame();
-	//void ClearBuffer(float red, float green, float blue) noexcept;
 	void BeginFrame(float red, float green, float blue) noexcept;
 	void DrawIndexed(UINT count) noexcept(!IS_DEBUG); 
 

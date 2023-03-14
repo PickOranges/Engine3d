@@ -19,8 +19,8 @@ public:
 	{
 		return childPtrs.size() > 0;
 	}
-	void Accept(class ModelProbe& probe);
-	void Accept(class TechniqueProbe& probe);
+	void Accept(ModelProbe& probe);
+	void Accept(TechniqueProbe& probe);
 	const std::string& GetName() const
 	{
 		return name;

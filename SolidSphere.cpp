@@ -3,7 +3,7 @@
 #include "GraphicsThrowMacros.h"
 #include "Sphere.h"
 #include "Vertex.h"
-#include "BindableCodex.h"
+#include "Stencil.h"
 
 
 SolidSphere::SolidSphere(Graphics& gfx, float radius)

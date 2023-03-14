@@ -6,6 +6,7 @@
 #include "Node.h"
 #include "Mesh.h"
 #include "Material.h"
+#include "SimpleMathDX.h"
 
 
 namespace dx = DirectX;
@@ -38,18 +39,15 @@ Model::Model(Graphics& gfx, const std::string& pathString, const float scale)
 
 	for (size_t i = 0; i < pScene->mNumMeshes; i++)
 	{
-		//meshPtrs.push_back(ParseMesh(gfx, *pScene->mMeshes[i], pScene->mMaterials, pathString, scale));
 		const auto& mesh = *pScene->mMeshes[i];
-		//meshPtrs.push_back(std::make_unique<Mesh>(gfx, materials[mesh.mMaterialIndex], mesh));
 		meshPtrs.push_back(std::make_unique<Mesh>(gfx, materials[mesh.mMaterialIndex], mesh, scale));
 	}
 
 	int nextId = 0;
-	//pRoot = ParseNode(nextId, *pScene->mRootNode, dx::XMMatrixScaling(scale, scale, scale));
 	pRoot = ParseNode(nextId, *pScene->mRootNode, scale);
 }
 
-void Model::Submit(FrameCommander& frame) const noexcept(!IS_DEBUG)
+void Model::Submit() const noexcept(!IS_DEBUG)
 {
 	// I'm still not happy about updating parameters (i.e. mutating a bindable GPU state
 	// which is part of a mesh which is part of a node which is part of the model that is
@@ -58,10 +56,6 @@ void Model::Submit(FrameCommander& frame) const noexcept(!IS_DEBUG)
 	pRoot->Submit(dx::XMMatrixIdentity());
 }
 
-//void Model::ShowWindow(Graphics& gfx, const char* windowName) noexcept
-//{
-//	pWindow->Show(gfx, windowName, *pRoot);
-//}
 
 void Model::SetRootTransform(DirectX::FXMMATRIX tf) noexcept
 {
@@ -71,23 +65,14 @@ void Model::SetRootTransform(DirectX::FXMMATRIX tf) noexcept
 Model::~Model() noexcept
 {}
 
-//std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const aiMaterial* const* pMaterials, const std::filesystem::path& path, float scale)
-//{
-//	return {};
-//}
-
 void Model::Accept(ModelProbe& probe)
 {
 	pRoot->Accept(probe);
 }
 
-//std::unique_ptr<Node> Model::ParseNode(int& nextId, const aiNode& node, dx::FXMMATRIX additionalTransform) noexcept
 std::unique_ptr<Node> Model::ParseNode(int& nextId, const aiNode& node, float scale) noexcept
 {
 	namespace dx = DirectX;
-	//const auto transform = additionalTransform*dx::XMMatrixTranspose(dx::XMLoadFloat4x4(
-	//	reinterpret_cast<const dx::XMFLOAT4X4*>(&node.mTransformation)
-	//));
 	const auto transform = ScaleTranslation(dx::XMMatrixTranspose(dx::XMLoadFloat4x4(
 		reinterpret_cast<const dx::XMFLOAT4X4*>(&node.mTransformation)
 	)), scale );
@@ -103,7 +88,6 @@ std::unique_ptr<Node> Model::ParseNode(int& nextId, const aiNode& node, float sc
 	auto pNode = std::make_unique<Node>(nextId++, node.mName.C_Str(), std::move(curMeshPtrs), transform);
 	for (size_t i = 0; i < node.mNumChildren; i++)
 	{
-		//pNode->AddChild(ParseNode(nextId, *node.mChildren[i], dx::XMMatrixIdentity()));
 		pNode->AddChild(ParseNode(nextId, *node.mChildren[i], scale));
 	}
 

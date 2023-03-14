@@ -31,13 +31,27 @@ App::App()
 	cube2.SetPos({ 0.0f,4.0f,0.0f });
 
 	{
+		{
+			auto bcp = std::make_unique<BufferClearPass>("clear");
+			bcp->SetInputSource("renderTarget", "$.backbuffer");
+			bcp->SetInputSource("depthStencil", "$.masterDepth");
+			rg.AppendPass(std::move(bcp));
+		}
+		{
+			auto lp = std::make_unique<LambertianPass>("lambertian");
+			lp->SetInputSource("renderTarget", "clear.renderTarget");
+			lp->SetInputSource("depthStencil", "clear.depthStencil");
+			rg.AppendPass(std::move(lp));
+		}
+		rg.SetSinkTarget("backbuffer", "lambertian.renderTarget");
+		rg.Finalize();
+
 		cube.LinkTechniques(rg);
 		cube2.LinkTechniques(rg);
 		light.LinkTechniques(rg);
-		sponza.LinkTechniques(rg);
-
-		wnd.Gfx().SetProjection(dx::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 400.0f));
 	}
+
+	wnd.Gfx().SetProjection(dx::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 400.0f));
 }
 
 int App::Go()

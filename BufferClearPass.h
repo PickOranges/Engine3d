@@ -1,17 +1,10 @@
 #pragma once
 #include "Pass.h"
 
-namespace Bind
+
+class BufferClearPass : public Pass
 {
-	class BufferResource;
-}
-
-
-	class BufferClearPass : public Pass
-	{
-	public:
-		BufferClearPass(std::string name);
-		void Execute(Graphics& gfx) const noexcept(!IS_DEBUG) override;
-	private:
-		std::shared_ptr<Bind::BufferResource> buffer;
-	};
+public:
+	BufferClearPass(std::string name);
+	void Execute(Graphics& gfx) const noexcept(!IS_DEBUG) override;
+};

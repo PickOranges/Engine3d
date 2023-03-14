@@ -233,9 +233,6 @@
     <ClCompile Include="FullscreenPass.cpp">
       <Filter>Source Files\Jobber\Passlib</Filter>
     </ClCompile>
-    <ClCompile Include="HorizontalBlurPass.cpp">
-      <Filter>Source Files\Jobber\Passlib\Base</Filter>
-    </ClCompile>
     <ClCompile Include="VerticalBlurPass.cpp">
       <Filter>Source Files\Jobber\Passlib</Filter>
     </ClCompile>
@@ -256,6 +253,15 @@
     </ClCompile>
     <ClCompile Include="Pass.cpp">
       <Filter>Source Files\Jobber\Passlib\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="PassInput.cpp">
+      <Filter>Source Files\Jobber\Passlib\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="PassOutput.cpp">
+      <Filter>Source Files\Jobber\Passlib\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="HorizontalBlurPass.cpp">
+      <Filter>Source Files\Jobber\Passlib</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -540,6 +546,12 @@
     </ClInclude>
     <ClInclude Include="TransformCbufScaling.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PassInput.h">
+      <Filter>Header Files\Jobber\Passlib\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="PassOutput.h">
+      <Filter>Header Files\Jobber\Passlib\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

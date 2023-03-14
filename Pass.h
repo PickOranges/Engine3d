@@ -2,7 +2,8 @@
 #include <string>
 #include <vector>
 #include <array>
-#include <memory>
+#include "PassInput.h"
+#include "PassOutput.h"
 
 class Graphics;
 
@@ -13,9 +14,6 @@ namespace Bind
 }
 
 
-	class Sink;
-	class Source;
-
 	class Pass
 	{
 	public:
@@ -23,17 +21,20 @@ namespace Bind
 		virtual void Execute(Graphics& gfx) const noexcept(!IS_DEBUG) = 0;
 		virtual void Reset() noexcept(!IS_DEBUG);
 		const std::string& GetName() const noexcept;
-		const std::vector<std::unique_ptr<Sink>>& GetSinks() const;
-		Source& GetSource(const std::string& registeredName) const;
-		Sink& GetSink(const std::string& registeredName) const;
-		void SetSinkLinkage(const std::string& registeredName, const std::string& target);
+		const std::vector<std::unique_ptr<PassInput>>& GetInputs() const;
+		PassOutput& GetOutput(const std::string& registeredName) const;
+		PassInput& GetInput(const std::string& registeredName) const;
+		void SetInputSource(const std::string& registeredName, const std::string& target);
 		virtual void Finalize();
-		virtual ~Pass();
+		virtual ~Pass() = default;
 	protected:
-		void RegisterSink(std::unique_ptr<Sink> sink);
-		void RegisterSource(std::unique_ptr<Source> source);
+		void RegisterInput(std::unique_ptr<PassInput> input);
+		void RegisterOutput(std::unique_ptr<PassOutput> output);
+		void BindBufferResources(Graphics& gfx) const noexcept(!IS_DEBUG);
+		std::shared_ptr<Bind::RenderTarget> renderTarget;
+		std::shared_ptr<Bind::DepthStencil> depthStencil;
 	private:
-		std::vector<std::unique_ptr<Sink>> sinks;
-		std::vector<std::unique_ptr<Source>> sources;
+		std::vector<std::unique_ptr<PassInput>> inputs;
+		std::vector<std::unique_ptr<PassOutput>> outputs;
 		std::string name;
 	};

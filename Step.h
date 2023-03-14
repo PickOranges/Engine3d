@@ -9,13 +9,6 @@ class Drawable;
 class RenderQueuePass;
 class RenderGraph;
 
-
-
-
-
-
-
-
 class Step
 {
 public:

@@ -1,9 +1,9 @@
 #pragma once
 #include "Graphics.h"
-#include "BindableBase.h"
 #include <vector>
 #include <filesystem>
 #include "Technique.h"
+#include "Vertex.h"
 
 
 

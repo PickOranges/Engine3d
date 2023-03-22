@@ -70,6 +70,14 @@ void Model::Accept(ModelProbe& probe)
 	pRoot->Accept(probe);
 }
 
+void Model::LinkTechniques(RenderGraph& rg)
+{
+	for (auto& pMesh : meshPtrs)
+	{
+		pMesh->LinkTechniques(rg);
+	}
+}
+
 std::unique_ptr<Node> Model::ParseNode(int& nextId, const aiNode& node, float scale) noexcept
 {
 	namespace dx = DirectX;

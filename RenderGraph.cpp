@@ -16,10 +16,21 @@ RenderGraph::RenderGraph(Graphics& gfx)
 	masterDepth(std::make_shared<Bind::OutputOnlyDepthStencil>(gfx))
 {
 	// setup global sinks and sources
-	globalSources.push_back(BufferOutput<Bind::RenderTarget>::Make("backbuffer", backBufferTarget));
-	globalSources.push_back(BufferOutput<Bind::DepthStencil>::Make("masterDepth", masterDepth));
-	globalSinks.push_back(BufferInput<Bind::RenderTarget>::Make("backbuffer", backBufferTarget));
+	AddGlobalSource(BufferOutput<Bind::RenderTarget>::Make("backbuffer", backBufferTarget));
+	AddGlobalSource(BufferOutput<Bind::DepthStencil>::Make("masterDepth", masterDepth));
+	AddGlobalSink(BufferInput<Bind::RenderTarget>::Make("backbuffer", backBufferTarget));
 }
+
+void RenderGraph::AddGlobalSource(std::unique_ptr<PassOutput> out)
+{
+	globalSources.push_back(std::move(out));
+}
+
+void RenderGraph::AddGlobalSink(std::unique_ptr<PassInput> in)
+{
+	globalSinks.push_back(std::move(in));
+}
+
 
 RenderGraph::~RenderGraph()
 {}

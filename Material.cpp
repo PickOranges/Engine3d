@@ -132,12 +132,7 @@ modelPath(path.string())
 	{
 		Step mask("outlineMask");
 
-		auto pvs = VertexShader::Resolve(gfx, "Solid_VS.cso");
-		auto pvsbc = pvs->GetBytecode();
-		mask.AddBindable(std::move(pvs));
-
-		// TODO: better sub-layout generation tech for future consideration maybe
-		mask.AddBindable(InputLayout::Resolve(gfx, vtxLayout, pvsbc));
+		mask.AddBindable(InputLayout::Resolve(gfx, vtxLayout, VertexShader::Resolve(gfx, "Solid_VS.cso")->GetBytecode()));
 
 		mask.AddBindable(std::make_shared<TransformCbuf>(gfx));
 
@@ -147,15 +142,6 @@ modelPath(path.string())
 	}
 	{
 		Step draw("outlineDraw");
-
-		// these can be pass-constant (tricky due to layout issues)
-		auto pvs = VertexShader::Resolve(gfx, "Solid_VS.cso");
-		auto pvsbc = pvs->GetBytecode();
-		draw.AddBindable(std::move(pvs));
-
-		// this can be pass-constant
-		draw.AddBindable(PixelShader::Resolve(gfx, "Solid_PS.cso"));
-
 		{
 			Dcb::RawLayout lay;
 			lay.Add<Dcb::Float3>("materialColor");
@@ -165,7 +151,7 @@ modelPath(path.string())
 		}
 
 		// TODO: better sub-layout generation tech for future consideration maybe
-		draw.AddBindable(InputLayout::Resolve(gfx, vtxLayout, pvsbc));
+		draw.AddBindable(InputLayout::Resolve(gfx, vtxLayout, VertexShader::Resolve(gfx, "Solid_VS.cso")->GetBytecode()));
 
 		draw.AddBindable(std::make_shared<TransformCbufScaling>(gfx, 1.04f));
 

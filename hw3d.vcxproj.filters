@@ -538,6 +538,9 @@
     <ClInclude Include="OutlineMaskGenerationPass.h">
       <Filter>Header Files\Jobber\Passlib</Filter>
     </ClInclude>
+    <ClInclude Include="TestModelProbe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Solid_VS.hlsl">

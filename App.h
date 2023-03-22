@@ -4,12 +4,8 @@
 #include "ImguiManager.h"
 #include "Camera.h"
 #include "PointLight.h"
-#include "TestPlane.h"
 #include "TestCube.h"
-#include <set>
 #include "Model.h"
-#include "Stencil.h"
-#include "Material.h"
 #include "RenderGraph.h"
 
 
@@ -22,7 +18,8 @@ public:
 	int Go();
 	~App();
 private:
-	void DoFrame(); // contain top-level game logic.
+	void DoFrame(float dt); // contain top-level game logic.
+	void HandleInput(float dt);
 	void ShowImguiDemoWindow();
 private:
 	bool showDemoWindow = false;

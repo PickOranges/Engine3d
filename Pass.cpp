@@ -4,6 +4,8 @@
 #include "DepthStencil.h"
 #include "Utils.h"
 #include <sstream>
+#include "PassInput.h"
+#include "PassOutput.h"
 
 
 
@@ -11,6 +13,9 @@
 Pass::Pass(std::string name) noexcept
 	:
 	name(std::move(name))
+{}
+
+Pass::~Pass()
 {}
 
 void Pass::Reset() noexcept(!IS_DEBUG) {}

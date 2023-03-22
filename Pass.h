@@ -2,10 +2,13 @@
 #include <string>
 #include <vector>
 #include <array>
-#include "PassInput.h"
-#include "PassOutput.h"
+#include <memory>
+
 
 class Graphics;
+class PassInput;
+class PassOutput;
+
 
 namespace Bind
 {
@@ -26,7 +29,7 @@ namespace Bind
 		PassInput& GetInput(const std::string& registeredName) const;
 		void SetInputSource(const std::string& registeredName, const std::string& target);
 		virtual void Finalize();
-		virtual ~Pass() = default;
+		virtual ~Pass();
 	protected:
 		void RegisterInput(std::unique_ptr<PassInput> input);
 		void RegisterOutput(std::unique_ptr<PassOutput> output);

@@ -3,7 +3,7 @@
 #include <memory>
 #include "RenderGraphCompileException.h"
 
-class PassInput;
+
 
 namespace Bind
 {

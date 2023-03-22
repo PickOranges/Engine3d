@@ -18,7 +18,7 @@ namespace Bind{
 		descDepth.Height = height;
 		descDepth.MipLevels = 1u;
 		descDepth.ArraySize = 1u;
-		descDepth.Format = DXGI_FORMAT_R24G8_TYPELESS;  // 23: this will need to be checked
+		descDepth.Format = DXGI_FORMAT_D24_UNORM_S8_UINT;  // 23: this will need to be checked
 		descDepth.SampleDesc.Count = 1u;
 		descDepth.SampleDesc.Quality = 0u;
 		descDepth.Usage = D3D11_USAGE_DEFAULT;

@@ -233,9 +233,6 @@
     <ClCompile Include="FullscreenPass.cpp">
       <Filter>Source Files\Jobber\Passlib</Filter>
     </ClCompile>
-    <ClCompile Include="VerticalBlurPass.cpp">
-      <Filter>Source Files\Jobber\Passlib</Filter>
-    </ClCompile>
     <ClCompile Include="BlurOutlineRenderGraph.cpp">
       <Filter>Source Files\Jobber\Graphlib</Filter>
     </ClCompile>
@@ -259,9 +256,6 @@
     </ClCompile>
     <ClCompile Include="PassOutput.cpp">
       <Filter>Source Files\Jobber\Passlib\Base</Filter>
-    </ClCompile>
-    <ClCompile Include="HorizontalBlurPass.cpp">
-      <Filter>Source Files\Jobber\Passlib</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -517,23 +511,8 @@
     <ClInclude Include="FullscreenPass.h">
       <Filter>Header Files\Jobber\Passlib</Filter>
     </ClInclude>
-    <ClInclude Include="HorizontalBlurPass.h">
-      <Filter>Header Files\Jobber\Passlib</Filter>
-    </ClInclude>
-    <ClInclude Include="VerticalBlurPass.h">
-      <Filter>Header Files\Jobber\Passlib</Filter>
-    </ClInclude>
-    <ClInclude Include="OutlineDrawingPass.h">
-      <Filter>Header Files\Jobber\Passlib</Filter>
-    </ClInclude>
-    <ClInclude Include="OutlineMaskGenerationPass.h">
-      <Filter>Header Files\Jobber\Passlib</Filter>
-    </ClInclude>
     <ClInclude Include="BlurOutlineRenderGraph.h">
       <Filter>Header Files\Jobber\Graphlib</Filter>
-    </ClInclude>
-    <ClInclude Include="BlurOutlineDrawingPass.h">
-      <Filter>Header Files\Jobber\Passlib</Filter>
     </ClInclude>
     <ClInclude Include="RenderGraph.h">
       <Filter>Header Files\Jobber</Filter>

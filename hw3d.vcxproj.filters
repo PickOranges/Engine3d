@@ -257,6 +257,9 @@
     <ClCompile Include="PassOutput.cpp">
       <Filter>Source Files\Jobber\Passlib\Base</Filter>
     </ClCompile>
+    <ClCompile Include="TestRenderGraph.cpp">
+      <Filter>Source Files\Jobber\Graphlib</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Win.h">
@@ -540,6 +543,9 @@
     </ClInclude>
     <ClInclude Include="TestModelProbe.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TestRenderGraph.h">
+      <Filter>Header Files\Jobber\Graphlib</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

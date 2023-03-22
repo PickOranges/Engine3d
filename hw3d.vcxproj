@@ -237,6 +237,7 @@
     <ClCompile Include="Technique.cpp" />
     <ClCompile Include="TestCube.cpp" />
     <ClCompile Include="Testing.cpp" />
+    <ClCompile Include="TestRenderGraph.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TexturePreprocessor.cpp" />
     <ClCompile Include="TimerWrapper.cpp" />
@@ -331,6 +332,7 @@
     <ClInclude Include="TestCube.h" />
     <ClInclude Include="Testing.h" />
     <ClInclude Include="TestModelProbe.h" />
+    <ClInclude Include="TestRenderGraph.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TexturePreprocessor.h" />
     <ClInclude Include="TimerWrapper.h" />

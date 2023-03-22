@@ -6,7 +6,7 @@
 #include "PointLight.h"
 #include "TestCube.h"
 #include "Model.h"
-#include "RenderGraph.h"
+#include "TestRenderGraph.h"
 
 
 
@@ -25,7 +25,7 @@ private:
 	bool showDemoWindow = false;
 	ImguiManager imgui;
 	Window wnd;
-	RenderGraph rg{ wnd.Gfx() };
+	TestRenderGraph rg{ wnd.Gfx() };
 
 
 

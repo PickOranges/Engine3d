@@ -15,8 +15,8 @@ namespace Rgph {
 		AddBind(Blender::Resolve(gfx, true));
 		AddBind(Stencil::Resolve(gfx, Stencil::Mode::Mask));
 
-		RegisterSink(DirectBindableSink<Bind::Bindable>::Make("scratchIn", blurScratchIn));
-		RegisterSink(DirectBindableSink<Bind::Bindable>::Make("control", control));
+		AddBindSink<Bind::RenderTarget>("scratchIn");
+		AddBindSink<Bind::CachingPixelConstantBufferEx>("control");
 		RegisterSink(DirectBindableSink<Bind::CachingPixelConstantBufferEx>::Make("direction", direction));
 		RegisterSink(DirectBindableSink<Bind::RenderTarget>::Make("renderTarget", renderTarget));
 		RegisterSink(DirectBindableSink<Bind::DepthStencil>::Make("depthStencil", depthStencil));
@@ -32,9 +32,7 @@ namespace Rgph {
 		buf["isHorizontal"] = false;
 		direction->SetBuffer(buf);
 
-		control->Bind(gfx);
 		direction->Bind(gfx);
-		blurScratchIn->Bind(gfx);
 		FullscreenPass::Execute(gfx);
 	}
 }

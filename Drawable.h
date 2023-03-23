@@ -26,7 +26,7 @@ public:
 	virtual DirectX::XMMATRIX GetTransformXM() const noexcept = 0;
 	void AddTechnique(Technique tech_in) noexcept;
 	void Submit() const noexcept;
-	void Bind(Graphics& gfx) const noexcept;
+	void Bind(Graphics& gfx) const noexcept(!IS_DEBUG);
 	void Accept(TechniqueProbe& probe);
 	UINT GetIndexCount() const noexcept(!IS_DEBUG);
 	void LinkTechniques(RenderGraph&);

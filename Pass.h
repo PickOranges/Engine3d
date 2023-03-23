@@ -35,9 +35,7 @@ namespace Rgph {
 	protected:
 		void RegisterSink(std::unique_ptr<Sink> input);
 		void RegisterSource(std::unique_ptr<Source> output);
-		void BindBufferResources(Graphics& gfx) const noexcept(!IS_DEBUG);
-		std::shared_ptr<Bind::RenderTarget> renderTarget;
-		std::shared_ptr<Bind::DepthStencil> depthStencil;
+
 	private:
 		std::vector<std::unique_ptr<Sink>> sinks;
 		std::vector<std::unique_ptr<Source>> sources;

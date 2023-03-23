@@ -4,18 +4,22 @@
 #include "Sink.h"
 #include "Source.h"
 #include "Blender.h"
+#include "Sampler.h"
 #include "ConstantBuffersEx.h"
+
+using namespace Bind;
 
 namespace Rgph {
 	HorizontalBlurPass::HorizontalBlurPass(std::string name, Graphics& gfx, unsigned int fullWidth, unsigned int fullHeight)
 		:
 		FullscreenPass(std::move(name), gfx)
 	{
-		AddBind(Bind::PixelShader::Resolve(gfx, "BlurOutline_PS.cso"));
-		AddBind(Bind::Blender::Resolve(gfx, false));
+		AddBind(PixelShader::Resolve(gfx, "BlurOutline_PS.cso"));
+		AddBind(Blender::Resolve(gfx, false));
+		AddBind(Sampler::Resolve(gfx, Sampler::Type::Point, true));
 
-		AddBindSink<Bind::RenderTarget>("scratchIn");
-		AddBindSink<Bind::CachingPixelConstantBufferEx>("control");
+		AddBindSink<RenderTarget>("scratchIn");
+		AddBindSink<CachingPixelConstantBufferEx>("control");
 		RegisterSink(DirectBindableSink<Bind::CachingPixelConstantBufferEx>::Make("direction", direction));
 
 		// the renderTarget is internally sourced and then exported as a Bindable

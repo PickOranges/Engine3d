@@ -1,8 +1,8 @@
 #include "BufferClearPass.h"
 #include "RenderTarget.h"
 #include "DepthStencil.h"
-#include "PassInput.h"
-#include "PassOutput.h"
+#include "Source.h"
+#include "Sink.h"
 
 
 namespace Rgph {
@@ -10,10 +10,10 @@ namespace Rgph {
 		:
 		Pass(std::move(name))
 	{
-		RegisterInput(BufferInput<Bind::RenderTarget>::Make("renderTarget", renderTarget));
-		RegisterInput(BufferInput<Bind::DepthStencil>::Make("depthStencil", depthStencil));
-		RegisterOutput(BufferOutput<Bind::RenderTarget>::Make("renderTarget", renderTarget));
-		RegisterOutput(BufferOutput<Bind::DepthStencil>::Make("depthStencil", depthStencil));
+		RegisterSink(DirectBufferSink<Bind::RenderTarget>::Make("renderTarget", renderTarget));
+		RegisterSink(DirectBufferSink<Bind::DepthStencil>::Make("depthStencil", depthStencil));
+		RegisterSource(DirectBufferSource<Bind::RenderTarget>::Make("renderTarget", renderTarget));
+		RegisterSource(DirectBufferSource<Bind::DepthStencil>::Make("depthStencil", depthStencil));
 	}
 
 	void BufferClearPass::Execute(Graphics& gfx) const noexcept(!IS_DEBUG)

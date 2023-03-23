@@ -520,9 +520,6 @@
     <ClInclude Include="BlurOutlineRenderGraph.h">
       <Filter>Header Files\Jobber\Graphlib</Filter>
     </ClInclude>
-    <ClInclude Include="RenderGraph.h">
-      <Filter>Header Files\Jobber</Filter>
-    </ClInclude>
     <ClInclude Include="ScaleOutlineRenderGraph.h">
       <Filter>Header Files\Jobber\Graphlib</Filter>
     </ClInclude>
@@ -555,6 +552,9 @@
     </ClInclude>
     <ClInclude Include="BlurOutlineDrawingPass.h">
       <Filter>Header Files\Jobber\Passlib</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderGraph.h">
+      <Filter>Header Files\Jobber\Graphlib</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

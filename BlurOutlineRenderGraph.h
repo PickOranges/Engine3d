@@ -3,6 +3,7 @@
 #include <memory>
 #include "ConstantBuffersEx.h"
 
+
 class Graphics;
 namespace Bind
 {

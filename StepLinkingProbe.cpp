@@ -2,7 +2,9 @@
 #include "RenderGraph.h"
 #include "Step.h"
 
-void StepLinkingProbe::OnSetStep()
-{
-	pStep->Link(rg);
+namespace Rgph {
+	void StepLinkingProbe::OnSetStep()
+	{
+		pStep->Link(rg);
+	}
 }

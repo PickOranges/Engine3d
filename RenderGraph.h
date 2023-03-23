@@ -3,10 +3,7 @@
 #include <vector>
 #include <memory>
 
-class Pass;
-class RenderQueuePass;
-class PassOutput;
-class PassInput;
+
 class Graphics;
 
 namespace Bind
@@ -15,15 +12,21 @@ namespace Bind
 	class DepthStencil;
 }
 
+namespace Rgph {
+
+	class Pass;
+	class RenderQueuePass;
+	class PassOutput;
+	class PassInput;
 
 	class RenderGraph
 	{
 	public:
 		RenderGraph(Graphics& gfx);
-		~RenderGraph();		
+		~RenderGraph();
 		void Execute(Graphics& gfx) noexcept(!IS_DEBUG);
 		void Reset() noexcept;
-		
+
 		RenderQueuePass& GetRenderQueue(const std::string& passName);
 	protected:
 		void SetSinkTarget(const std::string& sinkName, const std::string& target);
@@ -43,3 +46,4 @@ namespace Bind
 		bool finalized = false;
 	};
 
+}

@@ -57,7 +57,7 @@ void Drawable::Accept(TechniqueProbe& probe)
 	}
 }
 
-void Drawable::LinkTechniques(RenderGraph& rg)
+void Drawable::LinkTechniques(Rgph::RenderGraph& rg)
 {
 	for (auto& tech : techniques)
 	{

@@ -21,7 +21,7 @@ namespace Bind
 }
 
 
-
+namespace Rgph {
 	class Pass;
 
 	class Sink
@@ -157,3 +157,4 @@ namespace Bind
 		bool linked = false;
 	};
 
+}

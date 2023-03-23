@@ -1,12 +1,16 @@
 #pragma once
 #include "TechniqueProbe.h"
 
-class RenderGraph;
+namespace Rgph {
+	class RenderGraph;
+}
 
-class StepLinkingProbe : public TechniqueProbe
-{
-protected:
-	void OnSetStep() override;
-private:
-	RenderGraph& rg;
-};
+namespace Rgph {
+	class StepLinkingProbe : public TechniqueProbe
+	{
+	protected:
+		void OnSetStep() override;
+	private:
+		Rgph::RenderGraph& rg;
+	};
+}

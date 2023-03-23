@@ -7,7 +7,7 @@
 #include <sstream>
 #include <cctype>
 
-
+namespace Rgph {
 
 	Sink::Sink(std::string registeredNameIn)
 		:
@@ -73,3 +73,4 @@
 		}
 	}
 
+}

@@ -6,8 +6,6 @@
 
 
 class Graphics;
-class PassInput;
-class PassOutput;
 
 
 namespace Bind
@@ -16,6 +14,10 @@ namespace Bind
 	class DepthStencil;
 }
 
+namespace Rgph {
+
+	class PassInput;
+	class PassOutput;
 
 	class Pass
 	{
@@ -41,3 +43,4 @@ namespace Bind
 		std::vector<std::unique_ptr<PassOutput>> outputs;
 		std::string name;
 	};
+}

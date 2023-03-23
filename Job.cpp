@@ -2,7 +2,7 @@
 #include "Step.h"
 #include "Drawable.h"
 
-
+namespace Rgph {
 	Job::Job(const Step* pStep, const Drawable* pDrawable)
 		:
 		pDrawable{ pDrawable },
@@ -15,3 +15,4 @@
 		pStep->Bind(gfx);
 		gfx.DrawIndexed(pDrawable->GetIndexCount());
 	}
+}

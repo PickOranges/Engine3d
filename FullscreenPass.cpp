@@ -1,7 +1,7 @@
 #include "FullscreenPass.h"
 #include "BindableBase.h"
 
-
+namespace Rgph {
 	namespace dx = DirectX;
 
 	FullscreenPass::FullscreenPass(const std::string name, Graphics& gfx) noexcept(!IS_DEBUG)
@@ -32,3 +32,4 @@
 		BindAll(gfx);
 		gfx.DrawIndexed(6u);
 	}
+}

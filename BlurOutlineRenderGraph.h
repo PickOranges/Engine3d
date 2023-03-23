@@ -10,7 +10,7 @@ namespace Bind
 	class RenderTarget;
 }
 
-
+namespace Rgph {
 	class BlurOutlineRenderGraph : public RenderGraph
 	{
 	public:
@@ -25,4 +25,4 @@ namespace Bind
 		std::shared_ptr<Bind::CachingPixelConstantBufferEx> blurControl;
 		std::shared_ptr<Bind::CachingPixelConstantBufferEx> blurDirection;
 	};
-
+}

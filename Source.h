@@ -10,7 +10,7 @@ namespace Bind
 }
 
 
-
+namespace Rgph {
 	class Source
 	{
 	public:
@@ -77,3 +77,4 @@ namespace Bind
 	private:
 		std::shared_ptr<T>& bind;
 	};
+}

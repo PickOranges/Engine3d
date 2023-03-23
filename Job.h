@@ -4,7 +4,7 @@ class Drawable;
 class Graphics;
 class Step;
 
-
+namespace Rgph {
 	class Job
 	{
 	public:
@@ -14,3 +14,4 @@ class Step;
 		const class Drawable* pDrawable;
 		const class Step* pStep;
 	};
+}

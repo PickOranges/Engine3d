@@ -2,7 +2,7 @@
 #include <sstream>
 
 
-
+namespace Rgph {
 	RenderGraphCompileException::RenderGraphCompileException(std::string message, int line, const char* file) noexcept
 		:
 		Exception(line, file),
@@ -29,3 +29,4 @@
 	{
 		return message;
 	}
+}

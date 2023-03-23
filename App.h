@@ -6,7 +6,6 @@
 #include "PointLight.h"
 #include "TestCube.h"
 #include "Model.h"
-#include "ScaleOutlineRenderGraph.h"
 #include "BlurOutlineRenderGraph.h"
 
 
@@ -26,7 +25,7 @@ private:
 	bool showDemoWindow = false;
 	ImguiManager imgui;
 	Window wnd;
-	BlurOutlineRenderGraph  rg{ wnd.Gfx() };
+	Rgph::BlurOutlineRenderGraph  rg{ wnd.Gfx() };
 
 
 

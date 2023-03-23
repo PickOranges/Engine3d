@@ -4,7 +4,7 @@
 #include "OutlineDrawingPass.h"
 #include "OutlineMaskGenerationPass.h"
 
-
+namespace Rgph {
 	ScaleOutlineRenderGraph::ScaleOutlineRenderGraph(Graphics& gfx)
 		:
 		RenderGraph(gfx)
@@ -35,3 +35,4 @@
 		SetSinkTarget("backbuffer", "outlineDraw.renderTarget");
 		Finalize();
 	}
+}

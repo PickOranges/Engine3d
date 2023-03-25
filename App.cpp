@@ -17,6 +17,7 @@ App::App()
 	cube.SetPos({ 4.0f,0.0f,0.0f });
 	cube2.SetPos({ 0.0f,4.0f,0.0f });
 
+
 	cube.LinkTechniques(rg);
 	cube2.LinkTechniques(rg);
 	light.LinkTechniques(rg);
@@ -114,8 +115,10 @@ void App::DoFrame(float dt)
 
 
 	// imgui windows
-	static MP modelProbe;
-	modelProbe.SpawnWindow(sponza);
+	static MP sponzeProbe{ "Sponza" };
+	sponzeProbe.SpawnWindow(sponza);
+	
+	
 	cam.SpawnControlWindow();
 	light.SpawnControlWindow();
 	ShowImguiDemoWindow();

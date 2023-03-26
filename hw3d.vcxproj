@@ -350,6 +350,7 @@
     <ClInclude Include="Window.h" />
     <ClInclude Include="WindowsMessageMap.h" />
     <ClInclude Include="WindowsThrowMacros.h" />
+    <ClInclude Include="WRLwarning.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Blur_PS.hlsl">

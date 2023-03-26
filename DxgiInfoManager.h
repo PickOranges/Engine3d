@@ -3,7 +3,7 @@
 #include <vector>
 #include <string>
 #include <dxgidebug.h>
-#include <wrl.h>
+#include "WRLwarning.h"
 
 
 class DxgiInfoManager

@@ -1,7 +1,7 @@
 #pragma once
 #include "Win.h"
 #include <d3d11.h>
-#include <wrl.h>
+#include "WRLwarning.h"
 #include <vector>
 #include "ExceptionBase.h"
 #include "DxgiInfoManager.h"

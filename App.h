@@ -7,6 +7,7 @@
 #include "TestCube.h"
 #include "Model.h"
 #include "BlurOutlineRenderGraph.h"
+#include "SimpleMath.h"
 
 
 
@@ -31,7 +32,7 @@ private:
 
 	TimerWrapper timer;
 	float speed_factor = 1.0f;
-	Camera cam;
+	Camera cam{ {16.5f,6.0f,-8.9f}, 0.0f, -PI / 4.0f };;
 
 
 

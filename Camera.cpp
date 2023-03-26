@@ -4,7 +4,11 @@
 
 namespace dx = DirectX;
 
-Camera::Camera() noexcept
+Camera::Camera(DirectX::XMFLOAT3 homePos, float homePitch, float homeYaw) noexcept 
+	:
+	homePos(homePos),
+	homePitch(homePitch),
+	homeYaw(homeYaw)
 {
 	Reset();
 }
@@ -47,13 +51,9 @@ void Camera::SpawnControlWindow() noexcept
 }
 void Camera::Reset() noexcept
 {
-	pos = { 22.3f,6.0f,-5.f };
-	//pos = { 0.0f,0.0f,-3.0f };
-	//pos = { 0.0f,0.0f,-12.0f };
-	pitch = 0.0f;
-	//yaw = PI / 2.0f;
-	yaw = -59.f / 360 * 2 * PI;
-	//yaw = 0.0f;
+	pos = homePos;
+	pitch = homePitch;
+	yaw = homeYaw;
 }
 void Camera::Rotate(float dx, float dy) noexcept
 {

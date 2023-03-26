@@ -12,6 +12,7 @@ class Step;
 class TechniqueProbe
 {
 public:
+	virtual ~TechniqueProbe() {}
 	void SetTechnique(Technique* pTech_in)
 	{
 		pTech = pTech_in;

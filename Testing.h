@@ -1,7 +1,8 @@
 #pragma once
-#include "Graphics.h"
 
 void TestDynamicConstant();
 void TestDynamicMeshLoading();
-void TestMaterialSystemLoading(Graphics& gfx);
+void TestMaterialSystemLoading(class Graphics& gfx);
 void TestScaleMatrixTranslation();
+void TestScaleMatrixTranslation();
+void D3DTestScratchPad(class Window& wnd);

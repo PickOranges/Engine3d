@@ -14,6 +14,8 @@ App::App()
 	wnd(1280, 720, "Test App Class Obj"),
 	light(wnd.Gfx())
 {
+	D3DTestScratchPad(wnd);
+
 	cube.SetPos({ 4.0f,0.0f,0.0f });
 	cube2.SetPos({ 0.0f,4.0f,0.0f });
 

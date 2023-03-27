@@ -187,6 +187,7 @@
     <ClCompile Include="BlurOutlineRenderGraph.cpp" />
     <ClCompile Include="BufferClearPass.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CameraContainer.cpp" />
     <ClCompile Include="DepthStencil.cpp" />
     <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="DxgiInfoManager.cpp" />
@@ -256,6 +257,7 @@
   <ItemGroup>
     <ClInclude Include="BlurOutlineDrawingPass.h" />
     <ClInclude Include="BlurOutlineRenderGraph.h" />
+    <ClInclude Include="CameraContainer.h" />
     <ClInclude Include="FullscreenPass.h" />
     <ClInclude Include="App.h" />
     <ClInclude Include="Bindable.h" />

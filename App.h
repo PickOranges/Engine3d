@@ -2,7 +2,7 @@
 #include "Window.h"
 #include "TimerWrapper.h"
 #include "ImguiManager.h"
-#include "Camera.h"
+#include "CameraContainer.h"
 #include "PointLight.h"
 #include "TestCube.h"
 #include "Model.h"
@@ -32,7 +32,7 @@ private:
 
 	TimerWrapper timer;
 	float speed_factor = 1.0f;
-	Camera cam{ {16.5f,6.0f,-8.9f}, 0.0f, -PI / 4.0f };;
+	CameraContainer cameras;
 
 
 

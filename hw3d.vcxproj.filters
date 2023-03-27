@@ -263,6 +263,9 @@
     <ClCompile Include="HorizontalBlurPass.cpp">
       <Filter>Source Files\Jobber\Passlib</Filter>
     </ClCompile>
+    <ClCompile Include="CameraContainer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Win.h">
@@ -558,6 +561,9 @@
     </ClInclude>
     <ClInclude Include="ModelProbe.h">
       <Filter>Header Files\Multipass</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraContainer.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

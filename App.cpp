@@ -5,6 +5,7 @@
 #include "Utils.h"
 #include "Testing.h"
 #include "TestModelProbe.h"
+#include "Camera.h"
 
 
 namespace dx = DirectX;
@@ -14,7 +15,8 @@ App::App()
 	wnd(1280, 720, "Test App Class Obj"),
 	light(wnd.Gfx())
 {
-	D3DTestScratchPad(wnd);
+	cameras.AddCamera(std::make_unique<Camera>("A", dx::XMFLOAT3{ 21.5f,6.0f,-6.0f }, 0.0f, - PI / 4.0f));
+	cameras.AddCamera(std::make_unique<Camera>("B", dx::XMFLOAT3{ -13.5f,28.8f,-6.4f }, PI / 180.0f * 13.0f, PI / 180.0f * 61.0f));
 
 	cube.SetPos({ 4.0f,0.0f,0.0f });
 	cube2.SetPos({ 0.0f,4.0f,0.0f });
@@ -66,27 +68,27 @@ void App::HandleInput(float dt)
 	{
 		if (wnd.kbd.KeyIsPressed('W'))
 		{
-			cam.Translate({ 0.0f,0.0f,dt });
+			cameras.GetCamera().Translate({ 0.0f,0.0f,dt });
 		}
 		if (wnd.kbd.KeyIsPressed('A'))
 		{
-			cam.Translate({ -dt,0.0f,0.0f });
+			cameras.GetCamera().Translate({ -dt,0.0f,0.0f });
 		}
 		if (wnd.kbd.KeyIsPressed('S'))
 		{
-			cam.Translate({ 0.0f,0.0f,-dt });
+			cameras.GetCamera().Translate({ 0.0f,0.0f,-dt });
 		}
 		if (wnd.kbd.KeyIsPressed('D'))
 		{
-			cam.Translate({ dt,0.0f,0.0f });
+			cameras.GetCamera().Translate({ dt,0.0f,0.0f });
 		}
 		if (wnd.kbd.KeyIsPressed('R'))
 		{
-			cam.Translate({ 0.0f,dt,0.0f });
+			cameras.GetCamera().Translate({ 0.0f,dt,0.0f });
 		}
 		if (wnd.kbd.KeyIsPressed('F'))
 		{
-			cam.Translate({ 0.0f,-dt,0.0f });
+			cameras.GetCamera().Translate({ 0.0f,-dt,0.0f });
 		}
 	}
 
@@ -94,7 +96,7 @@ void App::HandleInput(float dt)
 	{
 		if (!wnd.CursorEnabled())
 		{
-			cam.Rotate((float)delta->x, (float)delta->y);
+			cameras.GetCamera().Rotate((float)delta->x, (float)delta->y);
 		}
 	}
 }
@@ -103,8 +105,8 @@ void App::DoFrame(float dt)
 {
 
 	wnd.Gfx().BeginFrame(0.07f, 0.0f, 0.12f);
-	wnd.Gfx().SetCamera(cam.GetMatrix());
-	light.Bind(wnd.Gfx(), cam.GetMatrix());
+	wnd.Gfx().SetCamera(cameras.GetCamera().GetMatrix());
+	light.Bind(wnd.Gfx(), cameras.GetCamera().GetMatrix());
 
 
 	light.Submit();
@@ -121,7 +123,7 @@ void App::DoFrame(float dt)
 	sponzeProbe.SpawnWindow(sponza);
 	
 	
-	cam.SpawnControlWindow();
+	cameras.SpawnWindow();
 	light.SpawnControlWindow();
 	ShowImguiDemoWindow();
 	cube.SpawnControlWindow(wnd.Gfx(), "Cube 1");

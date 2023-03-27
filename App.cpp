@@ -123,7 +123,7 @@ void App::DoFrame(float dt)
 	sponzeProbe.SpawnWindow(sponza);
 	
 	
-	cameras.SpawnWindow();
+	cameras.SpawnWindow(wnd.Gfx());
 	light.SpawnControlWindow();
 	ShowImguiDemoWindow();
 	cube.SpawnControlWindow(wnd.Gfx(), "Cube 1");

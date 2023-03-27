@@ -1,11 +1,16 @@
 #pragma once
-#include "Graphics.h"
+#include <DirectXMath.h>
+#include <string>
+#include "Projection.h"
+
+class Graphics;
 
 class Camera
 {
 public:
 	Camera(std::string name, DirectX::XMFLOAT3 homePos = { 0.0f,0.0f,0.0f }, float homePitch = 0.0f, float homeYaw = 0.0f) noexcept;
 	DirectX::XMMATRIX GetMatrix() const noexcept;
+	void BindToGraphics(Graphics& gfx) const;
 	void SpawnControlWidgets() noexcept;
 	void Reset() noexcept;
 	void Rotate(float dx, float dy) noexcept;
@@ -22,4 +27,5 @@ private:
 	float yaw;
 	static constexpr float travelSpeed = 12.0f;
 	static constexpr float rotationSpeed = 0.004f;
+	Projection proj;
 };

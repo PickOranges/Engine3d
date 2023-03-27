@@ -15,8 +15,8 @@ App::App()
 	wnd(1280, 720, "Test App Class Obj"),
 	light(wnd.Gfx())
 {
-	cameras.AddCamera(std::make_unique<Camera>("A", dx::XMFLOAT3{ 21.5f,6.0f,-6.0f }, 0.0f, - PI / 4.0f));
-	cameras.AddCamera(std::make_unique<Camera>("B", dx::XMFLOAT3{ -13.5f,28.8f,-6.4f }, PI / 180.0f * 13.0f, PI / 180.0f * 61.0f));
+	cameras.AddCamera(std::make_unique<Camera>(wnd.Gfx(), "A", dx::XMFLOAT3{ 21.5f,6.0f,-6.0f }, 0.0f, - PI / 4.0f));
+	cameras.AddCamera(std::make_unique<Camera>(wnd.Gfx(), "B", dx::XMFLOAT3{ -13.5f,28.8f,-6.4f }, PI / 180.0f * 13.0f, PI / 180.0f * 61.0f));
 
 	cube.SetPos({ 4.0f,0.0f,0.0f });
 	cube2.SetPos({ 0.0f,4.0f,0.0f });
@@ -26,6 +26,7 @@ App::App()
 	cube2.LinkTechniques(rg);
 	light.LinkTechniques(rg);
 	sponza.LinkTechniques(rg);
+	cameras.LinkTechniques(rg);
 }
 
 App::~App()
@@ -111,6 +112,7 @@ void App::DoFrame(float dt)
 	cube.Submit();
 	sponza.Submit();
 	cube2.Submit();
+	cameras.Submit();
 
 
 	rg.Execute(wnd.Gfx());

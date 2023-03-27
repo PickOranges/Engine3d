@@ -188,6 +188,7 @@
     <ClCompile Include="BufferClearPass.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CameraContainer.cpp" />
+    <ClCompile Include="CameraIndicator.cpp" />
     <ClCompile Include="DepthStencil.cpp" />
     <ClCompile Include="Drawable.cpp" />
     <ClCompile Include="DxgiInfoManager.cpp" />
@@ -259,6 +260,7 @@
     <ClInclude Include="BlurOutlineDrawingPass.h" />
     <ClInclude Include="BlurOutlineRenderGraph.h" />
     <ClInclude Include="CameraContainer.h" />
+    <ClInclude Include="CameraIndicator.h" />
     <ClInclude Include="FullscreenPass.h" />
     <ClInclude Include="App.h" />
     <ClInclude Include="Bindable.h" />

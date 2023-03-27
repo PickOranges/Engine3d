@@ -358,6 +358,7 @@
     <ClInclude Include="Window.h" />
     <ClInclude Include="WindowsMessageMap.h" />
     <ClInclude Include="WindowsThrowMacros.h" />
+    <ClInclude Include="WireframePass.h" />
     <ClInclude Include="WRLwarning.h" />
   </ItemGroup>
   <ItemGroup>

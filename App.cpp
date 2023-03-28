@@ -65,6 +65,9 @@ void App::HandleInput(float dt)
 		case VK_F1:
 			showDemoWindow = true;
 			break;
+		case VK_RETURN:
+			savingDepth = true;
+			break;
 		}
 	}
 
@@ -138,6 +141,13 @@ void App::DoFrame(float dt)
 	// present
 	wnd.Gfx().EndFrame();
 	rg.Reset();
+
+
+	if (savingDepth)
+	{
+		rg.StoreDepth(wnd.Gfx(), "depth.png");
+		savingDepth = false;
+	}
 }
 
 void App::ShowImguiDemoWindow()

@@ -23,7 +23,7 @@ namespace Bind {
 		void BindAsBuffer(Graphics& gfx, BufferResource* renderTarget) noexcept(!IS_DEBUG) override;
 		void BindAsBuffer(Graphics& gfx, RenderTarget* rt) noexcept(!IS_DEBUG);
 		void Clear(Graphics& gfx) noexcept(!IS_DEBUG) override;
-		Surface ToSurface(Graphics& gfx) const;
+		Surface ToSurface(Graphics& gfx, bool linearlize=true) const;
 		unsigned int GetWidth() const;
 		unsigned int GetHeight() const;
 	protected:

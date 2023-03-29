@@ -5,6 +5,7 @@
 #include "Sink.h"
 #include "Source.h"
 #include "Stencil.h"
+#include "Camera.h"
 
 class Graphics;
 
@@ -23,5 +24,20 @@ namespace Rgph {
 			RegisterSource(DirectBufferSource<DepthStencil>::Make("depthStencil", depthStencil));
 			AddBind(Stencil::Resolve(gfx, Stencil::Mode::Off));
 		}
+
+		void BindMainCamera(const Camera& cam) noexcept
+		{
+			pMainCamera = &cam;
+		}
+
+		void Execute(Graphics& gfx) const noexcept(!IS_DEBUG) override
+		{
+			assert(pMainCamera);
+			pMainCamera->BindToGraphics(gfx);
+			RenderQueuePass::Execute(gfx);
+		}
+
+	private:
+		const Camera* pMainCamera = nullptr;
 	};
 }

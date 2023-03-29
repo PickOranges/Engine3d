@@ -51,12 +51,16 @@ void CameraContainer::AddCamera(std::shared_ptr<Camera> pCam)
 
 Camera* CameraContainer::operator->()
 {
-	return cameras[active].get();
+	return &GetActiveCamera();
+}
+
+Camera& CameraContainer::GetActiveCamera()
+{
+	return *cameras[active];
 }
 
 CameraContainer::~CameraContainer()
 {}
-
 
 void CameraContainer::LinkTechniques(Rgph::RenderGraph& rg)
 {

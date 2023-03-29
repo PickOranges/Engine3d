@@ -180,4 +180,9 @@ namespace Rgph
 		}
 		ImGui::End();
 	}
+
+	void Rgph::BlurOutlineRenderGraph::BindMainCamera(Camera& cam)
+	{
+		dynamic_cast<LambertianPass&>(FindPassByName("lambertian")).BindMainCamera(cam);
+	}
 }

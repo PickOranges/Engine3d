@@ -43,6 +43,11 @@ DirectX::XMMATRIX Camera::GetMatrix() const noexcept
 	return XMMatrixLookAtLH(camPosition, camTarget, XMVectorSet(0.0f, 1.0f, 0.0f, 0.0f));
 }
 
+DirectX::XMMATRIX Camera::GetProjection() const noexcept
+{
+	return proj.GetMatrix();
+}
+
 void Camera::BindToGraphics(Graphics& gfx) const
 {
 	gfx.SetCamera(GetMatrix());
@@ -84,6 +89,7 @@ void Camera::SpawnControlWidgets(Graphics& gfx) noexcept
 		proj.SetPos(pos);
 	}
 }
+
 void Camera::Reset(Graphics& gfx) noexcept
 {
 	if (!tethered) {
@@ -99,6 +105,7 @@ void Camera::Reset(Graphics& gfx) noexcept
 	proj.SetRotation(angles);
 	proj.Reset(gfx);
 }
+
 void Camera::Rotate(float dx, float dy) noexcept
 {
 	yaw = wrap_angle(yaw + dx * rotationSpeed);
@@ -107,6 +114,7 @@ void Camera::Rotate(float dx, float dy) noexcept
 	indicator.SetRotation(angles);
 	proj.SetRotation(angles);
 }
+
 void Camera::Translate(DirectX::XMFLOAT3 translation) noexcept
 {
 	if (!tethered){

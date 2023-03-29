@@ -275,6 +275,9 @@
     <ClCompile Include="Frustum.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ShadowCameraCBuf.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Win.h">
@@ -589,8 +592,11 @@
     <ClInclude Include="Channels.h">
       <Filter>Header Files\Jobber</Filter>
     </ClInclude>
+    <ClInclude Include="ShadowCameraCBuf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="ShadowMappingPass.h">
-      <Filter>Source Files\Jobber\Passlib</Filter>
+      <Filter>Header Files\Jobber\Passlib</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

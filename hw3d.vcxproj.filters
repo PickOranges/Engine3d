@@ -586,6 +586,9 @@
     <ClInclude Include="WireframePass.h">
       <Filter>Header Files\Jobber\Passlib</Filter>
     </ClInclude>
+    <ClInclude Include="Channels.h">
+      <Filter>Header Files\Jobber</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Solid_VS.hlsl">

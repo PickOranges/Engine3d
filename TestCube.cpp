@@ -6,6 +6,7 @@
 #include "DynamicConstant.h"
 #include "TechniqueProbe.h"
 #include "TransformCbufScaling.h"
+#include "Channels.h"
 
 
 
@@ -25,7 +26,7 @@ TestCube::TestCube(Graphics& gfx, float size)
 
 	{
 		// tech 1
-		Technique shade("Shade");
+		Technique shade("Shade", Chan::main);
 		{
 			Step only("lambertian");
 
@@ -58,7 +59,7 @@ TestCube::TestCube(Graphics& gfx, float size)
 		// tech 2
 		{
 			// step 1 i.e. pass 1
-			Technique outline("Outline");
+			Technique outline("Outline", Chan::main);
 			{
 				Step mask("outlineMask");
 				mask.AddBindable(InputLayout::Resolve(gfx, model.vertices.GetLayout(), *VertexShader::Resolve(gfx, "Solid_VS.cso")));

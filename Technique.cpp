@@ -2,11 +2,16 @@
 #include "Drawable.h"
 #include "TechniqueProbe.h"
 
+Technique::Technique(size_t channels)
+	:
+	channels{ channels }
+{}
 
-Technique::Technique(std::string name, bool startActive) noexcept
+Technique::Technique(std::string name, size_t channels, bool startActive) noexcept
 	:
 	active(startActive),
-	name(name)
+	name(name),
+	channels(channels)
 {}
 
 void Technique::AddStep(Step step) noexcept
@@ -22,7 +27,7 @@ void Technique::SetActiveState(bool active_in) noexcept
 	active = active_in;
 }
 
-void Technique::Submit(const Drawable& drawable) const noexcept
+void Technique::Submit(const Drawable& drawable, size_t channelFilter) const noexcept
 {
 	if (active)
 	{

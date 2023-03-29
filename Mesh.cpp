@@ -25,8 +25,8 @@ DirectX::XMMATRIX Mesh::GetTransformXM() const noexcept
 }
 
 
-void Mesh::Submit(dx::FXMMATRIX accumulatedTranform) const noexcept(!IS_DEBUG)
+void Mesh::Submit(size_t channels, dx::FXMMATRIX accumulatedTranform) const noexcept(!IS_DEBUG)
 {
 	dx::XMStoreFloat4x4(&transform, accumulatedTranform);
-	Drawable::Submit();
+	Drawable::Submit(channels);
 }

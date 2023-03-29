@@ -2,6 +2,7 @@
 #include "imgui/imgui.h"
 #include "SimpleMath.h"
 #include "Graphics.h"
+#include "Channels.h"
 
 namespace dx = DirectX;
 
@@ -147,14 +148,14 @@ void Camera::LinkTechniques(Rgph::RenderGraph& rg)
 	proj.LinkTechniques(rg);
 }
 
-void Camera::Submit() const
+void Camera::Submit(size_t channel) const
 {
 	if (enableCameraIndicator)
 	{
-		indicator.Submit();
+		indicator.Submit(channel);
 	}
 	if (enableFrustumIndicator)
 	{
-		proj.Submit();
+		proj.Submit(channel);
 	}
 }

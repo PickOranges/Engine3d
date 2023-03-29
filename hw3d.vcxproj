@@ -262,6 +262,7 @@
     <ClInclude Include="BlurOutlineRenderGraph.h" />
     <ClInclude Include="CameraContainer.h" />
     <ClInclude Include="CameraIndicator.h" />
+    <ClInclude Include="Channels.h" />
     <ClInclude Include="Frustum.h" />
     <ClInclude Include="FullscreenPass.h" />
     <ClInclude Include="App.h" />

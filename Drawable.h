@@ -28,7 +28,7 @@ public:
 	Drawable(const Drawable&) = delete;
 	virtual DirectX::XMMATRIX GetTransformXM() const noexcept = 0;
 	void AddTechnique(Technique tech_in) noexcept;
-	void Submit() const noexcept;
+	void Submit(size_t channelFilter) const noexcept;
 	void Bind(Graphics& gfx) const noexcept(!IS_DEBUG);
 	void Accept(TechniqueProbe& probe);
 	UINT GetIndexCount() const noexcept(!IS_DEBUG);

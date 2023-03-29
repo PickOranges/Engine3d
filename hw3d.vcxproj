@@ -234,6 +234,7 @@
     <ClCompile Include="ScaleOutlineRenderGraph.cpp" />
     <ClCompile Include="ScriptCommander.cpp" />
     <ClCompile Include="ShadowCameraCBuf.cpp" />
+    <ClCompile Include="ShadowSampler.cpp" />
     <ClCompile Include="Sink.cpp" />
     <ClCompile Include="SolidSphere.cpp" />
     <ClCompile Include="Source.cpp" />
@@ -332,6 +333,7 @@
     <ClInclude Include="ScaleOutlineRenderGraph.h" />
     <ClInclude Include="ShadowCameraCBuf.h" />
     <ClInclude Include="ShadowMappingPass.h" />
+    <ClInclude Include="ShadowSampler.h" />
     <ClInclude Include="SimpleMath.h" />
     <ClInclude Include="SimpleMathDX.h" />
     <ClInclude Include="Sink.h" />
@@ -379,6 +381,18 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
     </FxCompile>
     <FxCompile Include="PhongDifMskSpc_VS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="ShadowTest_PS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="ShadowTest_VS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>

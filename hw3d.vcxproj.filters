@@ -278,6 +278,9 @@
     <ClCompile Include="ShadowCameraCBuf.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ShadowSampler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Win.h">
@@ -598,6 +601,9 @@
     <ClInclude Include="ShadowMappingPass.h">
       <Filter>Header Files\Jobber\Passlib</Filter>
     </ClInclude>
+    <ClInclude Include="ShadowSampler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Solid_VS.hlsl">
@@ -667,6 +673,12 @@
       <Filter>Shader</Filter>
     </FxCompile>
     <FxCompile Include="Test1_VS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="ShadowTest_VS.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+    <FxCompile Include="ShadowTest_PS.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

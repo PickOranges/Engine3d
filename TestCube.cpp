@@ -87,6 +87,25 @@ TestCube::TestCube(Graphics& gfx, float size)
 			}
 			AddTechnique(std::move(outline));
 		}
+
+
+		// tech 3: shadow map technique
+		{
+			Technique map{ "ShadowMap",Chan::shadow,true };
+			{
+				Step draw("shadowMap");
+
+				// TODO: better sub-layout generation tech for future consideration maybe
+				draw.AddBindable(InputLayout::Resolve(gfx, model.vertices.GetLayout(), *VertexShader::Resolve(gfx, "Solid_VS.cso")));
+
+				draw.AddBindable(std::make_shared<TransformCbuf>(gfx));
+
+				// TODO: might need to specify rasterizer when doubled-sided models start being used
+
+				map.AddStep(std::move(draw));
+			}
+			AddTechnique(std::move(map));
+		}
 	}
 }
 void TestCube::SetPos(DirectX::XMFLOAT3 pos) noexcept

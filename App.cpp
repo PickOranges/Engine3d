@@ -33,6 +33,8 @@ App::App()
 	light.LinkTechniques(rg);
 	sponza.LinkTechniques(rg);
 	cameras.LinkTechniques(rg);
+
+	rg.BindShadowCamera(*light.ShareCamera());
 }
 
 App::~App()
@@ -124,7 +126,18 @@ void App::DoFrame(float dt)
 	cameras.Submit(Chan::main);
 
 
+	sponza.Submit(Chan::shadow);
+	cube.Submit(Chan::shadow);
+	sponza.Submit(Chan::shadow);
+	cube2.Submit(Chan::shadow);
+
 	rg.Execute(wnd.Gfx());
+
+	if (savingDepth)
+	{
+		rg.DumpShadowMap(wnd.Gfx(), "shadow.png");
+		savingDepth = false;
+	}
 
 
 	// imgui windows
@@ -143,12 +156,6 @@ void App::DoFrame(float dt)
 	wnd.Gfx().EndFrame();
 	rg.Reset();
 
-
-	if (savingDepth)
-	{
-		rg.StoreDepth(wnd.Gfx(), "depth.png");
-		savingDepth = false;
-	}
 }
 
 void App::ShowImguiDemoWindow()

@@ -589,6 +589,9 @@
     <ClInclude Include="Channels.h">
       <Filter>Header Files\Jobber</Filter>
     </ClInclude>
+    <ClInclude Include="ShadowMappingPass.h">
+      <Filter>Source Files\Jobber\Passlib</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Solid_VS.hlsl">

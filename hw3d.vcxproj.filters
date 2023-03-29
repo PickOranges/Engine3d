@@ -683,5 +683,11 @@
     <None Include="PointLight.hlsli">
       <Filter>Shader</Filter>
     </None>
+    <None Include="VShadow.hlsli">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="PShadow.hlsli">
+      <Filter>Shader</Filter>
+    </None>
   </ItemGroup>
 </Project>

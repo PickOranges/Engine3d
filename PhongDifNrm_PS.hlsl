@@ -1,52 +1,10 @@
 #include "ShaderOps.hlsli"
 #include "LightVectorData.hlsli"
+
 #include "PointLight.hlsli"
+#include "Pshadow.hlsli"
 
-//cbuffer ObjectCBuf
-//{
-//    float specularIntensity;
-//    float specularPower;
-//    bool normalMapEnabled;
-//    float padding[1];
-//};
-//
-//
-//Texture2D tex;
-//Texture2D nmap : register(t2);
-//
-//SamplerState splr;
-//
-//
-//float4 main(float3 viewFragPos : Position, float3 viewNormal : Normal, float3 viewTan : Tangent, float3 viewBitan : Bitangent, float2 tc : Texcoord) : SV_Target
-//{
-//// normalize the mesh normal
-//viewNormal = normalize(viewNormal);
-//// replace normal with mapped if normal mapping enabled
-//if (normalMapEnabled)
-//{
-//    //viewNormal = MapNormal(normalize(viewTan), normalize(viewBitan), viewNormal, tc, nmap, splr);
-//
-//    const float3 mappedNormal = MapNormal(normalize(viewTan), normalize(viewBitan), viewNormal, tc, nmap, splr);
-//    viewNormal = lerp(viewNormal, mappedNormal, normalMapWeight);
-//}
-//// fragment to light vector data
-//const LightVectorData lv = CalculateLightVectorData(viewLightPos, viewFragPos);
-//// attenuation
-//const float att = Attenuate(attConst, attLin, attQuad, lv.distToL);
-//// diffuse
-//const float3 diffuse = Diffuse(diffuseColor, diffuseIntensity, att, lv.dirToL, viewNormal);
-//// specular
-//const float3 specular = Speculate(
-//    diffuseColor, diffuseIntensity, viewNormal,
-//    lv.vToL, viewFragPos, att, specularPower
-//);
-//// final color
-//return float4(saturate((diffuse + ambient) * tex.Sample(splr, tc).rgb + specular), 1.0f);
-//}
-
-
-
-cbuffer ObjectCBuf
+cbuffer ObjectCBuf : register(b1)
 {
     float3 specularColor;
     float specularWeight;
@@ -55,33 +13,45 @@ cbuffer ObjectCBuf
     float normalMapWeight;
 };
 
-Texture2D tex;
+Texture2D tex : register(t0);
 Texture2D nmap : register(t2);
 
-SamplerState splr;
+SamplerState splr : register(s0);
 
 
-float4 main(float3 viewFragPos : Position, float3 viewNormal : Normal, float3 viewTan : Tangent, float3 viewBitan : Bitangent, float2 tc : Texcoord) : SV_Target
+float4 main(float3 viewFragPos : Position, float3 viewNormal : Normal, float3 viewTan : Tangent, float3 viewBitan : Bitangent, float2 tc : Texcoord, float4 spos : ShadowPosition) : SV_Target
 {
-    // normalize the mesh normal
-    viewNormal = normalize(viewNormal);
-// replace normal with mapped if normal mapping enabled
-if (useNormalMap)
-{
-    const float3 mappedNormal = MapNormal(normalize(viewTan), normalize(viewBitan), viewNormal, tc, nmap, splr);
-    viewNormal = lerp(viewNormal, mappedNormal, normalMapWeight);
+    float3 diffuse;
+    float3 specular;
+
+    // shadow map test
+    if (ShadowUnoccluded(spos))
+    {
+        // normalize the mesh normal
+        viewNormal = normalize(viewNormal);
+        // replace normal with mapped if normal mapping enabled
+        if (useNormalMap)
+        {
+            const float3 mappedNormal = MapNormal(normalize(viewTan), normalize(viewBitan), viewNormal, tc, nmap, splr);
+            viewNormal = lerp(viewNormal, mappedNormal, normalMapWeight);
+        }
+        // fragment to light vector data
+        const LightVectorData lv = CalculateLightVectorData(viewLightPos, viewFragPos);
+        // attenuation
+        const float att = Attenuate(attConst, attLin, attQuad, lv.distToL);
+        // diffuse
+        diffuse = Diffuse(diffuseColor, diffuseIntensity, att, lv.dirToL, viewNormal);
+        // specular
+        specular = Speculate(
+            diffuseColor * diffuseIntensity * specularColor, specularWeight, viewNormal,
+            lv.vToL, viewFragPos, att, specularGloss
+        );
+    }
+    else
+    {
+        diffuse = specular = 0.0f;
+    }
+    // final color
+    return float4(saturate((diffuse + ambient) * tex.Sample(splr, tc).rgb + specular), 1.0f);
 }
-// fragment to light vector data
-const LightVectorData lv = CalculateLightVectorData(viewLightPos, viewFragPos);
-// attenuation
-const float att = Attenuate(attConst, attLin, attQuad, lv.distToL);
-// diffuse
-const float3 diffuse = Diffuse(diffuseColor, diffuseIntensity, att, lv.dirToL, viewNormal);
-// specular
-const float3 specular = Speculate(
-    diffuseColor * diffuseIntensity * specularColor, specularWeight, viewNormal,
-    lv.vToL, viewFragPos, att, specularGloss
-);
-// final color
-return float4(saturate((diffuse + ambient) * tex.Sample(splr, tc).rgb + specular), 1.0f);
-}
+

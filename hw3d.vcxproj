@@ -498,8 +498,10 @@
   <ItemGroup>
     <None Include="LightVectorData.hlsli" />
     <None Include="PointLight.hlsli" />
+    <None Include="PShadow.hlsli" />
     <None Include="ShaderOps.hlsli" />
     <None Include="Transform.hlsli" />
+    <None Include="VShadow.hlsli" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -13,6 +13,7 @@
 #include "SimpleMath.h"
 #include "imgui/imgui.h"
 #include "ShadowMappingPass.h"
+#include "ShadowSampler.h"
 
 
 namespace Rgph
@@ -35,11 +36,34 @@ namespace Rgph
 			auto pass = std::make_unique<ShadowMappingPass>(gfx, "shadowMap");
 			AppendPass(std::move(pass));
 		}
+
+		// setup shadow control buffer and sampler
+		{
+			{
+				Dcb::RawLayout l;
+				l.Add<Dcb::Integer>("pcfLevel");
+				l.Add<Dcb::Float>("depthBias");
+				l.Add<Dcb::Bool>("hwPcf");
+				Dcb::Buffer buf{ std::move(l) };
+				buf["pcfLevel"] = 0;
+				buf["depthBias"] = 0.0005f;
+				buf["hwPcf"] = true;
+				shadowControl = std::make_shared<Bind::CachingPixelConstantBufferEx>(gfx, buf, 2);
+				AddGlobalSource(DirectBindableSource<Bind::CachingPixelConstantBufferEx>::Make("shadowControl", shadowControl));
+			}
+			{
+				shadowSampler = std::make_shared<Bind::ShadowSampler>(gfx);
+				AddGlobalSource(DirectBindableSource<Bind::ShadowSampler>::Make("shadowSampler", shadowSampler));
+			}
+		}
+
 		{
 			auto pass = std::make_unique<LambertianPass>(gfx, "lambertian");
 			pass->SetSinkLinkage("shadowMap", "shadowMap.map");
 			pass->SetSinkLinkage("renderTarget", "clearRT.buffer");
 			pass->SetSinkLinkage("depthStencil", "clearDS.buffer");
+			pass->SetSinkLinkage("shadowControl", "$.shadowControl");
+			pass->SetSinkLinkage("shadowSampler", "$.shadowSampler");
 			AppendPass(std::move(pass));
 		}
 		{
@@ -135,7 +159,35 @@ namespace Rgph
 		blurKernel->SetBuffer(k);
 	}
 
-	void BlurOutlineRenderGraph::RenderWidgets(Graphics& gfx)
+	void BlurOutlineRenderGraph::RenderWindows(Graphics& gfx)
+	{
+		RenderShadowWindow(gfx);
+		RenderKernelWindow(gfx);
+	}
+
+	void BlurOutlineRenderGraph::RenderShadowWindow(Graphics& gfx)
+	{
+		if (ImGui::Begin("Shadows"))
+		{
+			auto ctrl = shadowControl->GetBuffer();
+			bool bilin = shadowSampler->GetBilinear();
+
+			bool pcfChange = ImGui::SliderInt("PCF Level", &ctrl["pcfLevel"], 0, 4);
+			bool biasChange = ImGui::SliderFloat("Depth Bias", &ctrl["depthBias"], 0.0f, 0.1f, "%.6f", 1.0f);
+			bool hwPcfChange = ImGui::Checkbox("HW PCF", &ctrl["hwPcf"]);
+			ImGui::Checkbox("Bilinear", &bilin);
+
+			if (pcfChange || biasChange || hwPcfChange)
+			{
+				shadowControl->SetBuffer(ctrl);
+			}
+			shadowSampler->SetHwPcf(ctrl["hwPcf"]);
+			shadowSampler->SetBilinear(bilin);
+		}
+		ImGui::End();
+	}
+
+	void BlurOutlineRenderGraph::RenderKernelWindow(Graphics& gfx)
 	{
 		if (ImGui::Begin("Kernel"))
 		{
@@ -171,7 +223,7 @@ namespace Rgph
 			}
 
 			bool radChange = ImGui::SliderInt("Radius", &radius, 0, maxRadius);
-			bool sigChange = ImGui::SliderFloat("Sigma", &sigma, 0.1f, 10.0f);
+			bool sigChange = ImGui::SliderFloat("Sigma", &sigma, 0.1f, 1.0f);
 			if (radChange || sigChange || filterChanged)
 			{
 				if (kernelType == KernelType::Gauss)

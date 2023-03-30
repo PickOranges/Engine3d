@@ -16,7 +16,7 @@ App::App()
 	wnd(1280, 720, "Test App Class Obj"),
 	light(wnd.Gfx(), { 10.0f,5.0f,0.0f })
 {
-	cameras.AddCamera(std::make_unique<Camera>(wnd.Gfx(), "A", dx::XMFLOAT3{ 21.5f,6.0f,-6.0f }, 0.0f, - PI / 4.0f));
+	cameras.AddCamera(std::make_unique<Camera>(wnd.Gfx(), "A", dx::XMFLOAT3{ 5.5f,6.0f,-7.9f }, 0.0f, 0.0f));
 	cameras.AddCamera(std::make_unique<Camera>(wnd.Gfx(), "B", dx::XMFLOAT3{ -13.5f,28.8f,-6.4f }, PI / 180.0f * 13.0f, PI / 180.0f * 61.0f));
 
 

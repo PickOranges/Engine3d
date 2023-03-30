@@ -25,13 +25,12 @@ float ShadowLoop_(const in float3 spos, uniform int range)
             }
             else
             {
-                shadowLevel += smap.Sample(ssamSw, spos.xy, int2(x, y)).r >= spos.b - depthBias ? 0.25f : 0.0f;
+                shadowLevel += smap.Sample(ssamSw, spos.xy, int2(x, y)).r >= spos.b - depthBias ? 1.f : 0.0f;
             }
         }
     }
     return shadowLevel / ((range * 2 + 1) * (range * 2 + 1));
 }
-
 
 float Shadow(const in float4 shadowHomoPos)
 {

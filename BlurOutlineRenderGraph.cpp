@@ -14,6 +14,7 @@
 #include "imgui/imgui.h"
 #include "ShadowMappingPass.h"
 #include "ShadowSampler.h"
+#include "ShadowRasterizer.h"
 
 
 namespace Rgph
@@ -32,8 +33,14 @@ namespace Rgph
 			pass->SetSinkLinkage("buffer", "$.masterDepth");
 			AppendPass(std::move(pass));
 		}
+		// setup shadow rasterizer
+		{
+			shadowRasterizer = std::make_shared<Bind::ShadowRasterizer>(gfx, 0, 0.005f, 1.0f);
+			AddGlobalSource(DirectBindableSource<Bind::ShadowRasterizer>::Make("shadowRasterizer", shadowRasterizer));
+		}
 		{
 			auto pass = std::make_unique<ShadowMappingPass>(gfx, "shadowMap");
+			pass->SetSinkLinkage("shadowRasterizer", "$.shadowRasterizer");
 			AppendPass(std::move(pass));
 		}
 

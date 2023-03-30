@@ -281,6 +281,9 @@
     <ClCompile Include="ShadowSampler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ShadowRasterizer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Win.h">
@@ -602,6 +605,9 @@
       <Filter>Header Files\Jobber\Passlib</Filter>
     </ClInclude>
     <ClInclude Include="ShadowSampler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShadowRasterizer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

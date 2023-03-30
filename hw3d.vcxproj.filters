@@ -695,5 +695,11 @@
     <None Include="PShadow.hlsli">
       <Filter>Shader</Filter>
     </None>
+    <None Include="_PShadow_Static.hlsli">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="_PShadow_Dynamic.hlsli">
+      <Filter>Shader</Filter>
+    </None>
   </ItemGroup>
 </Project>

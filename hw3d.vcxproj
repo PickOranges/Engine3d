@@ -504,6 +504,8 @@
     <None Include="ShaderOps.hlsli" />
     <None Include="Transform.hlsli" />
     <None Include="VShadow.hlsli" />
+    <None Include="_PShadow_Dynamic.hlsli" />
+    <None Include="_PShadow_Static.hlsli" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

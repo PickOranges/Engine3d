@@ -3,6 +3,7 @@
 #include "PointLight.hlsli"
 #include "PShadow.hlsli"
 
+
 cbuffer ObjectCBuf: register(b1)
 {
     float3 materialColor;

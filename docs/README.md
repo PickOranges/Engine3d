@@ -8,6 +8,8 @@ Graphics Engine for learning purpose. Written in C++ and DirectX11/HLSL. [Click 
 - Resource Pool
 - Render Queue
 - Multipass Rendering
+- Render Graph
+  
 - Normal Mapping
 - Gauss Filter
 - Outline Effect via Stencil Buffer (Highlights Mouse-Picked Submesh)
@@ -20,12 +22,6 @@ Graphics Engine for learning purpose. Written in C++ and DirectX11/HLSL. [Click 
 - assimp
 - DirecXTex
 - Windows API
-
-## Comming Soon
-- Render Graph
-- Volume Rendering
-- Cloth Rendering
-- Physically Based Rendering
 
 ## References
 - Course Games104: https://games104.boomingtech.com/sc/course-list/

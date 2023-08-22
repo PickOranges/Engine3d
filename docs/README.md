@@ -2,11 +2,12 @@
 Graphics Engine for learning purpose. Written in C++ and DirectX11/HLSL. [Click here to view source code.](https://github.com/PickOranges/Engine3d/tree/develop_sm)
 
 ## Features
-- Reflection
+- Message/Event Queue (to deal with both rendering ticks and gameplay logic ticks)
+- Reflection Mechanism (loading models without specifying vertex attributes manually)
 - Render Graph
-- Render Queue
+- Render Queue System (multi-pass system)
 - Exception Handling
-- Node Tree
+- Scene Graph (organizes model nodes and meshes with a tree-like structure)
 - Resource Pool
   
 - Normal Mapping

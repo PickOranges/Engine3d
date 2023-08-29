@@ -1,5 +1,5 @@
 # Engine3d
-Graphics Engine for learning purpose. Written in C++ and DirectX11/HLSL. [Click here to view source code.](https://github.com/PickOranges/Engine3d/tree/develop_sm)
+Graphics Engine for learning purpose. Written in C++ and DirectX11/HLSL. [Click here for source code.](https://github.com/PickOranges/Engine3d/tree/develop_sm)
 The goal of this project is not only to build a 3D rendering engine from scratch, but also the logical loop can be fused into it later without refactoring. Many commonly used design patterns for game engine are implemented. Finally some post-processing effects are implemented to test the performance. The FPS for those effects are 90 ~ 120.
 
 

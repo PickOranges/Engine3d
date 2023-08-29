@@ -19,9 +19,9 @@ Graphics Engine for learning purpose. Written in C++ and DirectX11/HLSL. [Click 
 
 ## Dependencies
 - ImGui
-- assimp
+- Assimp
 - DirecXTex
-- Windows API
+- Win32 API
 
 ## References
 - Course Games104: https://games104.boomingtech.com/sc/course-list/
@@ -29,3 +29,4 @@ Graphics Engine for learning purpose. Written in C++ and DirectX11/HLSL. [Click 
 - https://www.youtube.com/@ChiliTomatoNoodle
 - Game Engine Architecture, 3rd Edition.
 - Design Patterns - Elements of Reusable Object-Oriented Software. 1997.
+- Game Programming Patterns. 2014.

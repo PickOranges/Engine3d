@@ -31,10 +31,16 @@ Static resources for reusing among different passes or effects.
 - Gauss Filter
 - PCF and PCSS (with slope bias scaling)
 - Alpha Blending
-- Outline Effect 
+- Outline Effect (highlights the mouse picked models in the scene)
 
 ## Sceenshots
 ![Screenshot (130)](https://user-images.githubusercontent.com/55946962/167479209-ab5b1ccb-15bc-4bc1-ae3d-b36d055f4892.png)
+
+![Screenshot (2324)](https://github.com/PickOranges/Engine3d/assets/55946962/cc653efd-e4cf-4854-903f-614b775a4a2f)
+
+![Screenshot (2323)](https://github.com/PickOranges/Engine3d/assets/55946962/8dd88091-376f-44e4-ac65-d6204f57ae96)
+
+
 
 ## Dependencies
 - Win32 API

@@ -30,7 +30,8 @@ Static resources for reusing among different passes or effects.
 - Normal Mapping
 - Gauss Filter
 - PCF and PCSS (with slope bias scaling)
-- Outline Effect via Stencil Buffer
+- Alpha Blending
+- Outline Effect 
 
 ## Sceenshots
 ![Screenshot (130)](https://user-images.githubusercontent.com/55946962/167479209-ab5b1ccb-15bc-4bc1-ae3d-b36d055f4892.png)

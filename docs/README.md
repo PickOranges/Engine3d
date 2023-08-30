@@ -1,7 +1,7 @@
 # Engine3d
 - Graphics Engine for learning purpose. Written in C++ and DirectX11/HLSL. [Click here for source code.](https://github.com/PickOranges/Engine3d/tree/develop_sm)
 
-- The goal of this project is not only to build a 3D rendering engine from scratch, the logic/game loop can be fused into the system later without any refactoring. Many commonly used design patterns for game engine are implemented. Finally some post-processing effects are implemented to test the performance. The FPS of those effects are 90 ~ 135.
+- The goal of this project is not only to build a 3D rendering engine from scratch, the logic/game loop can be fused into the system later without any refactoring. Many commonly used design patterns for game engine are implemented. Finally some basic rendering techniques and post-processing effects are implemented to test the performance. The FPS of those effects are 90 ~ 135.
 
 
 ## Features
@@ -26,19 +26,20 @@ Organizes model nodes and meshes with a tree-like structure. The dirty flags can
 ### 7. Resource Pool
 Static resources for reusing among different passes or effects.
 
-### 8. Post-Processing Effects
+### 8. Rendering Techniques
 - Normal Mapping
 - Gauss Filter
+- PCF and PCSS (with slope bias scaling)
 - Outline Effect via Stencil Buffer
 
 ## Sceenshots
 ![Screenshot (130)](https://user-images.githubusercontent.com/55946962/167479209-ab5b1ccb-15bc-4bc1-ae3d-b36d055f4892.png)
 
 ## Dependencies
+- Win32 API
 - ImGui
 - Assimp
 - DirecXTex
-- Win32 API
 
 ## References
 - Course Games104: https://games104.boomingtech.com/sc/course-list/

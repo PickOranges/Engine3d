@@ -21,7 +21,7 @@ To batch and defer the commands sending to GPU side, so that the communication b
 Exception will be throwed with detailed information, this makes debugging a rendering application much easier.
 
 ### 6. Scene Graph and Dirty Flag
-Organizes model nodes and meshes with a tree-like structure. The dirty flags can deferred the updates of unchanged models in the scene, this may be a double edged sword though (i.e. when the gameplay logics are included). But for dealing with rendering tasks so far, dirty flag is good.
+Organizes model nodes and meshes with a tree-like structure. The dirty flags can defer the updates of unchanged models in the scene, this may be a double edged sword though (i.e. when the gameplay logics are included). But for dealing with rendering tasks so far, dirty flag is good.
 
 ### 7. Resource Pool
 Static resources for reusing among different passes or effects.
@@ -45,7 +45,7 @@ Static resources for reusing among different passes or effects.
 ## Dependencies
 - Win32 API
 - ImGui
-- Assimp
+- AssImp
 - DirecXTex
 
 ## References

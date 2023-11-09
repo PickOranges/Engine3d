@@ -1,5 +1,6 @@
 #pragma once
 #include "Pass.h"
+#include "Sink.h"
 
 namespace Bind
 {
@@ -8,6 +9,9 @@ namespace Bind
 
 
 namespace Rgph {
+
+	//class ContainerBindableSink;
+
 	class BindingPass : public Pass
 	{
 	protected:
